@@ -3,36 +3,45 @@
 <head>
   <meta charset="UTF-8">
   <title>Checkout</title>
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; max-width: 400px; margin: auto; }
-    input, select, button { width: 100%; padding: 10px; margin-top: 10px; }
-    #mpesa-fields { display: none; }
-  </style>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-  <h2>Finalizar Compra</h2>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
+    <h2 class="text-2xl font-bold mb-6 text-center">Finalizar Compra</h2>
 
-  <input type="text" id="nome" placeholder="Nome completo" required>
-  <input type="email" id="email" placeholder="Email" required>
+    <input id="nome" type="text" placeholder="Nome completo" class="w-full mb-4 p-3 border border-gray-300 rounded-lg">
+    <input id="email" type="email" placeholder="Email" class="w-full mb-4 p-3 border border-gray-300 rounded-lg">
 
-  <select id="metodo" onchange="mostrarCamposPagamento()">
-    <option value="">Escolha o método de pagamento</option>
-    <option value="mpesa">Mpesa</option>
-    <!-- Futuramente pode colocar BIM, cartão, etc -->
-  </select>
+    <div class="mb-4">
+      <p class="mb-2 font-semibold">Método de Pagamento</p>
+      <div class="flex gap-4">
+        <button onclick="selecionarMetodo('mpesa')" id="btn-mpesa" class="flex-1 flex flex-col items-center border border-gray-300 rounded-xl p-4 hover:border-blue-500">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/M-Pesa_Logo.svg/512px-M-Pesa_Logo.svg.png" alt="Mpesa" class="h-8 mb-1">
+          <span class="text-sm">Mpesa</span>
+        </button>
+        <!-- Placeholder para adicionar mais métodos no futuro -->
+      </div>
+    </div>
 
-  <div id="mpesa-fields">
-    <input type="text" id="telefone" placeholder="Número Mpesa (ex: 84xxxxxxx)" maxlength="9">
+    <div id="mpesa-fields" class="hidden">
+      <input id="telefone" type="text" placeholder="Número Mpesa (84xxxxxxx)" class="w-full mb-4 p-3 border border-gray-300 rounded-lg">
+    </div>
+
+    <button onclick="pagar()" class="bg-blue-600 text-white w-full py-3 rounded-xl hover:bg-blue-700">Pagar 30MT</button>
+
+    <p id="resposta" class="mt-4 text-sm text-red-500"></p>
   </div>
 
-  <button onclick="pagar()">Pagar 30MT</button>
-
-  <p id="resposta"></p>
-
   <script>
-    function mostrarCamposPagamento() {
-      const metodo = document.getElementById('metodo').value;
-      document.getElementById('mpesa-fields').style.display = metodo === 'mpesa' ? 'block' : 'none';
+    let metodoSelecionado = null;
+
+    function selecionarMetodo(metodo) {
+      metodoSelecionado = metodo;
+
+      document.getElementById("mpesa-fields").classList.toggle("hidden", metodo !== 'mpesa');
+
+      document.getElementById("btn-mpesa").classList.remove("border-blue-500");
+      if (metodo === 'mpesa') document.getElementById("btn-mpesa").classList.add("border-blue-500");
     }
 
     async function pagar() {
@@ -40,8 +49,8 @@
       const email = document.getElementById('email').value;
       const telefone = document.getElementById('telefone').value;
 
-      if (!nome || !email || !telefone) {
-        alert('Por favor preencha todos os campos!');
+      if (!nome || !email || !telefone || !metodoSelecionado) {
+        alert('Preencha todos os campos e selecione um método de pagamento.');
         return;
       }
 
@@ -68,7 +77,6 @@
         const data = await response.json();
 
         if (data.status === 'success' || data.message?.includes('success')) {
-          // Redirecionar para página de obrigado
           window.location.href = "pagina-de-obrigado.html";
         } else {
           document.getElementById("resposta").innerText = "Erro no pagamento: " + JSON.stringify(data);
