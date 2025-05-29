@@ -3,212 +3,194 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Finalizar Compra</title>
+  <title>Checkout</title>
   <style>
     body {
       font-family: Arial, sans-serif;
+      margin: 0;
       padding: 0;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      background-color: #f5f5f5;
+      background-color: #f8f8f8;
     }
-    .checkout-container {
+
+    .container {
       max-width: 480px;
-      width: 100%;
-      background: white;
-      padding: 20px;
-      margin: 20px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
+      margin: 0 auto;
+      padding: 16px;
+      background-color: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
     }
-    .product-info {
+
+    .product-image {
       display: flex;
+      gap: 16px;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
-    .product-info img {
-      width: 80px;
-      height: 80px;
+
+    .product-image img {
+      width: 100px;
       border-radius: 8px;
-      margin-right: 16px;
     }
-    .product-details h2 {
+
+    .product-info h2 {
       margin: 0;
-      font-size: 18px;
+      font-size: 20px;
     }
-    .product-details p {
+
+    .product-info p {
       margin: 4px 0 0;
       color: green;
       font-weight: bold;
     }
-    .form-group {
-      margin-bottom: 12px;
-    }
-    input[type="text"],
-    input[type="email"] {
+
+    input, select {
       width: 100%;
-      padding: 10px;
-      margin-top: 5px;
-      border-radius: 4px;
-      border: 1px solid #ccc;
-      box-sizing: border-box;
-    }
-    .secure-payment {
-      display: flex;
-      align-items: center;
-      background-color: #f0f0f0;
-      padding: 10px;
-      margin-bottom: 15px;
-      border-radius: 5px;
-      font-size: 14px;
-    }
-    .secure-payment::before {
-      content: '\1F512';
-      margin-right: 8px;
-    }
-    .payment-methods {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 12px;
-    }
-    .payment-methods label {
-      flex: 1;
-      text-align: center;
-      padding: 10px;
+      padding: 12px;
+      margin: 10px 0;
       border: 1px solid #ccc;
       border-radius: 6px;
+    }
+
+    .payment-methods {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .method {
       cursor: pointer;
+      border: 2px solid transparent;
+      border-radius: 6px;
+      padding: 8px;
     }
-    .payment-methods input[type="radio"] {
-      display: none;
+
+    .method.selected {
+      border-color: #4CAF50;
+      background-color: #f0fff0;
     }
-    .payment-methods img {
-      height: 30px;
+
+    .secure {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: gray;
+      font-size: 14px;
+      margin-bottom: 10px;
     }
-    .payment-methods input[type="radio"]:checked + label {
-      border-color: green;
+
+    .secure::before {
+      content: '🔒';
+      margin-right: 6px;
     }
-    .error-message {
-      color: red;
-      font-size: 12px;
-      display: none;
-      margin-top: 4px;
-    }
-    button {
-      width: 100%;
+
+    .buy-button {
       background-color: #2e7d32;
       color: white;
-      padding: 12px;
+      padding: 14px;
+      text-align: center;
       border: none;
-      border-radius: 5px;
+      border-radius: 6px;
       font-size: 16px;
       cursor: pointer;
     }
-    button:hover {
-      background-color: #256527;
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: -8px;
+      margin-bottom: 8px;
     }
   </style>
 </head>
 <body>
-  <div class="checkout-container">
-    <div class="product-info">
-      <img src="job img.jpg" alt="Produto">
-      <div class="product-details">
+  <div class="container">
+    <div class="product-image">
+      <img src="job img.jpg" alt="Produto" />
+      <div class="product-info">
         <h2>Nome do Produto</h2>
         <p>197,00 MZN</p>
       </div>
     </div>
-    <div class="form-group">
-      <label>Seu nome completo</label>
-      <input type="text" id="nome" />
-    </div>
-    <div class="form-group">
-      <label>Seu e-mail</label>
-      <input type="email" id="email" />
-    </div>
-    <div class="secure-payment">Pagamento seguro</div>
+
+    <input type="text" id="fullname" placeholder="Nome completo" required />
+    <input type="email" id="email" placeholder="Email" required />
 
     <div class="payment-methods">
-      <input type="radio" name="pagamento" id="mpesa" value="mpesa" checked>
-      <label for="mpesa"><img src="mpesa.png" alt="Mpesa"></label>
-
-      <input type="radio" name="pagamento" id="emola" value="emola">
-      <label for="emola"><img src="emola.png" alt="Emola"></label>
+      <div class="method" id="mpesa" onclick="selectMethod('mpesa')">
+        <img src="mpesa.png" alt="M-Pesa" width="60" />
+      </div>
+      <div class="method" id="emola" onclick="selectMethod('emola')">
+        <img src="emola.png" alt="E-Mola" width="60" />
+      </div>
     </div>
 
-    <div class="form-group">
-      <label>Seu número</label>
-      <input type="text" id="numero" placeholder="EX: 84/85 xxxxxx" />
-      <div class="error-message" id="erroNumero"></div>
-    </div>
+    <input type="text" id="phone" placeholder="Selecione um método de pagamento" disabled />
+    <div class="error" id="phoneError"></div>
 
-    <button onclick="finalizarCompra()">Finalizar Compra 197 MZN</button>
+    <div class="secure">Pagamento seguro</div>
 
-    <div class="error-message" id="erroPagamento"></div>
+    <button class="buy-button" onclick="processPayment()">Finalizar compra 197 MZN</button>
   </div>
 
   <script>
-    const numeroInput = document.getElementById('numero');
-    const erroNumero = document.getElementById('erroNumero');
+    let selectedMethod = '';
 
-    function validarNumero(metodo, numero) {
-      if (numero.length !== 9) return false;
-      if (metodo === 'mpesa' && !numero.startsWith('84') && !numero.startsWith('85')) return false;
-      if (metodo === 'emola' && !numero.startsWith('86') && !numero.startsWith('87')) return false;
-      return true;
+    function selectMethod(method) {
+      selectedMethod = method;
+      document.getElementById('mpesa').classList.remove('selected');
+      document.getElementById('emola').classList.remove('selected');
+      document.getElementById(method).classList.add('selected');
+
+      const phoneInput = document.getElementById('phone');
+      phoneInput.disabled = false;
+      phoneInput.value = '';
+      phoneInput.placeholder = method === 'mpesa' ? 'EX: 84/85 xxxxxxx' : 'EX: 86/87 xxxxxxx';
+      document.getElementById('phoneError').innerText = '';
     }
 
-    function finalizarCompra() {
-      const nome = document.getElementById('nome').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const numero = numeroInput.value.trim();
-      const metodo = document.querySelector('input[name="pagamento"]:checked').value;
+    function validatePhone(phone) {
+      const isMpesa = selectedMethod === 'mpesa';
+      const isEmola = selectedMethod === 'emola';
+      const validPrefixes = isMpesa ? ['84', '85'] : ['86', '87'];
+      const prefix = phone.substring(0, 2);
+      return validPrefixes.includes(prefix) && phone.length === 9;
+    }
 
-      if (!validarNumero(metodo, numero)) {
-        erroNumero.innerText = 'Preencha corretamente o número (' + (metodo === 'mpesa' ? '84/85' : '86/87') + ' xxxxxxx)';
-        erroNumero.style.display = 'block';
+    async function processPayment() {
+      const phone = document.getElementById('phone').value;
+      const phoneError = document.getElementById('phoneError');
+
+      if (!validatePhone(phone)) {
+        phoneError.innerText = 'Número inválido. Preencha corretamente com 9 dígitos.';
         return;
       } else {
-        erroNumero.style.display = 'none';
+        phoneError.innerText = '';
       }
 
-      // chamada real para API de pagamento
-      fetch("https://sandbox.2payment.app/api/v1/payments/init", {
+      const body = {
+        client_id: "9f0755ab-cdeb-4c56-86e3-cc220abbf446",
+        amount: "197",
+        phone: phone,
+        reference: "CompraProduto"
+      };
+
+      const res = await fetch("https://e2payments.explicador.co.mz/v1/c2b/mpesa-payment/542813", {
         method: "POST",
         headers: {
+          "Authorization": "Bearer [SEU_TOKEN_AQUI]",
           "Accept": "application/json",
-          "Content-Type": "application/json",
-          "Authorization": "Bearer SUA_API_KEY_AQUI"
+          "Content-Type": "application/json"
         },
-        body: JSON.stringify({
-          amount: 197,
-          phoneNumber: numero,
-          externalId: "pedido-001",
-          provider: metodo,
-          currency: "MZN"
-        })
-      })
-      .then(res => res.json())
-      .then(data => {
-        if (data.status === 'success') {
-          window.location.href = "pagina-obrigado.html";
-        } else {
-          document.getElementById('erroPagamento').innerText = data.message || "Erro no pagamento.";
-          document.getElementById('erroPagamento').style.display = 'block';
-        }
-      })
-      .catch(err => {
-        document.getElementById('erroPagamento').innerText = "Erro inesperado.";
-        document.getElementById('erroPagamento').style.display = 'block';
+        body: JSON.stringify(body)
       });
-    }
 
-    document.querySelectorAll('input[name="pagamento"]').forEach(radio => {
-      radio.addEventListener('change', () => {
-        numeroInput.placeholder = radio.value === 'mpesa' ? 'EX: 84/85 xxxxxx' : 'EX: 86/87 xxxxxx';
-      });
-    });
+      const data = await res.json();
+      if (res.ok) {
+        window.location.href = "pagina-de-obrigado.html";
+      } else {
+        alert("Erro ao processar pagamento: " + (data.message || 'Tente novamente.'));
+      }
+    }
   </script>
 </body>
 </html>
