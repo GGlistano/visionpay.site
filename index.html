@@ -51,15 +51,6 @@
       background-color: #f0f0f0;
       box-sizing: border-box;
     }
-    input.error {
-      border: 1px solid red;
-    }
-    .error-message {
-      color: red;
-      font-size: 13px;
-      margin-top: -5px;
-      margin-bottom: 8px;
-    }
     .secure-payment {
       display: flex;
       align-items: center;
@@ -73,7 +64,7 @@
       margin-bottom: 12px;
     }
     .secure-payment::before {
-      content: '\1F512'; /* Unicode cadeado */
+      content: '\1F512';
       margin-right: 8px;
     }
     .payment-options {
@@ -113,12 +104,33 @@
       cursor: pointer;
       margin-top: 12px;
     }
-    .terms {
-      font-size: 12px;
-      color: #777;
+    #custom-popup {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    #custom-popup .popup-content {
+      background: #fff;
+      padding: 20px 30px;
+      border-radius: 12px;
+      max-width: 300px;
       text-align: center;
-      margin-top: 20px;
-      line-height: 1.5;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+    }
+    #popup-icon {
+      font-size: 32px;
+      margin-bottom: 10px;
+    }
+    #popup-message {
+      font-size: 16px;
+      color: #333;
     }
   </style>
 </head>
@@ -127,16 +139,13 @@
     <div class="product-header">
       <img src="images/job img.jpg" alt="Produto" />
       <div class="info">
-        <div class="name">Google Rewards</div>
+        <div class="name">Nome do Produto</div>
         <div class="price">197,00 MZN</div>
       </div>
     </div>
 
     <input id="nome-input" type="text" placeholder="Seu nome completo" />
-    <div id="nome-erro" class="error-message" style="display:none;">Por favor, preencha seu nome completo.</div>
-
     <input id="email-input" type="email" placeholder="Seu e-mail" />
-    <div id="email-erro" class="error-message" style="display:none;">Por favor, preencha seu e-mail.</div>
 
     <div class="secure-payment">Pagamento seguro</div>
 
@@ -152,15 +161,16 @@
     </div>
 
     <input id="phone-input" type="text" placeholder="Escolha o método de pagamento acima" disabled />
-    <div id="phone-erro" class="error-message" style="display:none;">Por favor, insira o número de telefone.</div>
 
     <button class="btn" id="pagar-btn">Finalizar compra 197 MZN</button>
 
-    <div class="terms">
-      Esta compra é protegida por conexão segura.<br />
-      Ao finalizar o pagamento, você concorda com nossos Termos de Uso e Política de Privacidade.<br />
-      Nenhuma informação sensível é armazenada em nosso sistema.<br />
-      Para mais detalhes, acesse nossa central de segurança.
+    <div id="pagamento-status" style="display:none; margin-top: 16px; text-align: center; font-weight: bold; color: #2c3e50;"></div>
+  </div>
+
+  <div id="custom-popup">
+    <div class="popup-content">
+      <div id="popup-icon">✅</div>
+      <div id="popup-message">Compra aprovada</div>
     </div>
   </div>
 
@@ -180,6 +190,28 @@
       }
     }
 
+    function mostrarPopup(tipo, mensagem) {
+      const popup = document.getElementById('custom-popup');
+      const icon = document.getElementById('popup-icon');
+      const msg = document.getElementById('popup-message');
+
+      if (tipo === 'sucesso') {
+        icon.innerText = '✅';
+        msg.innerText = mensagem || 'Compra aprovada com sucesso!';
+      } else if (tipo === 'falha') {
+        icon.innerText = '❌';
+        msg.innerText = mensagem || 'Falha no pagamento.';
+      } else if (tipo === 'timeout') {
+        icon.innerText = '⏱';
+        msg.innerText = mensagem || 'Tempo esgotado. Tente novamente.';
+      }
+
+      popup.style.display = 'flex';
+      setTimeout(() => {
+        popup.style.display = 'none';
+      }, 4000);
+    }
+
     document.getElementById('pagar-btn').addEventListener('click', async () => {
       const nome = document.getElementById('nome-input');
       const email = document.getElementById('email-input');
@@ -187,33 +219,12 @@
       const metodo = phone.dataset.metodo;
       const statusDiv = document.getElementById('pagamento-status');
 
-      let erro = false;
-
-      // Reset erros
-      [nome, email, phone].forEach(input => input.classList.remove('error'));
-      document.getElementById('nome-erro').style.display = 'none';
-      document.getElementById('email-erro').style.display = 'none';
-      document.getElementById('phone-erro').style.display = 'none';
-
-      if (!nome.value.trim()) {
-        nome.classList.add('error');
-        document.getElementById('nome-erro').style.display = 'block';
-        erro = true;
-      }
-      if (!email.value.trim()) {
-        email.classList.add('error');
-        document.getElementById('email-erro').style.display = 'block';
-        erro = true;
-      }
       if (!phone.value.trim() || !metodo) {
-        phone.classList.add('error');
-        document.getElementById('phone-erro').style.display = 'block';
-        erro = true;
+        mostrarPopup('falha', 'Preencha todos os campos antes de continuar.');
+        return;
       }
 
-      if (erro) return;
-
-      let contador = 45;
+      let contador = 30;
       statusDiv.innerText = `Aguarde... Enviando pedido ao ${metodo.toUpperCase()} (${contador}s)`;
       statusDiv.style.display = 'block';
 
@@ -222,74 +233,41 @@
         statusDiv.innerText = `Aguarde... Enviando pedido ao ${metodo.toUpperCase()} (${contador}s)`;
         if (contador <= 0) {
           clearInterval(intervalo);
-          statusDiv.innerText = 'Demorando mais do que o esperado. Verifique se recebeu o popup.';
+          statusDiv.innerText = 'Demorando mais do que o esperado...';
         }
       }, 1000);
 
       try {
-  const resposta = await fetch('https://checkout-backend-bgqi.onrender.com/api/pagar', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      phone: phone.value.trim(),
-      amount: "197",
-      reference: "PagamentoProdutoX"
-    })
-  });
+        const resposta = await fetch('https://checkout-backend-bgqi.onrender.com/api/pagar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            phone: phone.value.trim(),
+            amount: "197",
+            reference: "PagamentoProdutoX"
+          })
+        });
 
-  const resultado = await resposta.json();
-  clearInterval(intervalo);
-  statusDiv.style.display = 'none';
+        const resultado = await resposta.json();
+        clearInterval(intervalo);
+        statusDiv.style.display = 'none';
 
-  if (resposta.ok) {
-    mostrarPopup('sucesso', 'Compra aprovada com sucesso!');
-  } else {
-    mostrarPopup('falha', resultado.message || 'Erro ao processar o pagamento.');
-  }
-} catch (erro) {
-  clearInterval(intervalo);
-  statusDiv.style.display = 'none';
+        if (resposta.ok) {
+          mostrarPopup('sucesso', 'Compra aprovada com sucesso!');
+        } else {
+          mostrarPopup('falha', resultado.message || 'Erro ao processar o pagamento.');
+        }
+      } catch (erro) {
+        clearInterval(intervalo);
+        statusDiv.style.display = 'none';
 
-  if (erro.name === 'AbortError' || erro.message.includes('timeout')) {
-    mostrarPopup('timeout', 'O tempo de resposta excedeu o limite.');
-  } else {
-    mostrarPopup('falha', 'Erro ao processar o pagamento. Tente novamente.');
-  }
-}
-
-    function mostrarPopup(tipo, mensagem) {
-  const popup = document.getElementById('custom-popup');
-  const icon = document.getElementById('popup-icon');
-  const msg = document.getElementById('popup-message');
-
-  if (tipo === 'sucesso') {
-    icon.innerText = '✅';
-    msg.innerText = mensagem || 'Compra aprovada com sucesso!';
-  } else if (tipo === 'falha') {
-    icon.innerText = '❌';
-    msg.innerText = mensagem || 'Falha no pagamento.';
-  } else if (tipo === 'timeout') {
-    icon.innerText = '⏱';
-    msg.innerText = mensagem || 'Tempo esgotado. Tente novamente.';
-  }
-
-  popup.style.display = 'flex';
-
-  // Esconde automaticamente após 4 segundos
-  setTimeout(() => {
-    popup.style.display = 'none';
-  }, 4000);
-}
-
+        if (erro.name === 'AbortError' || erro.message.includes('timeout')) {
+          mostrarPopup('timeout', 'O tempo de resposta excedeu o limite.');
+        } else {
+          mostrarPopup('falha', 'Erro ao processar o pagamento. Tente novamente.');
+        }
+      }
+    });
   </script>
-
-  <div id="pagamento-status" style="display:none; margin-top: 16px; text-align: center; font-weight: bold; color: #2c3e50;"></div>
-  <div id="custom-popup" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:999;">
-  <div style="background:#fff; padding:20px 30px; border-radius:12px; max-width:300px; text-align:center; box-shadow:0 0 20px rgba(0,0,0,0.2);">
-    <div id="popup-icon" style="font-size:32px; margin-bottom:10px;">✅</div>
-    <div id="popup-message" style="font-size:16px; color:#333;">Compra aprovada</div>
-  </div>
-</div>
-
 </body>
 </html>
