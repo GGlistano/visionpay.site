@@ -162,13 +162,28 @@
 </script>
   <script>
   document.getElementById('pagar-btn').addEventListener('click', async () => {
-    const phone = document.getElementById('phone-input').value;
+    const phone = document.getElementById('phone-input').value.trim();
     const metodo = document.getElementById('phone-input').dataset.metodo;
+    const statusDiv = document.getElementById('pagamento-status');
 
     if (!phone || !metodo) {
       alert('Por favor, selecione um método de pagamento e preencha o número.');
       return;
     }
+
+    // Iniciar contagem regressiva
+    let contador = 30;
+    statusDiv.innerText = `Aguarde... Enviando pedido ao ${metodo.toUpperCase()} (${contador}s)`;
+    statusDiv.style.display = 'block';
+
+    const intervalo = setInterval(() => {
+      contador--;
+      statusDiv.innerText = `Aguarde... Enviando pedido ao ${metodo.toUpperCase()} (${contador}s)`;
+      if (contador <= 0) {
+        clearInterval(intervalo);
+        statusDiv.innerText = 'Demorando mais do que o esperado. Verifique se recebeu o popup.';
+      }
+    }, 1000);
 
     try {
       const resposta = await fetch('https://checkout-backend-bgqi.onrender.com/api/pagar', {
@@ -182,12 +197,17 @@
       });
 
       const resultado = await resposta.json();
+      clearInterval(intervalo);
+      statusDiv.style.display = 'none';
+
       alert(resultado.message || 'Veja o celular e digite o PIN para confirmar o pagamento.');
     } catch (erro) {
+      clearInterval(intervalo);
+      statusDiv.style.display = 'none';
       alert('Erro ao processar pagamento. Verifique o número e tente novamente.');
     }
   });
 </script>
-
+<div id="pagamento-status" style="display:none; margin-top: 16px; text-align: center; font-weight: bold; color: #2c3e50;"></div>
 </body>
 </html>
