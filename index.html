@@ -48,6 +48,17 @@
       border: 1px solid #ccc;
       border-radius: 8px;
       font-size: 16px;
+      background-color: #f0f0f0;
+      box-sizing: border-box;
+    }
+    input.error {
+      border: 1px solid red;
+    }
+    .error-message {
+      color: red;
+      font-size: 13px;
+      margin-top: -5px;
+      margin-bottom: 8px;
     }
     .secure-payment {
       display: flex;
@@ -102,10 +113,12 @@
       cursor: pointer;
       margin-top: 12px;
     }
-    .m-pesa-image {
+    .terms {
+      font-size: 12px;
+      color: #777;
+      text-align: center;
       margin-top: 20px;
-      width: 100%;
-      border-radius: 8px;
+      line-height: 1.5;
     }
   </style>
 </head>
@@ -119,8 +132,11 @@
       </div>
     </div>
 
-    <input type="text" placeholder="Seu nome completo" />
-    <input type="email" placeholder="Seu e-mail" />
+    <input id="nome-input" type="text" placeholder="Seu nome completo" />
+    <div id="nome-erro" class="error-message" style="display:none;">Por favor, preencha seu nome completo.</div>
+
+    <input id="email-input" type="email" placeholder="Seu e-mail" />
+    <div id="email-erro" class="error-message" style="display:none;">Por favor, preencha seu e-mail.</div>
 
     <div class="secure-payment">Pagamento seguro</div>
 
@@ -136,78 +152,104 @@
     </div>
 
     <input id="phone-input" type="text" placeholder="Escolha o método de pagamento acima" disabled />
+    <div id="phone-erro" class="error-message" style="display:none;">Por favor, insira o número de telefone.</div>
 
-   <button class="btn" id="pagar-btn">Finalizar compra 197 MZN</button>
+    <button class="btn" id="pagar-btn">Finalizar compra 197 MZN</button>
 
-    <img src="mpesa-info-banner.jpg" alt="Pagamento info" class="m-pesa-image" />
+    <div class="terms">
+      Esta compra é protegida por conexão segura.<br />
+      Ao finalizar o pagamento, você concorda com nossos Termos de Uso e Política de Privacidade.<br />
+      Nenhuma informação sensível é armazenada em nosso sistema.<br />
+      Para mais detalhes, acesse nossa central de segurança.
+    </div>
   </div>
 
   <script>
-  function selectPayment(el, method) {
-    document.querySelectorAll('.payment-option').forEach(e => e.classList.remove('selected'));
-    el.classList.add('selected');
+    function selectPayment(el, method) {
+      document.querySelectorAll('.payment-option').forEach(e => e.classList.remove('selected'));
+      el.classList.add('selected');
 
-    const phoneInput = document.getElementById('phone-input');
-    phoneInput.disabled = false;
+      const phoneInput = document.getElementById('phone-input');
+      phoneInput.disabled = false;
+      phoneInput.dataset.metodo = method;
 
-    // ✅ Adiciona o método como "dado" no input
-    phoneInput.dataset.metodo = method;
-
-    if (method === 'mpesa') {
-      phoneInput.placeholder = 'EX: 84/85 xxxxxx';
-    } else if (method === 'emola') {
-      phoneInput.placeholder = 'EX: 86/87 xxxxxx';
-    }
-  }
-</script>
-  <script>
-  document.getElementById('pagar-btn').addEventListener('click', async () => {
-    const phone = document.getElementById('phone-input').value.trim();
-    const metodo = document.getElementById('phone-input').dataset.metodo;
-    const statusDiv = document.getElementById('pagamento-status');
-
-    if (!phone || !metodo) {
-      alert('Por favor, selecione um método de pagamento e preencha o número.');
-      return;
-    }
-
-    // Iniciar contagem regressiva
-    let contador = 30;
-    statusDiv.innerText = `Aguarde... Enviando pedido ao ${metodo.toUpperCase()} (${contador}s)`;
-    statusDiv.style.display = 'block';
-
-    const intervalo = setInterval(() => {
-      contador--;
-      statusDiv.innerText = `Aguarde... Enviando pedido ao ${metodo.toUpperCase()} (${contador}s)`;
-      if (contador <= 0) {
-        clearInterval(intervalo);
-        statusDiv.innerText = 'Demorando mais do que o esperado. Verifique se recebeu o popup.';
+      if (method === 'mpesa') {
+        phoneInput.placeholder = 'EX: 84/85 xxxxxx';
+      } else if (method === 'emola') {
+        phoneInput.placeholder = 'EX: 86/87 xxxxxx';
       }
-    }, 1000);
-
-    try {
-      const resposta = await fetch('https://checkout-backend-bgqi.onrender.com/api/pagar', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          phone: phone,
-          amount: "197",
-          reference: "PagamentoProdutoX"
-        })
-      });
-
-      const resultado = await resposta.json();
-      clearInterval(intervalo);
-      statusDiv.style.display = 'none';
-
-      alert(resultado.message || 'Veja o celular e digite o PIN para confirmar o pagamento.');
-    } catch (erro) {
-      clearInterval(intervalo);
-      statusDiv.style.display = 'none';
-      alert('Erro ao processar pagamento. Verifique o número e tente novamente.');
     }
-  });
-</script>
-<div id="pagamento-status" style="display:none; margin-top: 16px; text-align: center; font-weight: bold; color: #2c3e50;"></div>
+
+    document.getElementById('pagar-btn').addEventListener('click', async () => {
+      const nome = document.getElementById('nome-input');
+      const email = document.getElementById('email-input');
+      const phone = document.getElementById('phone-input');
+      const metodo = phone.dataset.metodo;
+      const statusDiv = document.getElementById('pagamento-status');
+
+      let erro = false;
+
+      // Reset erros
+      [nome, email, phone].forEach(input => input.classList.remove('error'));
+      document.getElementById('nome-erro').style.display = 'none';
+      document.getElementById('email-erro').style.display = 'none';
+      document.getElementById('phone-erro').style.display = 'none';
+
+      if (!nome.value.trim()) {
+        nome.classList.add('error');
+        document.getElementById('nome-erro').style.display = 'block';
+        erro = true;
+      }
+      if (!email.value.trim()) {
+        email.classList.add('error');
+        document.getElementById('email-erro').style.display = 'block';
+        erro = true;
+      }
+      if (!phone.value.trim() || !metodo) {
+        phone.classList.add('error');
+        document.getElementById('phone-erro').style.display = 'block';
+        erro = true;
+      }
+
+      if (erro) return;
+
+      let contador = 30;
+      statusDiv.innerText = `Aguarde... Enviando pedido ao ${metodo.toUpperCase()} (${contador}s)`;
+      statusDiv.style.display = 'block';
+
+      const intervalo = setInterval(() => {
+        contador--;
+        statusDiv.innerText = `Aguarde... Enviando pedido ao ${metodo.toUpperCase()} (${contador}s)`;
+        if (contador <= 0) {
+          clearInterval(intervalo);
+          statusDiv.innerText = 'Demorando mais do que o esperado. Verifique se recebeu o popup.';
+        }
+      }, 1000);
+
+      try {
+        const resposta = await fetch('https://checkout-backend-bgqi.onrender.com/api/pagar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            phone: phone.value.trim(),
+            amount: "197",
+            reference: "PagamentoProdutoX"
+          })
+        });
+
+        const resultado = await resposta.json();
+        clearInterval(intervalo);
+        statusDiv.style.display = 'none';
+
+        alert(resultado.message || 'Veja o celular e digite o PIN para confirmar o pagamento.');
+      } catch (erro) {
+        clearInterval(intervalo);
+        statusDiv.style.display = 'none';
+        alert('Erro ao processar pagamento. Verifique o número e tente novamente.');
+      }
+    });
+  </script>
+
+  <div id="pagamento-status" style="display:none; margin-top: 16px; text-align: center; font-weight: bold; color: #2c3e50;"></div>
 </body>
 </html>
