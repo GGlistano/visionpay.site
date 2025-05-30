@@ -137,25 +137,57 @@
 
     <input id="phone-input" type="text" placeholder="Escolha o método de pagamento acima" disabled />
 
-    <button class="btn">Finalizar compra 197 MZN</button>
+   <button class="btn" id="pagar-btn">Finalizar compra 197 MZN</button>
 
     <img src="mpesa-info-banner.jpg" alt="Pagamento info" class="m-pesa-image" />
   </div>
 
   <script>
-    function selectPayment(el, method) {
-      document.querySelectorAll('.payment-option').forEach(e => e.classList.remove('selected'));
-      el.classList.add('selected');
+  function selectPayment(el, method) {
+    document.querySelectorAll('.payment-option').forEach(e => e.classList.remove('selected'));
+    el.classList.add('selected');
 
-      const phoneInput = document.getElementById('phone-input');
-      phoneInput.disabled = false;
+    const phoneInput = document.getElementById('phone-input');
+    phoneInput.disabled = false;
 
-      if (method === 'mpesa') {
-        phoneInput.placeholder = 'EX: 84/85 xxxxxx';
-      } else if (method === 'emola') {
-        phoneInput.placeholder = 'EX: 86/87 xxxxxx';
-      }
+    // ✅ Adiciona o método como "dado" no input
+    phoneInput.dataset.metodo = method;
+
+    if (method === 'mpesa') {
+      phoneInput.placeholder = 'EX: 84/85 xxxxxx';
+    } else if (method === 'emola') {
+      phoneInput.placeholder = 'EX: 86/87 xxxxxx';
     }
-  </script>
+  }
+</script>
+  <script>
+  document.getElementById('pagar-btn').addEventListener('click', async () => {
+    const phone = document.getElementById('phone-input').value;
+    const metodo = document.getElementById('phone-input').dataset.metodo;
+
+    if (!phone || !metodo) {
+      alert('Por favor, selecione um método de pagamento e preencha o número.');
+      return;
+    }
+
+    try {
+      const resposta = await fetch('http://localhost:3000/api/pagar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phone: phone,
+          amount: "197",
+          reference: "PagamentoProdutoX"
+        })
+      });
+
+      const resultado = await resposta.json();
+      alert(resultado.message || 'Veja o celular e digite o PIN para confirmar o pagamento.');
+    } catch (erro) {
+      alert('Erro ao processar pagamento. Verifique o número e tente novamente.');
+    }
+  });
+</script>
+
 </body>
 </html>
