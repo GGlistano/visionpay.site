@@ -73,7 +73,7 @@
       margin-bottom: 12px;
     }
     .secure-payment::before {
-      content: '\1F512'; /* Unicode cadeado */
+      content: '\1F512';
       margin-right: 8px;
     }
     .payment-options {
@@ -120,6 +120,34 @@
       margin-top: 20px;
       line-height: 1.5;
     }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(0,0,0,0.4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-box {
+      background-color: white;
+      padding: 20px 30px;
+      border-radius: 12px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      font-size: 16px;
+      text-align: center;
+      max-width: 80%;
+    }
+
+    .modal-box.success { border-left: 6px solid #2ecc71; }
+    .modal-box.error { border-left: 6px solid #e74c3c; }
+    .modal-box.timeout { border-left: 6px solid #f39c12; }
   </style>
 </head>
 <body>
@@ -162,6 +190,13 @@
       Nenhuma informação sensível é armazenada em nosso sistema.<br />
       Para mais detalhes, acesse nossa central de segurança.
     </div>
+
+    <div id="pagamento-status" style="display:none; margin-top: 16px; text-align: center; font-weight: bold; color: #2c3e50;"></div>
+  </div>
+
+  <!-- Modal Popup -->
+  <div id="modal" style="display:none;" class="modal-overlay">
+    <div id="modal-box" class="modal-box"></div>
   </div>
 
   <script>
@@ -178,6 +213,20 @@
       } else if (method === 'emola') {
         phoneInput.placeholder = 'EX: 86/87 xxxxxx';
       }
+    }
+
+    function mostrarPopup(tipo, mensagem) {
+      const modal = document.getElementById('modal');
+      const modalBox = document.getElementById('modal-box');
+
+      modalBox.className = 'modal-box ' + tipo;
+      modalBox.innerText = mensagem;
+
+      modal.style.display = 'flex';
+
+      setTimeout(() => {
+        modal.style.display = 'none';
+      }, 5000);
     }
 
     document.getElementById('pagar-btn').addEventListener('click', async () => {
@@ -222,7 +271,8 @@
         statusDiv.innerText = `Aguarde... Enviando pedido ao ${metodo.toUpperCase()} (${contador}s)`;
         if (contador <= 0) {
           clearInterval(intervalo);
-          statusDiv.innerText = 'Demorando mais do que o esperado. Verifique se recebeu o popup.';
+          statusDiv.style.display = 'none';
+          mostrarPopup('timeout', 'Tempo esgotado. Nenhuma resposta do serviço de pagamento.');
         }
       }, 1000);
 
@@ -241,15 +291,14 @@
         clearInterval(intervalo);
         statusDiv.style.display = 'none';
 
-        alert(resultado.message || 'Veja o celular e digite o PIN para confirmar o pagamento.');
+        mostrarPopup('success', resultado.message || 'Compra aprovada com sucesso!');
       } catch (erro) {
         clearInterval(intervalo);
         statusDiv.style.display = 'none';
-        alert('Erro ao processar pagamento. Verifique o número e tente novamente.');
+
+        mostrarPopup('error', 'Falha no pagamento. Verifique o número e tente novamente.');
       }
     });
   </script>
-
-  <div id="pagamento-status" style="display:none; margin-top: 16px; text-align: center; font-weight: bold; color: #2c3e50;"></div>
 </body>
 </html>
