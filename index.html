@@ -171,7 +171,7 @@
     }
 
     try {
-      const resposta = await fetch('http://localhost:3000/api/pagar', {
+      const resposta = await fetch('https://checkout-backend-bgqi.onrender.com/api/pagar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
