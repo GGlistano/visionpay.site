@@ -227,28 +227,6 @@
       }, 1000);
 
       try {
-        const resposta = await fetch('https://checkout-backend-bgqi.onrender.com/api/pagar', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            phone: phone.value.trim(),
-            amount: "197",
-            reference: "PagamentoProdutoX"
-          })
-        });
-
-        const resultado = await resposta.json();
-        clearInterval(intervalo);
-        statusDiv.style.display = 'none';
-
-       
-      } catch (erro) {
-        clearInterval(intervalo);
-        statusDiv.style.display = 'none';
-       
-      }
-    });
-    try {
   const resposta = await fetch('https://checkout-backend-bgqi.onrender.com/api/pagar', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -277,6 +255,30 @@
   } else {
     mostrarPopup('falha', 'Erro ao processar o pagamento. Tente novamente.');
   }
+}
+
+    function mostrarPopup(tipo, mensagem) {
+  const popup = document.getElementById('custom-popup');
+  const icon = document.getElementById('popup-icon');
+  const msg = document.getElementById('popup-message');
+
+  if (tipo === 'sucesso') {
+    icon.innerText = '✅';
+    msg.innerText = mensagem || 'Compra aprovada com sucesso!';
+  } else if (tipo === 'falha') {
+    icon.innerText = '❌';
+    msg.innerText = mensagem || 'Falha no pagamento.';
+  } else if (tipo === 'timeout') {
+    icon.innerText = '⏱';
+    msg.innerText = mensagem || 'Tempo esgotado. Tente novamente.';
+  }
+
+  popup.style.display = 'flex';
+
+  // Esconde automaticamente após 4 segundos
+  setTimeout(() => {
+    popup.style.display = 'none';
+  }, 4000);
 }
 
   </script>
