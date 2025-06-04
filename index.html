@@ -9,15 +9,16 @@
       margin: 0;
       padding: 0;
       font-family: Arial, sans-serif;
-      background: #f5f5f5;
+      background: #FAFAFA;
     }
     .container {
       max-width: 480px;
       margin: 40px auto;
-      background: white;
+      background: #FAFAFA;
       padding: 24px;
       border-radius: 12px;
-      border: 1px solid #eee;
+      border: 1px solid #e0e0e0;
+      box-sizing: border-box;
     }
     .product-header {
       display: flex;
@@ -48,10 +49,11 @@
       width: 100%;
       padding: 10px;
       margin-top: 4px;
-      border: 1px solid #ccc;
+      border: 1px solid #e0e0e0;
       border-radius: 6px;
       font-size: 16px;
       background: #fff;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
     }
     .error-message {
       color: red;
@@ -67,9 +69,10 @@
     .coupon-field {
       display: none;
       margin-top: 10px;
+      align-items: center;
     }
     .coupon-field input {
-      width: calc(100% - 90px);
+      flex: 1;
       margin-right: 10px;
     }
     .coupon-field button {
@@ -80,18 +83,10 @@
       border-radius: 6px;
       cursor: pointer;
     }
-    .secure-payment {
-      background: #e3f2fd;
-      color: #1976d2;
-      padding: 10px;
-      border: 1px solid #bbdefb;
-      border-radius: 6px;
+    .section-title {
+      font-size: 15px;
       font-weight: bold;
-      margin: 20px 0 12px;
-    }
-    .secure-payment::before {
-      content: '\1F512';
-      margin-right: 8px;
+      margin: 22px 0 10px;
     }
     .payment-options {
       display: flex;
@@ -105,9 +100,10 @@
       border-radius: 8px;
       cursor: pointer;
       background: white;
+      transition: all 0.2s;
     }
     .payment-option.selected {
-      border-color: #00c853;
+      border-color: #049D43;
     }
     .payment-option img {
       height: 32px;
@@ -122,10 +118,24 @@
       width: 18px;
       margin-right: 6px;
     }
+    .secure-payment {
+      background: #e3f2fd;
+      color: #1976d2;
+      padding: 10px;
+      border: 1px solid #bbdefb;
+      border-radius: 6px;
+      font-weight: bold;
+      margin: 20px 0 12px;
+      text-align: center;
+    }
+    .secure-payment::before {
+      content: '\1F512';
+      margin-right: 6px;
+    }
     .btn {
-      margin-top: 20px;
+      margin-top: 10px;
       width: 100%;
-      background: #00c853;
+      background: #049D43;
       color: white;
       font-weight: bold;
       padding: 14px;
@@ -160,14 +170,13 @@
     <input id="email-input" type="email" />
     <div id="email-erro" class="error-message" style="display:none;">Por favor, preencha seu e-mail.</div>
 
-    <div class="coupon-toggle" onclick="document.querySelector('.coupon-field').style.display='flex'">Tem um cupom de desconto?</div>
-    <div class="coupon-field">
+    <div class="coupon-toggle" onclick="toggleCupom()">Tem um cupom de desconto?</div>
+    <div class="coupon-field" id="cupom-field">
       <input type="text" placeholder="Digite o cupom" />
       <button>Aplicar</button>
     </div>
 
-    <div class="secure-payment">Pagamento seguro</div>
-
+    <div class="section-title">Método de pagamento</div>
     <div class="payment-options">
       <div class="payment-option" onclick="selectPayment(this, 'mpesa')">
         <img src="images/mpesa.png" alt="M-Pesa" />
@@ -191,6 +200,8 @@
       <div id="phone-erro" class="error-message" style="display:none;">Por favor, insira o número de telefone.</div>
     </div>
 
+    <div class="secure-payment">Pagamento seguro</div>
+
     <button class="btn" id="pagar-btn">Finalizar compra 197,00 MZN</button>
 
     <div class="terms">
@@ -213,6 +224,11 @@
       const phoneInput = document.getElementById('phone-input');
       phoneInput.dataset.metodo = method;
       phoneInput.placeholder = method === 'mpesa' ? 'EX: 84/85 xxxxxx' : method === 'emola' ? 'EX: 86/87 xxxxxx' : 'EX: 84/85/86/87 xxxxxx';
+    }
+
+    function toggleCupom() {
+      const el = document.getElementById('cupom-field');
+      el.style.display = el.style.display === 'flex' ? 'none' : 'flex';
     }
 
     function mostrarPopup(tipo, mensagem) {
