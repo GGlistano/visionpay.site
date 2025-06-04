@@ -12,65 +12,82 @@
       background: #f5f5f5;
     }
     .container {
-      max-width: 500px;
-      margin: 30px auto;
+      max-width: 480px;
+      margin: 40px auto;
       background: white;
-      padding: 20px;
+      padding: 24px;
       border-radius: 12px;
-      box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+      border: 1px solid #eee;
     }
     .product-header {
       display: flex;
       align-items: center;
       gap: 16px;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
     .product-header img {
       width: 80px;
       border-radius: 8px;
     }
-    .product-header .info {
-      display: flex;
-      flex-direction: column;
-    }
     .product-header .info .name {
-      font-weight: bold;
+      font-weight: 600;
       font-size: 18px;
     }
     .product-header .info .price {
-      color: green;
       font-weight: bold;
+      color: #01579b;
+      font-size: 20px;
     }
-    input, select {
+    label {
+      font-weight: 500;
+      margin-top: 12px;
+      display: block;
+    }
+    input[type="text"],
+    input[type="email"] {
       width: 100%;
-      padding: 12px;
-      margin: 8px 0;
+      padding: 10px;
+      margin-top: 4px;
       border: 1px solid #ccc;
-      border-radius: 8px;
+      border-radius: 6px;
       font-size: 16px;
-      background-color: #f0f0f0;
-      box-sizing: border-box;
-    }
-    input.error {
-      border: 1px solid red;
+      background: #fff;
     }
     .error-message {
       color: red;
       font-size: 13px;
-      margin-top: -5px;
       margin-bottom: 8px;
     }
-    .secure-payment {
-      display: flex;
-      align-items: center;
-      background: #e6f5e6;
-      color: #2b7a2b;
-      border: 1px solid #c5e1c5;
-      border-radius: 8px;
-      padding: 10px;
+    .coupon-toggle {
+      color: #1976d2;
       font-size: 14px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+    .coupon-field {
+      display: none;
+      margin-top: 10px;
+    }
+    .coupon-field input {
+      width: calc(100% - 90px);
+      margin-right: 10px;
+    }
+    .coupon-field button {
+      padding: 10px;
+      background: #1976d2;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .secure-payment {
+      background: #e3f2fd;
+      color: #1976d2;
+      padding: 10px;
+      border: 1px solid #bbdefb;
+      border-radius: 6px;
       font-weight: bold;
-      margin-bottom: 12px;
+      margin: 20px 0 12px;
     }
     .secure-payment::before {
       content: '\1F512';
@@ -78,76 +95,51 @@
     }
     .payment-options {
       display: flex;
-      justify-content: space-between;
-      margin: 12px 0;
+      gap: 10px;
     }
     .payment-option {
       flex: 1;
-      padding: 10px;
-      margin: 0 4px;
-      background: #f0f0f0;
+      text-align: center;
+      border: 1px solid #ccc;
+      padding: 12px;
       border-radius: 8px;
-      border: 2px solid transparent;
       cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      transition: border 0.3s;
+      background: white;
     }
     .payment-option.selected {
-      border-color: #2ecc71;
+      border-color: #00c853;
     }
     .payment-option img {
-      height: 30px;
+      height: 32px;
       margin-bottom: 4px;
     }
+    .phone-field {
+      margin-top: 16px;
+      display: none;
+    }
+    .phone-field label img {
+      vertical-align: middle;
+      width: 18px;
+      margin-right: 6px;
+    }
     .btn {
+      margin-top: 20px;
       width: 100%;
-      padding: 14px;
-      background: #2ecc71;
+      background: #00c853;
       color: white;
       font-weight: bold;
-      font-size: 16px;
+      padding: 14px;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
+      font-size: 16px;
       cursor: pointer;
-      margin-top: 12px;
     }
     .terms {
       font-size: 12px;
       color: #777;
+      margin-top: 18px;
       text-align: center;
-      margin-top: 20px;
-      line-height: 1.5;
     }
-
-    /* Modal */
-    .modal-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: rgba(0,0,0,0.4);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-    }
-
-    .modal-box {
-      background-color: white;
-      padding: 20px 30px;
-      border-radius: 12px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
-      font-size: 16px;
-      text-align: center;
-      max-width: 80%;
-    }
-
-    .modal-box.success { border-left: 6px solid #2ecc71; }
-    .modal-box.error { border-left: 6px solid #e74c3c; }
-    .modal-box.timeout { border-left: 6px solid #f39c12; }
   </style>
 </head>
 <body>
@@ -160,59 +152,67 @@
       </div>
     </div>
 
-    <input id="nome-input" type="text" placeholder="Seu nome completo" />
+    <label for="nome-input">Nome completo</label>
+    <input id="nome-input" type="text" />
     <div id="nome-erro" class="error-message" style="display:none;">Por favor, preencha seu nome completo.</div>
 
-    <input id="email-input" type="email" placeholder="Seu e-mail" />
+    <label for="email-input">E-mail</label>
+    <input id="email-input" type="email" />
     <div id="email-erro" class="error-message" style="display:none;">Por favor, preencha seu e-mail.</div>
+
+    <div class="coupon-toggle" onclick="document.querySelector('.coupon-field').style.display='flex'">Tem um cupom de desconto?</div>
+    <div class="coupon-field">
+      <input type="text" placeholder="Digite o cupom" />
+      <button>Aplicar</button>
+    </div>
 
     <div class="secure-payment">Pagamento seguro</div>
 
     <div class="payment-options">
       <div class="payment-option" onclick="selectPayment(this, 'mpesa')">
         <img src="images/mpesa.png" alt="M-Pesa" />
-        <span>M-Pesa</span>
+        <div>M-Pesa</div>
       </div>
       <div class="payment-option" onclick="selectPayment(this, 'emola')">
-        <img src="images/emola.png" alt="E-Mola" />
-        <span>E-Mola</span>
+        <img src="images/emola.png" alt="e-Mola" />
+        <div>e-Mola</div>
+      </div>
+      <div class="payment-option" onclick="selectPayment(this, 'visa')">
+        <img src="images/visa.png" alt="Visa/Mastercard" />
+        <div>Visa/Mastercard</div>
       </div>
     </div>
 
-    <input id="phone-input" type="text" placeholder="Escolha o método de pagamento acima" disabled />
-    <div id="phone-erro" class="error-message" style="display:none;">Por favor, insira o número de telefone.</div>
+    <div class="phone-field" id="phone-section">
+      <label for="phone-input">
+        <img src="images/flag-mz.png" alt="MZ" />Telefone (87/86/85/84)
+      </label>
+      <input id="phone-input" type="text" />
+      <div id="phone-erro" class="error-message" style="display:none;">Por favor, insira o número de telefone.</div>
+    </div>
 
-    <button class="btn" id="pagar-btn">Finalizar compra 197 MZN</button>
+    <button class="btn" id="pagar-btn">Finalizar compra 197,00 MZN</button>
 
     <div class="terms">
-      Esta compra é protegida por conexão segura.<br />
-      Ao finalizar o pagamento, você concorda com nossos Termos de Uso e Política de Privacidade.<br />
-      Nenhuma informação sensível é armazenada em nosso sistema.<br />
-      Para mais detalhes, acesse nossa central de segurança.
+      Compra segura com criptografia. Ao finalizar, você aceita os termos.<br />
+      Nenhum dado sensível é armazenado.
     </div>
 
     <div id="pagamento-status" style="display:none; margin-top: 16px; text-align: center; font-weight: bold; color: #2c3e50;"></div>
   </div>
 
-  <!-- Modal Popup -->
   <div id="modal" style="display:none;" class="modal-overlay">
     <div id="modal-box" class="modal-box"></div>
   </div>
 
   <script>
     function selectPayment(el, method) {
-      document.querySelectorAll('.payment-option').forEach(e => e.classList.remove('selected'));
+      document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
       el.classList.add('selected');
-
+      document.getElementById('phone-section').style.display = 'block';
       const phoneInput = document.getElementById('phone-input');
-      phoneInput.disabled = false;
       phoneInput.dataset.metodo = method;
-
-      if (method === 'mpesa') {
-        phoneInput.placeholder = 'EX: 84/85 xxxxxx';
-      } else if (method === 'emola') {
-        phoneInput.placeholder = 'EX: 86/87 xxxxxx';
-      }
+      phoneInput.placeholder = method === 'mpesa' ? 'EX: 84/85 xxxxxx' : method === 'emola' ? 'EX: 86/87 xxxxxx' : 'EX: 84/85/86/87 xxxxxx';
     }
 
     function mostrarPopup(tipo, mensagem) {
@@ -238,7 +238,6 @@
 
       let erro = false;
 
-      // Reset erros
       [nome, email, phone].forEach(input => input.classList.remove('error'));
       document.getElementById('nome-erro').style.display = 'none';
       document.getElementById('email-erro').style.display = 'none';
@@ -276,33 +275,31 @@
         }
       }, 1000);
 
-     const metodoSelecionado = document.getElementById('phone-input').dataset.metodo;
+      try {
+        const resposta = await fetch('https://checkout-backend-bgqi.onrender.com/api/pagar', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            phone: phone.value.trim(),
+            amount: "2",
+            reference: "PagamentoProdutoX",
+            metodo: metodo,
+            email: email.value.trim(),
+            nome: nome.value.trim()
+          })
+        });
 
-try {
-  const resposta = await fetch('https://checkout-backend-bgqi.onrender.com/api/pagar', {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({
-    phone: phone.value.trim(),
-    amount: "2",
-    reference: "PagamentoProdutoX",
-    metodo: metodoSelecionado,
-    email: email.value.trim(),
-    nome: nome.value.trim()
-  })
-});
-  const resultado = await resposta.json();
-  clearInterval(intervalo);
-  statusDiv.style.display = 'none';
+        const resultado = await resposta.json();
+        clearInterval(intervalo);
+        statusDiv.style.display = 'none';
 
-  mostrarPopup('success', resultado.message || 'Compra aprovada com sucesso!');
-} catch (erro) {
-  clearInterval(intervalo);
-  statusDiv.style.display = 'none';
+        mostrarPopup('success', resultado.message || 'Compra aprovada com sucesso!');
+      } catch (erro) {
+        clearInterval(intervalo);
+        statusDiv.style.display = 'none';
 
-  mostrarPopup('error', 'Falha no pagamento. Verifique o número e tente novamente.');
-}
-
+        mostrarPopup('error', 'Falha no pagamento. Verifique o número e tente novamente.');
+      }
     });
   </script>
 </body>
