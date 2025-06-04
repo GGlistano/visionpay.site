@@ -280,16 +280,17 @@
 
 try {
   const resposta = await fetch('https://checkout-backend-bgqi.onrender.com/api/pagar', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      phone: phone.value.trim(),
-      amount: "2",
-      reference: "PagamentoProdutoX",
-      metodo: metodoSelecionado // ← aqui vem direto do dataset
-    })
-  });
-
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({
+    phone: phone.value.trim(),
+    amount: "2",
+    reference: "PagamentoProdutoX",
+    metodo: metodoSelecionado,
+    email: email.value.trim(),
+    nome: nome.value.trim()
+  })
+});
   const resultado = await resposta.json();
   clearInterval(intervalo);
   statusDiv.style.display = 'none';
