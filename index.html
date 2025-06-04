@@ -372,35 +372,40 @@ body {
       }, 1000);
 
       try {
-        const resposta = await fetch('https://checkout-backend-bgqi.onrender.com/api/pagar', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            phone: phone.value.trim(),
-            amount: "2",
-            reference: "PagamentoProdutoX",
-            metodo: metodo,
-            email: email.value.trim(),
-            nome: nome.value.trim()
-          })
-        });
+  const resposta = await fetch('https://checkout-backend-bgqi.onrender.com/api/pagar', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      phone: phone.value.trim(),
+      amount: "2",
+      reference: "PagamentoProdutoX",
+      metodo: metodo,
+      email: email.value.trim(),
+      nome: nome.value.trim()
+    })
+  });
 
-        const resultado = await resposta.json();
-        clearInterval(intervalo);
-        statusDiv.style.display = 'none';
-
-        mostrarPopup('success', resultado.message || 'Compra aprovada com sucesso!');
-
-        // REDIRECIONAMENTO PARA PÁGINA DE OBRIGADO
-        setTimeout(() => {
-          window.location.href = "https://lifeboostsecrets.online/obg/";
-        }, 3000);
-     } catch (erro) {
+  const resultado = await resposta.json();
   clearInterval(intervalo);
   statusDiv.style.display = 'none';
 
-  let mensagemErro = 'Falha no pagamento. Verifique o número e tente novamente.';
-  
+  if (resposta.ok && resultado.success !== false) {
+    mostrarPopup('success', resultado.message || 'Compra aprovada com sucesso!');
+    setTimeout(() => {
+      window.location.href = "https://lifeboostsecrets.online/obg/";
+    }, 3000);
+  } else {
+    const msg = resultado?.message || 'Pagamento recusado. Verifique os dados e tente novamente.';
+    mostrarPopup('error', msg);
+  }
+
+} catch (erro) {
+  clearInterval(intervalo);
+  statusDiv.style.display = 'none';
+
+  mostrarPopup('error', 'Erro inesperado ao processar o pagamento.');
+}
+
   // Tenta extrair mensagem de erro do backend, se houver
   try {
     const resultadoErro = await erro.response?.json?.();
