@@ -168,6 +168,26 @@
       margin-top: 18px;
       text-align: center;
     }
+    .top-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #c62828;
+  color: white;
+  padding: 10px 0;
+  font-size: 16px;
+  text-align: center;
+  font-weight: bold;
+  z-index: 1000;
+}
+.top-bar span {
+  font-weight: bold;
+}
+body {
+  padding-top: 50px; /* garante que o conteúdo não fique escondido atrás da barra */
+}
+
 
     /* ADICIONADO: estilos do popup modal */
     .modal-overlay {
@@ -205,6 +225,10 @@
   </style>
 </head>
 <body>
+  <div class="top-bar">
+  ⚠ Esta oferta expira em <span id="timer">10:00</span>
+</div>
+
   <div class="container">
     <!-- conteúdo da página (sem alterações) -->
     <!-- ... (mesmo conteúdo que você já tinha) ... -->
@@ -381,6 +405,28 @@
         mostrarPopup('error', 'Falha no pagamento. Verifique o número e tente novamente.');
       }
     });
+    // Temporizador de 10 minutos
+let tempoRestante = 600; // segundos
+
+function atualizarTimer() {
+  const timerEl = document.getElementById('timer');
+  if (!timerEl) return;
+
+  const minutos = Math.floor(tempoRestante / 60);
+  const segundos = tempoRestante % 60;
+
+  if (tempoRestante <= 0) {
+    document.querySelector('.top-bar').innerHTML = "⛔ A contagem chegou ao 00:00! Oferta encerrada.";
+    return;
+  }
+
+  timerEl.textContent = `${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
+  tempoRestante--;
+}
+
+setInterval(atualizarTimer, 1000);
+atualizarTimer(); // inicia o timer logo ao carregar
+
   </script>
 </body>
 </html>
