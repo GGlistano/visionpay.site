@@ -395,13 +395,25 @@ body {
         setTimeout(() => {
           window.location.href = "https://lifeboostsecrets.online/obg/";
         }, 3000);
-      } catch (erro) {
-        clearInterval(intervalo);
-        statusDiv.style.display = 'none';
+     } catch (erro) {
+  clearInterval(intervalo);
+  statusDiv.style.display = 'none';
 
-        mostrarPopup('error', 'Falha no pagamento. Verifique o número e tente novamente.');
-      }
-    });
+  let mensagemErro = 'Falha no pagamento. Verifique o número e tente novamente.';
+  
+  // Tenta extrair mensagem de erro do backend, se houver
+  try {
+    const resultadoErro = await erro.response?.json?.();
+    if (resultadoErro?.message) {
+      mensagemErro = resultadoErro.message;
+    }
+  } catch (e) {
+    // ignora e usa a mensagem padrão
+  }
+
+  mostrarPopup('error', mensagemErro);
+}
+
     // Temporizador de 10 minutos
 let tempoRestante = 600; // segundos
 
