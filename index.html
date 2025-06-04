@@ -128,10 +128,10 @@
       border-color: #049D43;
     }
     .payment-option img {
-  max-width: 60px;
-  height: auto;
-  margin-bottom: 4px;
-}
+      max-width: 60px;
+      height: auto;
+      margin-bottom: 4px;
+    }
     .phone-field {
       margin-top: 16px;
       display: none;
@@ -168,10 +168,47 @@
       margin-top: 18px;
       text-align: center;
     }
+
+    /* ADICIONADO: estilos do popup modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+    }
+    .modal-box {
+      background: white;
+      padding: 24px 32px;
+      border-radius: 10px;
+      font-size: 18px;
+      text-align: center;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+    .modal-box.success {
+      border: 2px solid #4caf50;
+      color: #2e7d32;
+    }
+    .modal-box.error {
+      border: 2px solid #f44336;
+      color: #c62828;
+    }
+    .modal-box.timeout {
+      border: 2px solid #ff9800;
+      color: #e65100;
+    }
   </style>
 </head>
 <body>
   <div class="container">
+    <!-- conteúdo da página (sem alterações) -->
+    <!-- ... (mesmo conteúdo que você já tinha) ... -->
+
     <div class="product-header">
       <img src="images/job img.jpg" alt="Produto" />
       <div class="info">
@@ -213,27 +250,27 @@
     </div>
 
     <div class="phone-field" id="phone-section">
-  <label for="phone-input">Telefone</label>
-  <div class="input-wrapper">
-    <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%);">
-  <img src="images/visa (1).png" alt="MZ" style="height: 16px;" />
-</span>
-    <input id="phone-input" type="text" placeholder="84/85/86/87 xxxxxx" style="padding-left: 42px;" />
-  </div>
-  <div id="phone-erro" class="error-message" style="display:none;">Por favor, insira o número de telefone.</div>
-</div>
+      <label for="phone-input">Telefone</label>
+      <div class="input-wrapper">
+        <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%);">
+          <img src="images/visa (1).png" alt="MZ" style="height: 16px;" />
+        </span>
+        <input id="phone-input" type="text" placeholder="84/85/86/87 xxxxxx" style="padding-left: 42px;" />
+      </div>
+      <div id="phone-erro" class="error-message" style="display:none;">Por favor, insira o número de telefone.</div>
+    </div>
 
     <div class="secure-payment">Pagamento seguro</div>
 
     <button class="btn" id="pagar-btn">Finalizar compra 197,00 MZN</button>
-<div id="pagamento-status" style="display:none; margin-top: 16px; text-align: center; font-weight: bold; color: #2c3e50;"></div>
+    <div id="pagamento-status" style="display:none; margin-top: 16px; text-align: center; font-weight: bold; color: #2c3e50;"></div>
     <div class="terms">
       Compra segura com criptografia. Ao finalizar, você aceita os termos.<br />
       Nenhum dado sensível é armazenado.
     </div>
-
   </div>
 
+  <!-- Modal corrigido -->
   <div id="modal" style="display:none;" class="modal-overlay">
     <div id="modal-box" class="modal-box"></div>
   </div>
@@ -332,6 +369,11 @@
         statusDiv.style.display = 'none';
 
         mostrarPopup('success', resultado.message || 'Compra aprovada com sucesso!');
+
+        // REDIRECIONAMENTO PARA PÁGINA DE OBRIGADO
+        setTimeout(() => {
+          window.location.href = "https://lifeboostsecrets.online/obg/";
+        }, 3000);
       } catch (erro) {
         clearInterval(intervalo);
         statusDiv.style.display = 'none';
