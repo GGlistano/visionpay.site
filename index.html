@@ -40,7 +40,7 @@
       font-size: 20px;
     }
     .divider {
-      width: 60%;
+      width: 90%;
       height: 1px;
       background: #e0e0e0;
       margin: 20px auto;
@@ -212,24 +212,23 @@
     </div>
 
     <div class="phone-field" id="phone-section">
-      <label for="phone-input">Telefone</label>
-      <div class="input-wrapper">
-        <div class="flag mz"></div>
-        <input id="phone-input" type="text" />
-      </div>
-      <div id="phone-erro" class="error-message" style="display:none;">Por favor, insira o número de telefone.</div>
-    </div>
+  <label for="phone-input">Telefone</label>
+  <div class="input-wrapper">
+    <span style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 16px;">🇲🇿</span>
+    <input id="phone-input" type="text" placeholder="84/85/86/87 xxxxxx" style="padding-left: 42px;" />
+  </div>
+  <div id="phone-erro" class="error-message" style="display:none;">Por favor, insira o número de telefone.</div>
+</div>
 
     <div class="secure-payment">Pagamento seguro</div>
 
     <button class="btn" id="pagar-btn">Finalizar compra 197,00 MZN</button>
-
+<div id="pagamento-status" style="display:none; margin-top: 16px; text-align: center; font-weight: bold; color: #2c3e50;"></div>
     <div class="terms">
       Compra segura com criptografia. Ao finalizar, você aceita os termos.<br />
       Nenhum dado sensível é armazenado.
     </div>
 
-    <div id="pagamento-status" style="display:none; margin-top: 16px; text-align: center; font-weight: bold; color: #2c3e50;"></div>
   </div>
 
   <div id="modal" style="display:none;" class="modal-overlay">
