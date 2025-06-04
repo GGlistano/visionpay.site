@@ -276,28 +276,32 @@
         }
       }, 1000);
 
-      try {
-        const resposta = await fetch('https://checkout-backend-bgqi.onrender.com/api/pagar', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            phone: phone.value.trim(),
-            amount: "197",
-            reference: "PagamentoProdutoX"
-          })
-        });
+     const metodoSelecionado = document.getElementById('phone-input').dataset.metodo;
 
-        const resultado = await resposta.json();
-        clearInterval(intervalo);
-        statusDiv.style.display = 'none';
+try {
+  const resposta = await fetch('https://checkout-backend-bgqi.onrender.com/api/pagar', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      phone: phone.value.trim(),
+      amount: "197",
+      reference: "PagamentoProdutoX",
+      metodo: metodoSelecionado // ← aqui vem direto do dataset
+    })
+  });
 
-        mostrarPopup('success', resultado.message || 'Compra aprovada com sucesso!');
-      } catch (erro) {
-        clearInterval(intervalo);
-        statusDiv.style.display = 'none';
+  const resultado = await resposta.json();
+  clearInterval(intervalo);
+  statusDiv.style.display = 'none';
 
-        mostrarPopup('error', 'Falha no pagamento. Verifique o número e tente novamente.');
-      }
+  mostrarPopup('success', resultado.message || 'Compra aprovada com sucesso!');
+} catch (erro) {
+  clearInterval(intervalo);
+  statusDiv.style.display = 'none';
+
+  mostrarPopup('error', 'Falha no pagamento. Verifique o número e tente novamente.');
+}
+
     });
   </script>
 </body>
