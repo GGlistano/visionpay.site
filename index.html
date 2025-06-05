@@ -336,192 +336,163 @@ body {
   </div>
 
   <script>
-    function selectPayment(el, method) {
-      document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
-      el.classList.add('selected');
-      document.getElementById('phone-section').style.display = 'block';
-      const phoneInput = document.getElementById('phone-input');
-      phoneInput.dataset.metodo = method;
-      phoneInput.placeholder = method === 'mpesa' ? 'EX: 84/85 xxxxxx' : method === 'emola' ? 'EX: 86/87 xxxxxx' : 'EX: 84/85/86/87 xxxxxx';
-    }
-
-    function toggleCupom() {
-      const el = document.getElementById('cupom-field');
-      el.style.display = el.style.display === 'flex' ? 'none' : 'flex';
-    }
-
-    function mostrarPopup(tipo, mensagem) {
-      const modal = document.getElementById('modal');
-      const modalBox = document.getElementById('modal-box');
-
-      modalBox.className = 'modal-box ' + tipo;
-      modalBox.innerText = mensagem;
-
-      modal.style.display = 'flex';
-
-      setTimeout(() => {
-        modal.style.display = 'none';
-      }, 5000);
-    }
-
-   document.getElementById('pagar-btn').addEventListener('click', async () => {
-  const nome = document.getElementById('nome-input');
-  const email = document.getElementById('email-input');
-  const phone = document.getElementById('phone-input');
-  const metodo = phone.dataset.metodo;
-
-  const pagarBtn = document.getElementById('pagar-btn');
-  let erro = false;
-
-  [nome, email, phone].forEach(input => input.classList.remove('error'));
-  document.getElementById('nome-erro').style.display = 'none';
-  document.getElementById('email-erro').style.display = 'none';
-  document.getElementById('phone-erro').style.display = 'none';
-
-  if (!nome.value.trim()) {
-    nome.classList.add('error');
-    document.getElementById('nome-erro').style.display = 'block';
-    erro = true;
-  }
-  if (!email.value.trim()) {
-    email.classList.add('error');
-    document.getElementById('email-erro').style.display = 'block';
-    erro = true;
-  }
-  if (!phone.value.trim() || !metodo) {
-    phone.classList.add('error');
-    document.getElementById('phone-erro').style.display = 'block';
-    erro = true;
+  function selectPayment(el, method) {
+    document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+    el.classList.add('selected');
+    document.getElementById('phone-section').style.display = 'block';
+    const phoneInput = document.getElementById('phone-input');
+    phoneInput.dataset.metodo = method;
+    phoneInput.placeholder = method === 'mpesa' ? 'EX: 84/85 xxxxxx' : method === 'emola' ? 'EX: 86/87 xxxxxx' : 'EX: 84/85/86/87 xxxxxx';
   }
 
-  if (erro) return;
-
-  // Inicia overlay de loading com contador
-  pagarBtn.disabled = true;
-  const overlayIntervalo = mostrarOverlayProcessando(45);
-
-  try {
-    const resposta = await fetch('https://checkout-backend-bgqi.onrender.com/api/pagar', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        phone: phone.value.trim(),
-        amount: "197",
-        reference: "PagamentoProdutoX",
-        metodo: metodo
-      })
-    });
-
-    const resultado = await resposta.json();
-    clearInterval(overlayIntervalo);
-    esconderOverlayProcessando();
-
-    if (resultado.status === 'ok') {
-      mostrarPopup('success', resultado.message || 'Compra aprovada com sucesso!');
-    } else {
-      mostrarPopup('error', resultado.message || 'Ocorreu um erro ao processar o pagamento.');
-    }
-  } catch (erro) {
-    clearInterval(overlayIntervalo);
-    esconderOverlayProcessando();
-    mostrarPopup('error', 'Falha no pagamento. Verifique o número e tente novamente.');
-  } finally {
-    pagarBtn.disabled = false;
+  function toggleCupom() {
+    const el = document.getElementById('cupom-field');
+    el.style.display = el.style.display === 'flex' ? 'none' : 'flex';
   }
-});
 
+  function mostrarPopup(tipo, mensagem) {
+    const modal = document.getElementById('modal');
+    const modalBox = document.getElementById('modal-box');
 
-      try {
-        const resposta = await fetch('https://checkout-backend-bgqi.onrender.com/api/pagar', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            phone: phone.value.trim(),
-            amount: "197",
-            reference: "PagamentoProdutoX",
-            metodo: metodo,
-            email: email.value.trim(),
-            nome: nome.value.trim()
-          })
-        });
+    modalBox.className = 'modal-box ' + tipo;
+    modalBox.innerText = mensagem;
 
-        const resultado = await resposta.json();
-        clearInterval(intervalo);
-        statusDiv.style.display = 'none';
+    modal.style.display = 'flex';
 
+    setTimeout(() => {
+      modal.style.display = 'none';
+    }, 5000);
+  }
+
+  document.getElementById('pagar-btn').addEventListener('click', async () => {
+    const nome = document.getElementById('nome-input');
+    const email = document.getElementById('email-input');
+    const phone = document.getElementById('phone-input');
+    const metodo = phone.dataset.metodo;
+    const pagarBtn = document.getElementById('pagar-btn');
+    const statusDiv = document.getElementById('pagamento-status');
+    let erro = false;
+
+    [nome, email, phone].forEach(input => input.classList.remove('error'));
+    document.getElementById('nome-erro').style.display = 'none';
+    document.getElementById('email-erro').style.display = 'none';
+    document.getElementById('phone-erro').style.display = 'none';
+
+    if (!nome.value.trim()) {
+      nome.classList.add('error');
+      document.getElementById('nome-erro').style.display = 'block';
+      erro = true;
+    }
+    if (!email.value.trim()) {
+      email.classList.add('error');
+      document.getElementById('email-erro').style.display = 'block';
+      erro = true;
+    }
+    if (!phone.value.trim() || !metodo) {
+      phone.classList.add('error');
+      document.getElementById('phone-erro').style.display = 'block';
+      erro = true;
+    }
+
+    if (erro) return;
+
+    pagarBtn.disabled = true;
+    const overlayIntervalo = mostrarOverlayProcessando(45);
+
+    try {
+      const resposta = await fetch('https://checkout-backend-bgqi.onrender.com/api/pagar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          phone: phone.value.trim(),
+          amount: "197",
+          reference: "PagamentoProdutoX",
+          metodo: metodo,
+          email: email.value.trim(),
+          nome: nome.value.trim()
+        })
+      });
+
+      const resultado = await resposta.json();
+      clearInterval(overlayIntervalo);
+      esconderOverlayProcessando();
+
+      if (resultado.status === 'ok') {
         mostrarPopup('success', resultado.message || 'Compra aprovada com sucesso!');
-
-        // REDIRECIONAMENTO PARA PÁGINA DE OBRIGADO
         setTimeout(() => {
           window.location.href = "https://lifeboostsecrets.online/obg/";
         }, 3000);
-     } catch (erro) {
-  clearInterval(intervalo);
-  statusDiv.style.display = 'none';
+      } else {
+        mostrarPopup('error', resultado.message || 'Ocorreu um erro ao processar o pagamento.');
+      }
+    } catch (erro) {
+      clearInterval(overlayIntervalo);
+      esconderOverlayProcessando();
 
-  let mensagemErro = 'Falha no pagamento. Verifique o número e tente novamente.';
-  
-  // Tenta extrair mensagem de erro do backend, se houver
-  try {
-    const resultadoErro = await erro.response?.json?.();
-    if (resultadoErro?.message) {
-      mensagemErro = resultadoErro.message;
+      let mensagemErro = 'Falha no pagamento. Verifique o número e tente novamente.';
+
+      try {
+        const resultadoErro = await erro.response?.json?.();
+        if (resultadoErro?.message) {
+          mensagemErro = resultadoErro.message;
+        }
+      } catch (e) {
+        // ignora erro ao tentar extrair mensagem
+      }
+
+      mostrarPopup('error', mensagemErro);
+    } finally {
+      pagarBtn.disabled = false;
     }
-  } catch (e) {
-    // ignora e usa a mensagem padrão
+  });
+
+  // Temporizador de 10 minutos
+  let tempoRestante = 600; // segundos
+
+  function atualizarTimer() {
+    const timerEl = document.getElementById('timer');
+    if (!timerEl) return;
+
+    const minutos = Math.floor(tempoRestante / 60);
+    const segundos = tempoRestante % 60;
+
+    if (tempoRestante <= 0) {
+      document.querySelector('.top-bar').innerHTML = "⛔ A contagem chegou ao 00:00! Oferta encerrada.";
+      return;
+    }
+
+    timerEl.textContent = `${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
+    tempoRestante--;
   }
 
-  mostrarPopup('error', mensagemErro);
-}
-});
+  setInterval(atualizarTimer, 1000);
+  atualizarTimer(); // inicia o timer logo ao carregar
 
-// // Temporizador de 10 minutos
-let tempoRestante = 600; // segundos
+  function mostrarOverlayProcessando(segundos) {
+    const overlay = document.getElementById('overlay-processando');
+    const contador = document.getElementById('contador');
+    overlay.style.display = 'flex';
 
-function atualizarTimer() {
-  const timerEl = document.getElementById('timer');
-  if (!timerEl) return;
-
-  const minutos = Math.floor(tempoRestante / 60);
-  const segundos = tempoRestante % 60;
-
-  if (tempoRestante <= 0) {
-    document.querySelector('.top-bar').innerHTML = "⛔ A contagem chegou ao 00:00! Oferta encerrada.";
-    return;
-  }
-
-  timerEl.textContent = `${String(minutos).padStart(2, '0')}:${String(segundos).padStart(2, '0')}`;
-  tempoRestante--;
-}
-
-setInterval(atualizarTimer, 1000);
-atualizarTimer(); // inicia o timer logo ao carregar
-function mostrarOverlayProcessando(segundos) {
-  const overlay = document.getElementById('overlay-processando');
-  const contador = document.getElementById('contador');
-  overlay.style.display = 'flex';
-
-  let tempo = segundos;
-  contador.innerText = tempo;
-
-  const intervalo = setInterval(() => {
-    tempo--;
+    let tempo = segundos;
     contador.innerText = tempo;
 
-    if (tempo <= 0) {
-      esconderOverlayProcessando();
-      clearInterval(intervalo);
-    }
-  }, 1000);
+    const intervalo = setInterval(() => {
+      tempo--;
+      contador.innerText = tempo;
 
-  return intervalo;
-}
+      if (tempo <= 0) {
+        esconderOverlayProcessando();
+        clearInterval(intervalo);
+      }
+    }, 1000);
 
-function esconderOverlayProcessando() {
-  document.getElementById('overlay-processando').style.display = 'none';
-}
+    return intervalo;
+  }
 
-  </script>
+  function esconderOverlayProcessando() {
+    document.getElementById('overlay-processando').style.display = 'none';
+  }
+</script>
   <!-- Overlay de Processamento -->
 <div id="overlay-processando" style="display: none;">
   <div class="loader-container">
