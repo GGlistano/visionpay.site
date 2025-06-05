@@ -378,6 +378,7 @@ body {
     document.getElementById('email-erro').style.display = 'none';
     document.getElementById('phone-erro').style.display = 'none';
 
+    // Validação básica
     if (!nome.value.trim()) {
       nome.classList.add('error');
       document.getElementById('nome-erro').style.display = 'block';
@@ -388,7 +389,10 @@ body {
       document.getElementById('email-erro').style.display = 'block';
       erro = true;
     }
-    if (!phone.value.trim() || !metodo) {
+
+    const numero = phone.value.trim();
+    const numeroValido = validarNumero(numero, metodo);
+    if (!numeroValido || !metodo) {
       phone.classList.add('error');
       document.getElementById('phone-erro').style.display = 'block';
       erro = true;
@@ -404,17 +408,17 @@ body {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          phone: phone.value.trim(),
+          phone: numero,
           amount: "197",
           reference: "PagamentoProdutoX",
           metodo: metodo,
           email: email.value.trim(),
           nome: nome.value.trim(),
           utm_source: localStorage.getItem('utm_source') || '',
-  utm_medium: localStorage.getItem('utm_medium') || '',
-  utm_campaign: localStorage.getItem('utm_campaign') || '',
-  utm_term: localStorage.getItem('utm_term') || '',
-  utm_content: localStorage.getItem('utm_content') || ''
+          utm_medium: localStorage.getItem('utm_medium') || '',
+          utm_campaign: localStorage.getItem('utm_campaign') || '',
+          utm_term: localStorage.getItem('utm_term') || '',
+          utm_content: localStorage.getItem('utm_content') || ''
         })
       });
 
@@ -434,15 +438,12 @@ body {
       clearInterval(overlayIntervalo);
       esconderOverlayProcessando();
 
-      let mensagemErro = 'Falha no pagamento. Verifique o número e tente novamente.';
+      let mensagemErro = 'Falha no pagamento. Tente novamente.';
 
-      try {
-        const resultadoErro = await erro.response?.json?.();
-        if (resultadoErro?.message) {
-          mensagemErro = resultadoErro.message;
-        }
-      } catch (e) {
-        // ignora erro ao tentar extrair mensagem
+      if (erro instanceof TypeError || erro.message.includes('timeout')) {
+        mensagemErro = 'Tempo expirado, tente efectuar o pagamento novamente.';
+      } else if (erro?.message?.includes('<html>') || erro?.message?.includes('504')) {
+        mensagemErro = 'Tempo expirado, tente efectuar o pagamento novamente.';
       }
 
       mostrarPopup('error', mensagemErro);
@@ -451,8 +452,19 @@ body {
     }
   });
 
-  // Temporizador de 10 minutos
-  let tempoRestante = 600; // segundos
+  function validarNumero(numero, metodo) {
+    if (!numero || numero.length !== 9) return false;
+    const prefixo = numero.substring(0, 2);
+    if (metodo === 'mpesa') {
+      return prefixo === '84' || prefixo === '85';
+    } else if (metodo === 'emola') {
+      return prefixo === '86' || prefixo === '87';
+    }
+    return false;
+  }
+
+  // Timer
+  let tempoRestante = 600;
 
   function atualizarTimer() {
     const timerEl = document.getElementById('timer');
@@ -471,7 +483,7 @@ body {
   }
 
   setInterval(atualizarTimer, 1000);
-  atualizarTimer(); // inicia o timer logo ao carregar
+  atualizarTimer();
 
   function mostrarOverlayProcessando(segundos) {
     const overlay = document.getElementById('overlay-processando');
@@ -498,6 +510,7 @@ body {
     document.getElementById('overlay-processando').style.display = 'none';
   }
 </script>
+
   <!-- Overlay de Processamento -->
 <div id="overlay-processando" style="display: none;">
   <div class="loader-container">
