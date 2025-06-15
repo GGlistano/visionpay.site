@@ -51,9 +51,11 @@
       border-radius: 8px;
       font-weight: 600;
       transition: background-color 0.3s;
+      cursor: pointer;
     }
-    .button:hover {
-      background-color: #1e40af;
+    .button:disabled {
+      background-color: #9ca3af;
+      cursor: not-allowed;
     }
     .highlight {
       background-color: #f3f4f6;
@@ -62,13 +64,57 @@
       margin-top: 20px;
       border-radius: 4px;
     }
+    .footer {
+      margin-top: 50px;
+      padding-top: 20px;
+      font-size: 0.875rem;
+      color: #6b7280;
+      text-align: center;
+      border-top: 1px solid #e5e7eb;
+    }
+    .checkbox-container {
+      display: flex;
+      align-items: center;
+      margin-top: 30px;
+    }
+    .checkbox-container input {
+      margin-right: 10px;
+    }
+    .security-bar {
+      background-color: #ecfdf5;
+      border: 1px solid #10b981;
+      color: #065f46;
+      padding: 10px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
   </style>
+  <script>
+    function toggleButtonState() {
+      const checkbox = document.getElementById('consent');
+      const button = document.getElementById('ctaButton');
+      button.disabled = !checkbox.checked;
+    }
+
+    function handleButtonClick(event) {
+      const checkbox = document.getElementById('consent');
+      if (!checkbox.checked) {
+        event.preventDefault();
+        alert('Por favor, confirme sua atividade antes de continuar.');
+      }
+    }
+  </script>
 </head>
 <body>
   <div class="container">
     <h1>✅ Seu saque está sendo processado...</h1>
     <p><strong>Caro(a) [Nome do Usuário],</strong></p>
     <p>Recebemos com sucesso sua solicitação de saque no valor de <strong>$200 USD</strong>. Informamos que a transação já está em <strong>fase de validação pelo Banco Central do seu país</strong>.</p>
+    <p><strong>Protocolo: VC-20250615-4579</strong></p>
 
     <h2>❗ Por que a validação é necessária?</h2>
     <p>De acordo com diretrizes internacionais de <strong>compliance financeiro</strong> e <strong>prevenção à lavagem de dinheiro (AML)</strong>, qualquer transação internacional acima de <strong>$100 USD</strong> passa por uma verificação obrigatória.</p>
@@ -82,8 +128,8 @@
     <h2>🏦 O que acontece agora?</h2>
     <ul>
       <li>Seu valor de <strong>$200 USD</strong> já está reservado com segurança.</li>
-      <li>Assim que validado, o montante será liberado automaticamente na conta ou carteira indicada.</li>
-      <li>O prazo médio de liberação é de <strong>48h a 7 dias úteis</strong>, conforme a demanda atual.</li>
+      <li>Agora estamos apenas aguardando a aprovação final do banco local.</li>
+      <li>Assim que aprovada, a quantia será refletida automaticamente na conta ou carteira que você indicou.</li>
     </ul>
 
     <h2>🤝 Enquanto isso... Vamos além do saque?</h2>
@@ -99,7 +145,21 @@
       Sua participação ativa neste momento mostra que você não está aqui apenas por um valor pontual, mas comprometido com algo maior: uma parceria real, baseada em crescimento e remuneração contínua.</p>
     </div>
 
-    <a href="#" class="button">👉 Acessar Área de Membros</a>
+    <div class="checkbox-container">
+      <input type="checkbox" id="consent" onclick="toggleButtonState()" />
+      <label for="consent">Entendi,manter minha atividade</label>
+    </div>
+
+    <a href="#" id="ctaButton" class="button" onclick="handleButtonClick(event)" disabled>👉 Acessar Área de Membros</a>
+
+    <div class="security-bar">
+      🛡️ A transação é protegida por criptografia 256‑bit e segue os protocolos internacionais de compliance.
+    </div>
+
+    <div class="footer">
+      VisionPay Ltd. • Rua do Comércio, nº 123 • Matola, Moçambique<br>
+      ©2025 VisionPay. Todos os direitos reservados.
+    </div>
   </div>
 </body>
 </html>
