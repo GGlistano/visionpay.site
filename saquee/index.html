@@ -96,17 +96,34 @@
   <script>
     function toggleButtonState() {
       const checkbox = document.getElementById('consent');
+<div id="error-message" style="color: #dc2626; margin-top: 8px; display: none;">
+  ⚠️ Você precisa aceitar para continuar.
+</div>
       const button = document.getElementById('ctaButton');
       button.disabled = !checkbox.checked;
     }
 
-    function handleButtonClick(event) {
-      const checkbox = document.getElementById('consent');
-      if (!checkbox.checked) {
-        event.preventDefault();
-        alert('Por favor, confirme sua atividade antes de continuar.');
-      }
+    <script>
+  function toggleButtonState() {
+    const checkbox = document.getElementById('consent');
+    const button = document.getElementById('ctaButton');
+    const error = document.getElementById('error-message');
+    button.disabled = !checkbox.checked;
+    if (checkbox.checked) {
+      error.style.display = 'none';
     }
+  }
+
+  function handleButtonClick(event) {
+    const checkbox = document.getElementById('consent');
+    const error = document.getElementById('error-message');
+    if (!checkbox.checked) {
+      event.preventDefault();
+      error.style.display = 'block';
+    }
+  }
+</script>
+
   </script>
 </head>
 <body>
