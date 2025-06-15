@@ -1,182 +1,160 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Saque em Processamento</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <title>Saque em Processamento | VisionPay</title>
   <style>
     body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      color: #333;
       margin: 0;
-      font-family: 'Inter', sans-serif;
-      background-color: #f9fafb;
-      color: #1f2937;
-      line-height: 1.6;
+      padding: 0;
     }
     .container {
       max-width: 700px;
-      margin: 40px auto;
-      background: #ffffff;
-      border-radius: 12px;
-      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
+      margin: 50px auto;
+      background: #fff;
       padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
     }
     h1 {
-      font-size: 1.8rem;
       color: #111827;
-      margin-bottom: 20px;
-    }
-    h2 {
-      font-size: 1.4rem;
-      margin-top: 30px;
-      color: #1d4ed8;
     }
     p {
-      margin: 10px 0;
-    }
-    ul {
-      margin-top: 10px;
-      padding-left: 20px;
-    }
-    ul li::marker {
-      color: #10b981;
-    }
-    .button {
-      display: inline-block;
-      margin-top: 30px;
-      padding: 12px 24px;
-      background-color: #2563eb;
-      color: #ffffff;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: 600;
-      transition: background-color 0.3s;
-      cursor: pointer;
-    }
-    .button:disabled {
-      background-color: #9ca3af;
-      cursor: not-allowed;
+      line-height: 1.6;
     }
     .highlight {
-      background-color: #f3f4f6;
+      background-color: #e0f2fe;
       padding: 12px;
-      border-left: 4px solid #3b82f6;
-      margin-top: 20px;
-      border-radius: 4px;
+      border-left: 4px solid #0284c7;
+      margin: 20px 0;
     }
-    .footer {
-      margin-top: 50px;
-      padding-top: 20px;
-      font-size: 0.875rem;
-      color: #6b7280;
+    .cta-section {
+      margin-top: 30px;
       text-align: center;
-      border-top: 1px solid #e5e7eb;
+    }
+    .button {
+      background-color: #0284c7;
+      color: white;
+      padding: 12px 20px;
+      text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      cursor: pointer;
+      display: inline-block;
+      transition: background-color 0.3s ease;
+    }
+    .button:disabled {
+      background-color: #94a3b8;
+      cursor: not-allowed;
     }
     .checkbox-container {
-      display: flex;
-      align-items: center;
       margin-top: 30px;
-    }
-    .checkbox-container input {
-      margin-right: 10px;
-    }
-    .security-bar {
-      background-color: #ecfdf5;
-      border: 1px solid #10b981;
-      color: #065f46;
-      padding: 10px;
-      border-radius: 6px;
-      font-size: 0.9rem;
-      margin-top: 20px;
       display: flex;
       align-items: center;
       gap: 8px;
     }
+    #error-message {
+      color: #dc2626;
+      font-size: 14px;
+      margin-top: 8px;
+      display: none;
+    }
+    footer {
+      margin-top: 60px;
+      text-align: center;
+      font-size: 13px;
+      color: #6b7280;
+    }
+    .security {
+      margin-top: 30px;
+      font-size: 14px;
+      color: #16a34a;
+    }
   </style>
-  <script>
-    function toggleButtonState() {
-      const checkbox = document.getElementById('consent');
-<div id="error-message" style="color: #dc2626; margin-top: 8px; display: none;">
-  ⚠️ Você precisa aceitar para continuar.
-</div>
-      const button = document.getElementById('ctaButton');
-      button.disabled = !checkbox.checked;
-    }
-
-    <script>
-  function toggleButtonState() {
-    const checkbox = document.getElementById('consent');
-    const button = document.getElementById('ctaButton');
-    const error = document.getElementById('error-message');
-    button.disabled = !checkbox.checked;
-    if (checkbox.checked) {
-      error.style.display = 'none';
-    }
-  }
-
-  function handleButtonClick(event) {
-    const checkbox = document.getElementById('consent');
-    const error = document.getElementById('error-message');
-    if (!checkbox.checked) {
-      event.preventDefault();
-      error.style.display = 'block';
-    }
-  }
-</script>
-
-  </script>
 </head>
 <body>
   <div class="container">
-    <h1>✅ Seu saque está sendo processado...</h1>
-    <p><strong>Caro(a) [Nome do Usuário],</strong></p>
-    <p>Recebemos com sucesso sua solicitação de saque no valor de <strong>$200 USD</strong>. Informamos que a transação já está em <strong>fase de validação pelo Banco Central do seu país</strong>.</p>
-    <p><strong>Protocolo: VC-20250615-4579</strong></p>
+    <h1>Seu saque está sendo processado...</h1>
 
-    <h2>❗ Por que a validação é necessária?</h2>
-    <p>De acordo com diretrizes internacionais de <strong>compliance financeiro</strong> e <strong>prevenção à lavagem de dinheiro (AML)</strong>, qualquer transação internacional acima de <strong>$100 USD</strong> passa por uma verificação obrigatória.</p>
-    <ul>
-      <li>Impedir fraudes e movimentações ilícitas</li>
-      <li>Evitar o financiamento de atividades ilegais</li>
-      <li>Garantir que os valores tenham origem declarada e legítima</li>
-    </ul>
-    <p>Segundo a Lei nº 207/2018 (Capítulo V, Art. 36), valores acima de $100 USD precisam de aprovação da <strong>Unidade de Inteligência Financeira</strong>, mesmo em operações digitais.</p>
+    <p>Caro(a) <strong>[Nome do Usuário]</strong>,</p>
 
-    <h2>🏦 O que acontece agora?</h2>
-    <ul>
-      <li>Seu valor de <strong>$200 USD</strong> já está reservado com segurança.</li>
-      <li>Agora estamos apenas aguardando a aprovação final do banco local.</li>
-      <li>Assim que aprovada, a quantia será refletida automaticamente na conta ou carteira que você indicou.</li>
-    </ul>
-
-    <h2>🤝 Enquanto isso... Vamos além do saque?</h2>
-    <p>Você já pode acessar nossa <strong>Área de Membros Exclusiva</strong>, onde encontrará:</p>
-    <ul>
-      <li>Tutoriais e guias práticos para utilizar nossas plataformas de geração de renda online</li>
-      <li>Ferramentas para acelerar seus ganhos e ampliar suas oportunidades</li>
-      <li>Conteúdos exclusivos para quem deseja se tornar um <strong>parceiro real e ativo</strong> da nossa comunidade</li>
-    </ul>
+    <p>Sua solicitação de saque foi recebida com sucesso e já está em fase final de validação pelo Banco Central do seu país.</p>
 
     <div class="highlight">
-      <p><strong>⚠️ Por que isso importa?</strong><br>
-      Sua participação ativa neste momento mostra que você não está aqui apenas por um valor pontual, mas comprometido com algo maior: uma parceria real, baseada em crescimento e remuneração contínua.</p>
+      <strong>Protocolo:</strong> VC-20250615-4579<br />
+      🛡️ Esta transação é protegida por criptografia 256‑bit e segue os protocolos internacionais de compliance.
     </div>
+
+    <h3>❗ Por que a validação é necessária?</h3>
+    <p>
+      Conforme as diretrizes internacionais de compliance financeiro (AML), toda transação internacional superior a $100 passa por validação automática de origem e destino. Isso garante:
+    </p>
+    <ul>
+      <li>✔️ Prevenção contra atividades ilícitas</li>
+      <li>✔️ Rastreamento de fundos com origem legítima</li>
+      <li>✔️ Conformidade com a Lei nº 207/2018 – Art. 36</li>
+    </ul>
+
+    <h3>🏦 O que acontece agora?</h3>
+    <p>
+      O valor de <strong>$200 USD</strong> já está reservado em nossa plataforma e estamos apenas aguardando a aprovação formal do Banco Central local. Assim que liberado, o montante será refletido automaticamente na conta indicada por você.
+    </p>
+
+    <h3>📌 Enquanto isso...</h3>
+    <p>
+      Você já pode acessar nossa <strong>Área de Membros Exclusiva</strong>, com tutoriais, orientações práticas e ferramentas para aumentar seu rendimento online e iniciar sua jornada como parceiro VisionPay.
+    </p>
+
+    <p>
+      Sua atividade contínua nas plataformas recomendadas reforça sua credibilidade como colaborador e nos ajuda a comprovar que você está aqui por um propósito maior — se tornar um parceiro de verdade e construir renda conosco. 💼
+    </p>
 
     <div class="checkbox-container">
       <input type="checkbox" id="consent" onclick="toggleButtonState()" />
-      <label for="consent">Entendi,manter minha atividade</label>
+      <label for="consent">Entendi – manter minha atividade</label>
+    </div>
+    <div id="error-message">
+      ⚠️ Você precisa aceitar para continuar.
     </div>
 
-    <a href="#" id="ctaButton" class="button" onclick="handleButtonClick(event)" disabled>👉 Acessar Área de Membros</a>
-
-    <div class="security-bar">
-      🛡️ A transação é protegida por criptografia 256‑bit e segue os protocolos internacionais de compliance.
+    <div class="cta-section">
+      <a href="#" id="ctaButton" class="button" onclick="handleButtonClick(event)" disabled>
+        👉 Acessar Área de Membros
+      </a>
     </div>
 
-    <div class="footer">
-      VisionPay Ltd. • Rua do Comércio, nº 123 • Matola, Moçambique<br>
+    <footer>
+      VisionPay Ltd. • Rua do Comércio, nº 123 • Matola, Moçambique<br />
       ©2025 VisionPay. Todos os direitos reservados.
-    </div>
+    </footer>
   </div>
+
+  <script>
+    function toggleButtonState() {
+      const checkbox = document.getElementById('consent');
+      const button = document.getElementById('ctaButton');
+      const error = document.getElementById('error-message');
+
+      button.disabled = !checkbox.checked;
+
+      if (checkbox.checked) {
+        error.style.display = 'none';
+      }
+    }
+
+    function handleButtonClick(event) {
+      const checkbox = document.getElementById('consent');
+      const error = document.getElementById('error-message');
+
+      if (!checkbox.checked) {
+        event.preventDefault();
+        error.style.display = 'block';
+      }
+    }
+  </script>
 </body>
 </html>
