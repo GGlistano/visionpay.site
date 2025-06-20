@@ -273,9 +273,9 @@ body {
     <!-- ... (mesmo conteúdo que você já tinha) ... -->
 
     <div class="product-header">
-      <img src="images/esponja.png" alt="Produto" />
+      <img src="images/job img.jpg" alt="Produto" />
       <div class="info">
-        <div class="name">Truque da esponja</div>
+        <div class="name">Job em dolar</div>
         <div class="price">197,00 MZN</div>
       </div>
     </div>
@@ -289,6 +289,14 @@ body {
     <label for="email-input">E-mail</label>
     <input id="email-input" type="email" />
     <div id="email-erro" class="error-message" style="display:none;">Por favor, preencha seu e-mail.</div>
+    
+    <label for="whatsapp-input">Número de WhatsApp</label>
+<input id="whatsapp-input" type="text" />
+<div id="whatsapp-erro" class="error-message" style="display:none;">
+  Por favor, preencha o número de WhatsApp.
+</div>
+
+
 
     <div class="coupon-toggle" onclick="toggleCupom()">Tem um cupom de desconto?</div>
     <div class="coupon-field" id="cupom-field">
@@ -368,6 +376,7 @@ body {
     const nome = document.getElementById('nome-input');
     const email = document.getElementById('email-input');
     const phone = document.getElementById('phone-input');
+    const whatsapp = document.getElementById('whatsapp-input');
     const metodo = phone.dataset.metodo;
     const pagarBtn = document.getElementById('pagar-btn');
     const statusDiv = document.getElementById('pagamento-status');
@@ -377,6 +386,7 @@ body {
     document.getElementById('nome-erro').style.display = 'none';
     document.getElementById('email-erro').style.display = 'none';
     document.getElementById('phone-erro').style.display = 'none';
+    document.getElementById('whatsapp-erro').style.display = 'none';
 
     // Validação básica
     if (!nome.value.trim()) {
@@ -389,6 +399,13 @@ body {
       document.getElementById('email-erro').style.display = 'block';
       erro = true;
     }
+    
+    if (!whatsapp.value.trim()) {
+  whatsapp.classList.add('error');
+  document.getElementById('whatsapp-erro').style.display = 'block';
+  erro = true;
+}
+
 
     const numero = phone.value.trim();
     const numeroValido = validarNumero(numero, metodo);
@@ -403,24 +420,29 @@ body {
     pagarBtn.disabled = true;
     const overlayIntervalo = mostrarOverlayProcessando(45);
 
-    try {
-      const resposta = await fetch('checkout-backenv2-production.up.railway.app/api/pagar', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          phone: numero,
-          amount: "2",
-          reference: "teste",
-          metodo: metodo,
-          email: email.value.trim(),
-          nome: nome.value.trim(),
-          utm_source: localStorage.getItem('utm_source') || '',
-          utm_medium: localStorage.getItem('utm_medium') || '',
-          utm_campaign: localStorage.getItem('utm_campaign') || '',
-          utm_term: localStorage.getItem('utm_term') || '',
-          utm_content: localStorage.getItem('utm_content') || ''
-        })
-      });
+   try {
+     const whatsapp = document.getElementById('whatsapp-input');
+  const resposta = await fetch('checkout-backenv2-production.up.railway.app/api/pagar', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      phone: numero,
+      whatsapp: whatsapp.value.trim(),
+      amount: "197",
+      reference: "check",
+      metodo: metodo,
+      email: email.value.trim(),
+      nome: nome.value.trim(),
+      utm_source: localStorage.getItem('utm_source') || '',
+      utm_medium: localStorage.getItem('utm_medium') || '',
+      utm_campaign: localStorage.getItem('utm_campaign') || '',
+      utm_term: localStorage.getItem('utm_term') || '',
+      utm_content: localStorage.getItem('utm_content') || '',
+      fbc: localStorage.getItem('_fbc') || '',
+      fbp: localStorage.getItem('_fbp') || ''
+    })
+  });
+
 
       const resultado = await resposta.json();
       clearInterval(overlayIntervalo);
