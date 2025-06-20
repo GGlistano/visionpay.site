@@ -404,13 +404,13 @@ body {
     const overlayIntervalo = mostrarOverlayProcessando(45);
 
     try {
-      const resposta = await fetch('https://chackout-backv2.onrender.com/api/pagar', {
+      const resposta = await fetch('checkout-backenv2-production.up.railway.app/api/pagar', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           phone: numero,
-          amount: "197",
-          reference: "rewardsgoo",
+          amount: "2",
+          reference: "teste",
           metodo: metodo,
           email: email.value.trim(),
           nome: nome.value.trim(),
