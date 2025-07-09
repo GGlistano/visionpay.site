@@ -420,7 +420,7 @@ body {
 
    try {
      const whatsapp = document.getElementById('whatsapp-input');
-  const resposta = await fetch('https://checkout-backenv2-copy.railway.internal/api/pagar', {
+  const resposta = await fetch('https://backenv2-production.up.railway.app/api/pagar', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
