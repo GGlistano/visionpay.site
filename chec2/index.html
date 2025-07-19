@@ -1,6 +1,9 @@
-<!DOCTYPE html><html lang="pt"><head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Checkout</title>
   <style>
     body {
@@ -62,7 +65,7 @@
       position: relative;
     }
     .flag.mz {
-      background-image: url('images/mz.png');
+      background-image: url('https://flagcdn.com/w40/mz.png');
       background-size: cover;
       width: 24px;
       height: 16px;
@@ -271,7 +274,7 @@ body {
     <!-- ... (mesmo conteúdo que você já tinha) ... -->
 
     <div class="product-header">
-      <img src="" alt="Produto">
+      <img src="images/job img.jpg" alt="Produto" />
       <div class="info">
         <div class="name">Job em dolar</div>
         <div class="price">197,00 MZN</div>
@@ -281,15 +284,15 @@ body {
     <div class="divider"></div>
 
     <label for="nome-input">Nome completo</label>
-    <input id="nome-input" type="text">
+    <input id="nome-input" type="text" />
     <div id="nome-erro" class="error-message" style="display:none;">Por favor, preencha seu nome completo.</div>
 
     <label for="email-input">E-mail</label>
-    <input id="email-input" type="email">
+    <input id="email-input" type="email" />
     <div id="email-erro" class="error-message" style="display:none;">Por favor, preencha seu e-mail.</div>
     
     <label for="whatsapp-input">Número de WhatsApp</label>
-<input id="whatsapp-input" type="text">
+<input id="whatsapp-input" type="text" />
 <div id="whatsapp-erro" class="error-message" style="display:none;">
   Por favor, preencha o número de WhatsApp.
 </div>
@@ -298,22 +301,22 @@ body {
 
     <div class="coupon-toggle" onclick="toggleCupom()">Tem um cupom de desconto?</div>
     <div class="coupon-field" id="cupom-field">
-      <input type="text" placeholder="Digite o cupom">
+      <input type="text" placeholder="Digite o cupom" />
       <button>Aplicar</button>
     </div>
 
     <div class="section-title">Método de pagamento</div>
     <div class="payment-options">
       <div class="payment-option" onclick="selectPayment(this, 'mpesa')">
-        <img src="images/mpesa.png" alt="M-Pesa">
+        <img src="images/mpesa.png" alt="M-Pesa" />
         <div>M-Pesa</div>
       </div>
       <div class="payment-option" onclick="selectPayment(this, 'emola')">
-        <img src="images/emola.png" alt="e-Mola">
+        <img src="images/emola.png" alt="e-Mola" />
         <div>e-Mola</div>
       </div>
       <div class="payment-option" onclick="selectPayment(this, 'visa')">
-        <img src="images/visa%20%282%29.png" alt="Visa/Mastercard">
+        <img src="images/visa (2).png" alt="Visa/Mastercard" />
         <div>Visa/Mastercard</div>
       </div>
     </div>
@@ -321,7 +324,7 @@ body {
     <div class="phone-field" id="phone-section">
       <label for="phone-input">Telefone</label>
       <div>
-  <input id="phone-input" type="text" placeholder="84/85/86/87 xxxxxx">
+  <input id="phone-input" type="text" placeholder="84/85/86/87 xxxxxx" />
 </div>
       <div id="phone-erro" class="error-message" style="display:none;">Por favor, insira o número de telefone.</div>
     </div>
@@ -331,7 +334,7 @@ body {
     <button class="btn" id="pagar-btn">Finalizar compra 197,00 MZN</button>
     <div id="pagamento-status" style="display:none; margin-top: 16px; text-align: center; font-weight: bold; color: #2c3e50;"></div>
     <div class="terms">
-      Compra segura com criptografia. Ao finalizar, você aceita os termos.<br>
+      Compra segura com criptografia. Ao finalizar, você aceita os termos.<br />
       Nenhum dado sensível é armazenado.
     </div>
   </div>
@@ -420,14 +423,14 @@ body {
 
    try {
      const whatsapp = document.getElementById('whatsapp-input');
-  const resposta = await fetch('https://backenv2-production.up.railway.app/api/pagar', {
+  const resposta = await fetch('https://checkout-backend-production-4047.up.railway.app/api/pagar', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       phone: numero,
       whatsapp: whatsapp.value.trim(),
-      amount: "2",
-      reference: "check",
+      amount: "197",
+      reference: "chatm",
       metodo: metodo,
       email: email.value.trim(),
       nome: nome.value.trim(),
@@ -540,6 +543,5 @@ body {
   </div>
 </div>
 
-
-
-</body></html>
+</body>
+</html>
