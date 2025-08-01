@@ -363,5 +363,55 @@ var elementorFrontendConfig = {"environmentMode":{"edit":false,"wpPreview":false
 	
 
 
+<!-- 🔥 Carrossel de rodapé -->
+<style>
+  .carousel-container {
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+    background: #000; /* cor do rodapé */
+    border-top: 2px solid #444;
+    position: relative;
+  }
+
+  .carousel-track {
+    display: flex;
+    width: max-content;
+    animation: scroll 30s linear infinite;
+  }
+
+  .carousel-track img {
+    height: 100px;
+    margin-right: 20px;
+    object-fit: cover;
+  }
+
+  @keyframes scroll {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+</style>
+
+<div class="carousel-container">
+  <div class="carousel-track">
+    <img src="images/bci.jpg" />
+    <img src="images/bni.jpg" />
+    <img src="images/mvtl.jpg" />
+    <img src="images/tmcl.jpg" />
+    <img src="images/vdc.jpg" />
+
+    <!-- Duplicar para loop infinito -->
+    <img src="images/bci.jpg" />
+    <img src="images/bni.jpg" />
+    <img src="images/mvtl.jpg" />
+    <img src="images/tmcl.jpg" />
+    <img src="images/vdc.jpg" />
+  </div>
+</div>
+
 
 </body></html><!-- Page cached by LiteSpeed Cache 7.3.0.1 on 2025-08-01 07:10:11 -->
