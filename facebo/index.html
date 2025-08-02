@@ -83,26 +83,14 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '4025059191048256');
+fbq('init', '9817198388399027');
 fbq('track', 'PageView');
 </script>
 <noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=4025059191048256&ev=PageView&noscript=1"
+src="https://www.facebook.com/tr?id=9817198388399027&ev=PageView&noscript=1"
 /></noscript>
 <!-- End Meta Pixel Code -->
-<!-- TikTok Pixel Code Start -->
-<script>
-!function (w, d, t) {
-  w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
-var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
-;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
 
-
-  ttq.load('D1FGHNRC77U0TEH3FLS0');
-  ttq.page();
-}(window, document, 'ttq');
-</script>
-<!-- TikTok Pixel Code End -->
 			<style>
 				.e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload),
 				.e-con.e-parent:nth-of-type(n+4):not(.e-lazyloaded):not(.e-no-lazyload) * {
@@ -415,5 +403,39 @@ var elementorFrontendConfig = {"environmentMode":{"edit":false,"wpPreview":false
   2025 &copy; Todos os direitos reservados | <a href="#" style="color: #000; text-decoration: underline;">Termos de Privacidade</a>
 </div>
 
+<script>
+(function salvarUTMsEFacebookCookies() {
+  const url = new URL(window.location.href);
+  const utms = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
 
+  utms.forEach(param => {
+    const valor = url.searchParams.get(param);
+    if (valor) {
+      localStorage.setItem(param, valor);
+    }
+  });
+
+  // Função para capturar cookies do navegador
+  function getCookie(name) {
+    const match = document.cookie.match(new RegExp('(^|;\\s*)' + name + '=([^;]*)'));
+    return match ? decodeURIComponent(match[2]) : null;
+  }
+
+  const fbp = getCookie('_fbp');
+  let fbc = getCookie('_fbc');
+
+  // Se não existir _fbc, tenta montar a partir do fbclid
+  if (!fbc && url.searchParams.get('fbclid')) {
+    fbc = `fb.1.${Date.now()}.${url.searchParams.get('fbclid')}`;
+  }
+
+  if (fbp) {
+    localStorage.setItem('fbp', fbp);
+  }
+
+  if (fbc) {
+    localStorage.setItem('fbc', fbc);
+  }
+})();
+</script>
 </body></html><!-- Page cached by LiteSpeed Cache 7.3.0.1 on 2025-08-01 07:10:11 -->
