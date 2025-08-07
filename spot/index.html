@@ -1,541 +1,135 @@
-<!DOCTYPE html><html lang="pt-BR"><head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Taxa Anti-Fraude</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="js/qrcode.min.js"></script>
-        <script>
-      !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-      n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
-      n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
-      t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
-      document,'script','https://connect.facebook.net/en_US/fbevents.js');
-      fbq('init', '1446644376462543');
-      fbq('track', 'PageView');
-    </script>
-    <noscript><img height="1" width="1" style="display:none"
-      src="https://www.facebook.com/tr?id=1446644376462543&ev=PageView&noscript=1"
-    /></noscript>
-        <style>
-        body { background-color: #d1d5db; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
-        .constrained-width { max-width: 32rem; margin-left: auto; margin-right: auto; padding-left: 1rem; padding-right: 1rem; }
-        @media (min-width: 640px) { .constrained-width { padding-left: 0; padding-right: 0; } }
-        .form-checkbox { -webkit-appearance: none; -moz-appearance: none; appearance: none; padding: 0; -webkit-print-color-adjust: exact; color-adjust: exact; display: inline-block; vertical-align: middle; background-origin: border-box; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; flex-shrink: 0; height: 1rem; width: 1rem; color: #14b8a6; background-color: #fff; border-color: #64748b; border-width: 1px; border-radius: .25rem; }
-        .form-checkbox:checked { background-image: url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e"); border-color: transparent; background-color: currentColor; background-size: 100% 100%; background-position: center; background-repeat: no-repeat; }
-        #pay-button, .step-nav-btn { transition: opacity 0.2s; }
-        #pay-button:disabled, .step-nav-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-        .loader { border: 4px solid #f3f3f3; border-top: 4px solid #1ed760; border-radius: 50%; width: 24px; height: 24px; animation: spin 1s linear infinite; display: inline-block; margin-right: 8px; }
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        #copy-button { transition: transform 0.1s ease; } #copy-button:active { transform: scale(0.97); }
-        .form-step { display: none; animation: fadeIn 0.5s; }
-        .form-step.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .video-container { position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; max-width: 100%; background: #000; border-radius: 0.5rem; }
-        .video-container iframe, .video-container video { position: absolute; top: 0; left: 0; width: 100%; height: 100%; }
-        .prose { color: inherit; } .prose h1, .prose h2, .prose h3, .prose b, .prose strong { color: inherit; } .prose p, .prose ul, .prose ol, .prose i { color: inherit; margin-top: 1em; margin-bottom: 1em; }
-        .prose.text-center * { text-align: center; }
-        .social-proof-toast {
-            background-color: rgba(30, 41, 59, 0.9);
-            backdrop-filter: blur(5px);
-            color: white;
-            padding: 12px 16px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1), 0 10px 20px rgba(0,0,0,0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
-            opacity: 0;
-            transform: translateY(20px) scale(0.95);
-            margin-top: 10px;
-            width: fit-content;
-            max-width: 350px;
-        }
-        .social-proof-toast.show {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
-        @keyframes backdropFadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes popupSlideIn { from { opacity: 0; transform: translateY(-20px); } to { opacity: 1; transform: translateY(0); } }
-    </style>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Taxa Anti-Fraude</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-color: #d1d5db;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+    .constrained-width {
+      max-width: 32rem;
+      margin: auto;
+      padding: 0 1rem;
+    }
+  </style>
 </head>
 <body>
-        <div id="timer-container" style="background-color: #111827; color: #ffffff; text-align: center; padding: 0.5rem; font-weight: 500; font-size: 0.9rem; position: sticky; top: 0; z-index: 100;">
-        <span id="timer-display"></span>
+  <!-- BARRA DE CONTAGEM -->
+  <div style="background-color: #111827; color: #fff; text-align: center; padding: 0.5rem; font-weight: 500; font-size: 0.9rem;">
+    PAGAMENTO DA TAXA expira em: 01:56
+  </div>
+
+  <!-- AVISO -->
+  <header class="w-full p-3 text-center text-sm font-semibold shadow-md" style="background-color: #1ed760; color: #fff;">
+    Taxa de Validação - Antifraude
+  </header>
+
+  <!-- IMAGEM -->
+  <div class="constrained-width">
+    <div class="w-full bg-gray-200 overflow-hidden rounded-[21px]">
+      <img src="https://dlzpblyjxiqfa.cloudfront.net/205487289/checkout-builder/e7mbjaftavxzhavgt9ohra3s5" alt="Banner" class="w-full object-cover" />
     </div>
-        
-        <form id="payment-form" method="POST" action="">
-        <input type="hidden" name="coupon_code" id="applied-coupon-code" value="">
-    
-    <main id="checkout-container" class="space-y-6 pb-6">
-                    <header style="background-color: #1ed760; color: #ffffff;" class="w-full p-3 text-center text-sm font-semibold shadow-md">Taxa de Validação - Antifraude</header><div class="constrained-width"><div class="w-full bg-gray-200 overflow-hidden" style="border-radius: 21px;"><img src="https://dlzpblyjxiqfa.cloudfront.net/205487289/checkout-builder/e7mbjaftavxzhavgt9ohra3s5" alt="Banner" class="w-full object-cover"></div></div><div class="constrained-width"><div class="shadow-lg p-6 sm:p-8" style="background-color: #FFFFFF; border-radius: 21px;"><div class="flex items-center mb-6"><span class="text-white rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg mr-3 flex-shrink-0" style="background-color: #1ed760;"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.501 20.118a7.5 7.5 0 0114.998 0A17.933 17.933 0 0112 21.75c-2.676 0-5.216-.584-7.499-1.632z"></path></svg></span><h2 class="text-xl font-bold text-gray-800">Identifique-se</h2></div><div class="space-y-4"><div><label for="name" class="block text-sm font-medium text-gray-600 mb-1">Nome e sobrenome</label><input type="text" id="name" name="name" placeholder="Nome e sobrenome" required="" class="w-full p-3 bg-gray-50 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#1ed760] transition" style="border-radius: 14px;"></div><div><label for="email" class="block text-sm font-medium text-gray-600 mb-1">E-mail</label><input type="email" id="email" name="email" placeholder="E-mail" required="" class="w-full p-3 bg-gray-50 border border-gray-300 focus:outline-none focus:ring-2 focus:ring-[#1ed760] transition" style="border-radius: 14px;"></div></div></div></div><div class="constrained-width"><div class="shadow-lg p-6 sm:p-8" style="background-color: #FFFFFF; border-radius: 21px;"><div class="flex items-center mb-4"><span class="text-white rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg mr-3 flex-shrink-0" style="background-color: #1ed760;"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M2.25 9h19.5m-16.5 5.25h6m-6 2.25h3m-3.75 3h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15A2.25 2.25 0 002.25 6.75v10.5A2.25 2.25 0 004.5 21z"></path></svg></span><h2 class="text-xl font-bold text-gray-800">Pagamento</h2></div><button type="submit" id="pay-button" style="background-color: #1ed760; border-radius: 17px;" class="w-full p-4 text-white font-bold text-lg uppercase hover:opacity-90 flex items-center justify-center"><span>PAGAR TAXA</span></button><div class="mt-4 text-center text-gray-500 text-sm flex items-center justify-center gap-2"><span>Pagamento seguro via <strong>PIX</strong> com aprovação imediata.</span></div></div></div><div class="constrained-width"><div class="shadow-lg" style="background-color: #ffffff; border-radius: 21px;"><div class="divide-y divide-gray-200"><div class="p-4 flex items-center space-x-4"><div class="flex-shrink-0 w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center text-green-600"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.243 4.243l-4.243-4.243"></path></svg></div><div><h4 class="font-bold text-gray-800">Dados protegidos</h4><p class="text-sm text-gray-600">Os seus dados são confidenciais e seguros.</p></div></div><div class="p-4 flex items-center space-x-4"><div class="flex-shrink-0 w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center text-green-600"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 00-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z"></path></svg></div><div><h4 class="font-bold text-gray-800">Pagamento 100% Seguro</h4><p class="text-sm text-gray-600">As informações desta compra são criptografadas.</p></div></div><div class="p-4 flex items-center space-x-4"><div class="flex-shrink-0 w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center text-green-600"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path><path stroke-linecap="round" stroke-linejoin="round" d="M12 21.75l-3.75-3.75m3.75 3.75V3.75m0 18l3.75-3.75M4.5 6.75A2.25 2.25 0 016.75 4.5h10.5a2.25 2.25 0 012.25 2.25v10.5a2.25 2.25 0 01-2.25 2.25H6.75a2.25 2.25 0 01-2.25-2.25V6.75z"></path></svg></div><div><h4 class="font-bold text-gray-800">Conteúdo Aprovado</h4><p class="text-sm text-gray-600">100% revisado e aprovado por profissionais</p></div></div><div class="p-4 flex items-center space-x-4"><div class="flex-shrink-0 w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center text-green-600"><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.286zm0 13.036h.008v.008h-.008v-.008z"></path></svg></div><div><h4 class="font-bold text-gray-800">Garantia de 7 dias</h4><p class="text-sm text-gray-600">Você esta protegido por uma garantia de satisfação</p></div></div></div></div></div>              
-      <div class="constrained-width">
-         <p class="text-center text-sm text-gray-500 mt-6">Acesso Liberado APÓS o Pagamento da Taxa</p>       </div>
-    </main>
-    
-        </form>
-    
-    <div id="pix-modal" class="hidden fixed top-0 left-0 w-full h-full bg-black/70 z-[9999] flex items-center justify-center" style="animation:backdropFadeIn 0.3s ease-out forwards;">
-      <div style="background:#FFFFFF;padding:32px;border-radius:16px;max-width:380px;width:90%;box-shadow:0 8px 24px rgba(0,0,0,0.2);font-family:Inter, sans-serif;position:relative;animation:popupSlideIn 0.3s ease-out forwards;text-align: center;">
-        <button id="pix-modal-close" style="position:absolute;top:10px;right:15px;font-size:24px;color:#9ca3af;background:none;border:none;cursor:pointer;">�</button>
-                <h2 style="margin:0 0 16px;font-size:20px;color:#1f2937;line-height:1.4;">Pagamento via PIX</h2>
-                <div style="display:flex;justify-content:center;margin-bottom:16px;">
-            <div id="qrcode" style="padding: 4px; background: white; border-radius: 4px; line-height: 0;"></div>
+  </div>
+
+  <!-- FORMULÁRIO -->
+  <div class="constrained-width mt-6">
+    <div class="bg-white shadow-lg p-6 sm:p-8 rounded-[21px]">
+      <div class="flex items-center mb-6">
+        <span class="text-white bg-[#1ed760] rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg mr-3">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="w-5 h-5" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.1a7.5 7.5 0 0115 0A17.9 17.9 0 0112 21.75a17.9 17.9 0 01-7.5-1.65z" />
+          </svg>
+        </span>
+        <h2 class="text-xl font-bold text-gray-800">Identifique-se</h2>
+      </div>
+      <div class="space-y-4">
+        <div>
+          <label for="name" class="block text-sm font-medium text-gray-600 mb-1">Nome e sobrenome</label>
+          <input type="text" id="name" placeholder="Nome e sobrenome" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-[14px] focus:outline-none focus:ring-2 focus:ring-[#1ed760]" />
         </div>
-        <input id="pix-code-input" type="text" readonly="" style="width:100%;box-sizing:border-box;padding:12px;font-size:14px;margin-bottom:12px;border:1px solid #d1d5db;border-radius:8px;color:#374151;background:#f9fafb;text-align:center;font-family:monospace;">
-        <button id="copy-button" style="background:#00c27a;color:#FFFFFF;border:none;width:100%;padding:14px 20px;border-radius:8px;font-weight:600;font-size:15px;cursor:pointer;transition: filter 0.2s ease;margin-bottom:16px;" onmouseover="this.style.filter='brightness(1.1)'" onmouseout="this.style.filter='brightness(1)';">
-          Copiar código PIX        </button>
-        <div class="modal-info" style="font-size:14px;color:#0f172a;line-height:1.5;text-align: center;">
-                    <p style="margin:8px 0;">💰 Valor: <strong id="pix-valor">--</strong></p>
-                              <p style="margin:8px 0;">🕒 Válido até: <span id="modal-expiration">--</span></p>
-                              <p class="modal-warning" style="margin:12px 0 0;color:#00c27a;font-weight:bold;">Pagamento seguro via PIX</p>
-                  </div>
+        <div>
+          <label for="email" class="block text-sm font-medium text-gray-600 mb-1">E-mail</label>
+          <input type="email" id="email" placeholder="E-mail" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-[14px] focus:outline-none focus:ring-2 focus:ring-[#1ed760]" />
+        </div>
       </div>
     </div>
-    
-    <div id="social-proof-container" style="position: fixed; bottom: 20px; left: 20px; z-index: 100; pointer-events: none;"></div>
+  </div>
 
-<script>
-const utms = Object.fromEntries(new URLSearchParams(window.location.search));
+  <!-- BOTÃO PAGAMENTO DESATIVADO -->
+  <div class="constrained-width mt-6">
+    <div class="bg-white shadow-lg p-6 sm:p-8 rounded-[21px]">
+      <div class="flex items-center mb-4">
+        <span class="text-white bg-[#1ed760] rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg mr-3">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="w-5 h-5" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M5.25 14.25h6m-6 2.25h3M4.5 21h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15A2.25 2.25 0 002.25 6.75v10.5A2.25 2.25 0 004.5 21z"/>
+          </svg>
+        </span>
+        <h2 class="text-xl font-bold text-gray-800">Pagamento</h2>
+      </div>
+      <button disabled class="w-full p-4 bg-[#1ed760] text-white font-bold text-lg uppercase rounded-[17px] opacity-60 cursor-not-allowed">
+        PAGAR TAXA
+      </button>
+      <p class="mt-4 text-center text-gray-500 text-sm">Pagamento via <strong>PIX</strong> com aprovação imediata.</p>
+    </div>
+  </div>
 
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('payment-form');
-    const payButton = document.getElementById('pay-button');
-    const originalButtonContent = payButton?.innerHTML;
+  <!-- BENEFÍCIOS -->
+  <div class="constrained-width mt-6">
+    <div class="bg-white shadow-lg rounded-[21px] divide-y divide-gray-200">
+      <div class="p-4 flex items-center space-x-4">
+        <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center text-green-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.228 6.228L3 3m0 0a10.5 10.5 0 0118 9c0 4.97-3.516 9.123-8.25 10.248C7.516 21.123 3 16.97 3 12A10.5 10.5 0 013 3z"/>
+          </svg>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800">Dados protegidos</h4>
+          <p class="text-sm text-gray-600">Os seus dados são confidenciais e seguros.</p>
+        </div>
+      </div>
+      <div class="p-4 flex items-center space-x-4">
+        <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center text-green-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 00-9 0v3.75"/>
+          </svg>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800">Pagamento 100% Seguro</h4>
+          <p class="text-sm text-gray-600">As informações desta compra são criptografadas.</p>
+        </div>
+      </div>
+      <div class="p-4 flex items-center space-x-4">
+        <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center text-green-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M12 21.75l-3.75-3.75M12 21.75l3.75-3.75"/>
+          </svg>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800">Conteúdo Aprovado</h4>
+          <p class="text-sm text-gray-600">100% revisado e aprovado por profissionais.</p>
+        </div>
+      </div>
+      <div class="p-4 flex items-center space-x-4">
+        <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center text-green-600">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75"/>
+          </svg>
+        </div>
+        <div>
+          <h4 class="font-bold text-gray-800">Garantia de 7 dias</h4>
+          <p class="text-sm text-gray-600">Você está protegido por uma garantia de satisfação.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
-    // Price update elements
-    const totalPriceEl = document.getElementById('total-price');
-    const bumpCheckboxes = document.querySelectorAll('.order-bump-checkbox');
-    const applyCouponBtn = document.getElementById('apply-coupon-btn');
-    const couponCodeInput = document.getElementById('coupon-code');
-    const couponMessageEl = document.getElementById('coupon-message');
-    const appliedCouponInput = document.getElementById('applied-coupon-code');
-
-    let totalAmount = 2790;
-    let baseAmount = 2790;
-    let appliedCoupon = null;
-    let validateStep = () => true; // Default for non-3-step
-    let currentStep = 1; // Used for 3-step checkout
-
-    const formatCurrency = (value) => 'R$ ' + (value / 100).toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    
-    const updateTotalPrice = () => {
-        let currentTotal = baseAmount;
-        document.querySelectorAll('.order-bump-checkbox:checked').forEach(box => {
-            currentTotal += parseInt(box.dataset.price, 10);
-        });
-
-        if (appliedCoupon && !false) {
-            if (appliedCoupon.type === 'fixed') {
-                currentTotal -= appliedCoupon.value;
-            } else if (appliedCoupon.type === 'percentage') {
-                const discountableAmount = baseAmount + Array.from(document.querySelectorAll('.order-bump-checkbox:checked')).reduce((acc,b) => acc + parseInt(b.dataset.price, 10), 0);
-                const discount = discountableAmount * (appliedCoupon.value / 100);
-                currentTotal -= discount;
-            }
-        }
-        totalAmount = Math.max(0, currentTotal);
-        if(totalPriceEl) totalPriceEl.textContent = formatCurrency(totalAmount);
-    };
-
-    document.querySelectorAll('.order-bump-checkbox').forEach(box => {
-        box.addEventListener('change', updateTotalPrice);
-    });
-
-    if (applyCouponBtn) {
-        applyCouponBtn.addEventListener('click', async () => {
-            const code = couponCodeInput.value.trim();
-            if (!code) {
-                couponMessageEl.textContent = 'Por favor, insira um código.';
-                couponMessageEl.className = 'text-sm mt-2 text-yellow-600';
-                return;
-            }
-            applyCouponBtn.disabled = true;
-            applyCouponBtn.textContent = '...';
-            try {
-                const response = await fetch(`?action=validate_coupon&code=${encodeURIComponent(code)}`);
-                const result = await response.json();
-                if (response.ok && result.success) {
-                    appliedCoupon = result.coupon;
-                    updateTotalPrice();
-                    couponMessageEl.textContent = 'Cupom aplicado com sucesso!';
-                    couponMessageEl.className = 'text-sm mt-2 text-green-600';
-                    appliedCouponInput.value = code;
-                    document.getElementById('coupon-area').style.opacity = '0.7';
-                    couponCodeInput.disabled = true;
-                    applyCouponBtn.disabled = true;
-                    applyCouponBtn.textContent = 'Aplicado';
-                } else {
-                    couponMessageEl.textContent = result.message || 'Cupom inválido.';
-                    couponMessageEl.className = 'text-sm mt-2 text-red-600';
-                    applyCouponBtn.disabled = false;
-                    applyCouponBtn.textContent = 'Aplicar';
-                }
-            } catch (err) {
-                couponMessageEl.textContent = 'Erro ao validar cupom.';
-                couponMessageEl.className = 'text-sm mt-2 text-red-600';
-                applyCouponBtn.disabled = false;
-                applyCouponBtn.textContent = 'Aplicar';
-            }
-        });
-    }
-
-    if (form) {
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const isThreeStep = false;
-
-            // PIX should only be generated on single-page, or on the final step of a 3-step checkout.
-            if (!isThreeStep || (isThreeStep && currentStep === 3)) {
-                 if (isThreeStep && (!validateStep(1) || !validateStep(2))) {
-                    if (!validateStep(1)) {
-                        document.dispatchEvent(new CustomEvent('checkout:step:change', { detail: 1 }));
-                    } else if (!validateStep(2)) {
-                        document.dispatchEvent(new CustomEvent('checkout:step:change', { detail: 2 }));
-                    }
-                    form.reportValidity();
-                    return; 
-                }
-
-                if (!isThreeStep && !form.checkValidity()) {
-                    form.reportValidity();
-                    return;
-                }
-
-                const submitButton = isThreeStep ? document.getElementById('next-btn') : payButton;
-                if (!submitButton) return;
-                const originalSubmitContent = submitButton.innerHTML;
-
-                submitButton.disabled = true;
-                submitButton.innerHTML = '<div class="loader"></div><span>Processando...</span>';
-                
-                const formData = new FormData(form);
-
-                for (const key in utms) {
-                    formData.append(`utms[${key}]`, utms[key]);
-                }
-
-                try {
-                    const response = await fetch(window.location.href, { method: 'POST', body: formData });
-                    const result = await response.json();
-                    if (!response.ok) {
-                        const errorMessage = result?.errors ? Object.values(result.errors).flat().join(' ') : (result.message || result.error || 'Ocorreu um erro ao gerar o PIX.');
-                        throw new Error(errorMessage);
-                    }
-                    showPixModal(result);
-                } catch (error) {
-                    console.error('API Error:', error);
-                    alert('Erro: ' + error.message);
-                } finally {
-                    submitButton.disabled = false;
-                    submitButton.innerHTML = originalSubmitContent;
-                }
-            }
-        });
-    }
-
-    // --- 3-STEP CHECKOUT LOGIC ---
-    if (false) {
-        const prevBtn = document.getElementById('prev-btn');
-        const nextBtn = document.getElementById('next-btn');
-        const steps = Array.from(document.querySelectorAll('.form-step'));
-        
-        validateStep = (stepNumber) => {
-            const currentStepEl = document.getElementById(`step-${stepNumber}`);
-            if (!currentStepEl) return false;
-            const inputs = currentStepEl.querySelectorAll('input[required], select[required], textarea[required]');
-            for (const input of inputs) {
-                if (!input.checkValidity()) {
-                    return false;
-                }
-            }
-            return true;
-        };
-
-        const updateStepUI = () => {
-            steps.forEach((step, index) => {
-                step.classList.toggle('active', index + 1 === currentStep);
-            });
-            
-            for(let i=1; i<=3; i++) {
-                const bubble = document.getElementById(`step-bubble-${i}`);
-                const title = document.getElementById(`step-title-${i}`);
-                const line = document.getElementById(`step-line-${i}`);
-
-                if (i < currentStep) { // Completed step
-                    bubble.classList.add('bg-teal-500'); bubble.classList.remove('bg-gray-400', 'bg-red-500');
-                    bubble.innerHTML = '✓';
-                    title.classList.add('text-gray-800'); title.classList.remove('text-gray-500');
-                    if (line) { line.classList.add('bg-teal-500'); line.classList.remove('bg-gray-300'); }
-                } else if (i === currentStep) { // Active step
-                    bubble.classList.add('bg-teal-500'); bubble.classList.remove('bg-gray-400', 'bg-red-500');
-                    bubble.innerHTML = i;
-                    title.classList.add('text-gray-800'); title.classList.remove('text-gray-500');
-                    if (line) { line.classList.remove('bg-teal-500'); line.classList.add('bg-gray-300'); }
-                } else { // Future step
-                     bubble.classList.remove('bg-teal-500', 'bg-red-500'); bubble.classList.add('bg-gray-400');
-                     bubble.innerHTML = i;
-                     title.classList.remove('text-gray-800'); title.classList.add('text-gray-500');
-                     if (line) { line.classList.remove('bg-teal-500'); line.classList.add('bg-gray-300'); }
-                }
-            }
-
-            prevBtn.style.display = currentStep > 1 ? 'block' : 'none';
-            if (currentStep === 3) {
-                nextBtn.textContent = 'PAGAR TAXA';
-                updateTotalPrice(); // Update total when step 3 is displayed
-            } else {
-                nextBtn.textContent = 'Continuar';
-            }
-            window.scrollTo(0, 0);
-        };
-        
-        const payButtonInStep3 = document.querySelector('#step-3 #pay-button');
-        if (payButtonInStep3) {
-            payButtonInStep3.style.display = 'none'; // The "next-btn" becomes the pay button
-        }
-
-        nextBtn.addEventListener('click', () => {
-            if (currentStep < 3) {
-                if (validateStep(currentStep)) {
-                    currentStep++;
-                    updateStepUI();
-                } else {
-                    const bubble = document.getElementById(`step-bubble-${currentStep}`);
-                    if(bubble) bubble.classList.add('bg-red-500');
-                    form.reportValidity();
-                }
-            } else { // currentStep is 3, this is the final payment click
-                if (form.requestSubmit) {
-                    form.requestSubmit();
-                } else {
-                    form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
-                }
-            }
-        });
-
-        prevBtn.addEventListener('click', () => {
-            if (currentStep > 1) {
-                currentStep--;
-                updateStepUI();
-            }
-        });
-        
-        document.addEventListener('checkout:step:change', (e) => {
-            currentStep = e.detail;
-            updateStepUI();
-        });
-        
-        // Initial call
-        updateTotalPrice();
-        updateStepUI();
-    }
-    
-    // --- MODAL & UTILS ---
-    const modal = document.getElementById('pix-modal');
-    const qrCodeContainer = document.getElementById('qrcode');
-    const copyButton = document.getElementById('copy-button');
-    const pixCodeInputElement = document.getElementById('pix-code-input');
-    const pixValorEl = document.getElementById('pix-valor');
-    const modalExpirationEl = document.getElementById('modal-expiration');
-    const closeModalBtn = document.getElementById('pix-modal-close');
-    let qrCodeInstance = null;
-    
-    function startPaymentChecker(hash) {
-        if (window._paymentChecker) {
-            clearInterval(window._paymentChecker);
-        }
-        window._paymentChecker = setInterval(async () => {
-            try {
-                const response = await fetch(`?action=check_status&hash=${hash}`);
-                if (!response.ok) return;
-                const data = await response.json();
-
-                if (data && data.payment_status === 'paid') {
-                    clearInterval(window._paymentChecker);
-
-                                        if (typeof fbq === 'function') {
-                        fbq('track', 'Purchase', { value: totalAmount / 100, currency: 'BRL' });
-                    }
-                    
-                                        const upsellUrl = 'https://spotcash.online/upper1/';
-                    const utmQueryString = new URLSearchParams(utms).toString();
-                    const finalUrl = upsellUrl + (utmQueryString ? (upsellUrl.includes('?') ? '&' : '?') + utmQueryString : '');
-                    window.location.href = finalUrl;
-                                    }
-            } catch (error) {
-                console.error('Payment check failed:', error);
-            }
-        }, 5000);
-    }
-
-    function showPixModal(result) {
-        const pixCodeText = result?.pix?.pix_qr_code;
-        const transactionHash = result?.hash;
-        let expirationDate = result?.pix?.expiration_date;
-        const amountPaid = result?.amount_paid;
-
-        if (!pixCodeText) { throw new Error('Resposta da API inválida.'); }
-        
-        pixCodeInputElement.value = pixCodeText;
-        
-        if(qrCodeContainer) {
-            qrCodeContainer.innerHTML = '';
-            qrCodeInstance = new QRCode(qrCodeContainer, {
-                text: pixCodeText,
-                width: 184,
-                height: 184,
-                colorDark : "#000000",
-                colorLight : "#ffffff",
-                correctLevel : QRCode.CorrectLevel.H
-            });
-        }
-        
-        if (pixValorEl) pixValorEl.textContent = formatCurrency(amountPaid || totalAmount);
-        
-        if (!expirationDate) {
-            const expirationMinutes = 5;
-            if (expirationMinutes > 0) {
-                expirationDate = new Date(Date.now() + expirationMinutes * 60 * 1000);
-            }
-        }
-        
-        if (modalExpirationEl && expirationDate) {
-            modalExpirationEl.textContent = new Date(expirationDate).toLocaleString('pt-BR', {
-                day: '2-digit', month: '2-digit', year: 'numeric',
-                hour: '2-digit', minute: '2-digit', second: '2-digit'
-            }).replace(',', '');
-        }
-
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-        
-        if (transactionHash) {
-            startPaymentChecker(transactionHash);
-        }
-    }
-
-    function copyToClipboard(text, button) {
-        if (navigator.clipboard && window.isSecureContext) {
-            navigator.clipboard.writeText(text).then(() => {
-                const originalText = button.textContent; button.textContent = 'Copiado!';
-                setTimeout(() => { button.textContent = originalText; }, 2000);
-            }).catch(err => fallbackCopy(text, button));
-        } else { fallbackCopy(text, button); }
-    }
-    function fallbackCopy(text, button) {
-        const ta = document.createElement("textarea"); ta.value = text; ta.style.position="fixed"; ta.style.opacity="0"; document.body.appendChild(ta); ta.focus(); ta.select();
-        try { if (document.execCommand('copy')) { const ot=button.textContent; button.textContent='Copiado!'; setTimeout(()=>button.textContent=ot,2000); } } catch (err) { alert('Falha ao copiar'); }
-        document.body.removeChild(ta);
-    }
-    if (modal) {
-        const closeAndClear = () => {
-            modal.classList.add('hidden');
-            modal.classList.remove('flex');
-            if (window._paymentChecker) clearInterval(window._paymentChecker);
-        };
-        modal.addEventListener('click', (e) => { if (e.target === modal) closeAndClear(); });
-        if(closeModalBtn) closeModalBtn.addEventListener('click', closeAndClear);
-        copyButton.addEventListener('click', () => { const code = pixCodeInputElement.value; if (code) copyToClipboard(code, copyButton); });
-    }
-
-    // --- INPUT MASKS ---
-    const phoneInput = document.querySelector('input[name="phone_number"]');
-    if (phoneInput) {
-         phoneInput.addEventListener('input', (e) => { let v = e.target.value.replace(/[^0-9]/g, ''); v = v.replace(/^([0-9]{2})([0-9])/g, '($1) $2'); v = v.replace(/([0-9]{5})([0-9]{4})$/, '$1-$2'); e.target.value = v.substring(0, 15); });
-    }
-    
-    const documentInput = document.getElementById('document');
-    if (documentInput) {
-        documentInput.addEventListener('input', (e) => {
-            let value = e.target.value.replace(/D/g, "");
-            value = value.substring(0, 11);
-            
-            let formattedValue = value;
-            if (value.length > 9) {
-                formattedValue = value.replace(/(d{3})(d{3})(d{3})(d{2})/, '$1.$2.$3-$4');
-            } else if (value.length > 6) {
-                formattedValue = value.replace(/(d{3})(d{3})(d{1,3})/, '$1.$2.$3');
-            } else if (value.length > 3) {
-                formattedValue = value.replace(/(d{3})(d{1,3})/, '$1.$2');
-            }
-            e.target.value = formattedValue;
-        });
-    }
-
-    const cepInput = document.getElementById('zip_code');
-    if (cepInput) {
-        cepInput.addEventListener('blur', () => {
-            const cep = cepInput.value.replace(/[^0-9]/g, ''); if (cep.length !== 8) return;
-            fetch(`https://viacep.com.br/ws/${cep}/json/`).then(r=>r.json()).then(d=>{if(!d.erro){document.getElementById('street_name').value=d.logradouro;document.getElementById('neighborhood').value=d.bairro;document.getElementById('city').value=d.localidade;document.getElementById('state').value=d.uf;document.getElementById('number').focus();}else{alert('CEP não encontrado.');}}).catch(e=>console.error('Erro CEP',e));
-        });
-    }
-    
-    const timerDurationInMinutes = 2;
-    if (timerDurationInMinutes > 0) {
-        const timerDisplay = document.getElementById('timer-display');
-        const timerTextTemplate = 'PAGAMENTO DA TAXA expira em: {{tempo}}';
-        let time = timerDurationInMinutes * 60;
-        const interval = setInterval(() => {
-            if (time <= 0) { clearInterval(interval); timerDisplay.textContent = "OFERTA ENCERRADA"; if(payButton) {payButton.disabled=true; payButton.style.opacity='0.5';} const nextBtn=document.getElementById('next-btn'); if(nextBtn){nextBtn.disabled=true; nextBtn.style.opacity='0.5';} return; }
-            time--; const m=String(Math.floor(time/60)).padStart(2,'0'); const s=String(time%60).padStart(2,'0');
-            timerDisplay.textContent = timerTextTemplate.replace('{{tempo}}', `${m}:${s}`);
-        }, 1000);
-    }
-
-    // --- SOCIAL PROOF NOTIFICATIONS ---
-    const socialProofSettings = {"enabled":true,"names":[],"payoutMessage":"{{name}} acabou de RECEBER {{value}} Avaliando M\u00fasicas!","payoutMin":150,"payoutMax":500,"initialDelay":2,"displayDuration":6,"intervalMin":1,"intervalMax":20};
-    if (socialProofSettings && socialProofSettings.enabled) {
-        const container = document.getElementById('social-proof-container');
-        const defaultNames = ["Maria", "José", "Ana", "João", "Antônio", "Francisco", "Carlos", "Paulo", "Pedro", "Lucas", "Luiz", "Marcos", "Gabriel", "Rafael", "Daniel", "Marcelo", "Bruno", "Eduardo", "Felipe", "Sandra", "Camila", "Amanda", "Fernanda", "Patrícia", "Juliana", "Aline", "Mariana", "Vanessa", "Carolina"];
-        const names = socialProofSettings.names && socialProofSettings.names.length > 0 ? socialProofSettings.names : defaultNames;
-        
-        const getRandomInt = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
-
-        const createNotification = () => {
-            const name = names[Math.floor(Math.random() * names.length)];
-            const value = getRandomInt(socialProofSettings.payoutMin, socialProofSettings.payoutMax);
-            const formattedValue = value.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-            const message = socialProofSettings.payoutMessage
-                .replace('{{name}}', '<strong>' + name + '</strong>')
-                .replace('{{value}}', '<strong>' + formattedValue + '</strong>');
-
-            const notifElement = document.createElement('div');
-            notifElement.className = 'social-proof-toast';
-            notifElement.innerHTML = 
-                '<div style="display:flex; align-items:center; gap: 12px;">' +
-                    '<img src="https://picsum.photos/40/40?random=' + Date.now() + '" alt="User" style="width: 40px; height: 40px; border-radius: 50%; object-fit: cover; flex-shrink: 0;">' +
-                    '<div style="font-size: 14px; color: #e2e8f0;">' +
-                        message +
-                        '<div style="font-size: 12px; color: #94a3b8; margin-top: 2px;">agora mesmo</div>' +
-                    '</div>' +
-                '</div>';
-            
-            container.appendChild(notifElement);
-
-            setTimeout(() => {
-                notifElement.classList.remove('show');
-                setTimeout(() => notifElement.remove(), 500); // Remove from DOM after fade out
-            }, (socialProofSettings.displayDuration || 4) * 1000);
-            
-            setTimeout(() => notifElement.classList.add('show'), 100);
-        };
-
-        const scheduleNextNotification = () => {
-            const interval = getRandomInt(socialProofSettings.intervalMin, socialProofSettings.intervalMax) * 1000;
-            setTimeout(() => {
-                createNotification();
-                scheduleNextNotification();
-            }, interval);
-        };
-
-        setTimeout(scheduleNextNotification, (socialProofSettings.initialDelay || 5) * 1000);
-    }
-});
-</script>
-
-
-
-</body></html>
+  <!-- AVISO FINAL -->
+  <div class="constrained-width mt-6">
+    <p class="text-center text-sm text-gray-500">Acesso Liberado APÓS o Pagamento da Taxa</p>
+  </div>
+</body>
+</html>
