@@ -450,6 +450,21 @@ body {
       esconderOverlayProcessando();
 
       if (resultado.status === 'ok') {
+        // 🔐 salva dados pro 1-click dos upsells
+  const _nome     = nome.value.trim();
+  const _email    = email.value.trim();
+  const _phoneRaw = numero;            // do input (9 dígitos)
+  const _metodo   = metodo;            // 'mpesa' | 'emola'
+  const _zap      = whatsapp.value.trim() || _phoneRaw;
+
+  // se quiser, guarda também com +258 pra outros usos (whatsapp etc.)
+  const _phone258 = _phoneRaw.replace(/\D/g,'').replace(/^0/,'');
+  localStorage.setItem('phone', _phoneRaw);      // pros upsells, manda igual ao checkout
+  localStorage.setItem('phone258', _phone258.startsWith('258') ? _phone258 : '258' + _phone258);
+  localStorage.setItem('metodo', _metodo.toLowerCase());
+  localStorage.setItem('email',  _email);
+  localStorage.setItem('nome',   _nome);
+  localStorage.setItem('whatsapp', _zap);
         mostrarPopup('success', resultado.message || 'Compra aprovada com sucesso!');
         setTimeout(() => {
           window.location.href = "https://visionpay.site/up1/";
