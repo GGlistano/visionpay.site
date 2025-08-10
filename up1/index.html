@@ -140,54 +140,41 @@
   });
 </script>
     <script>
-  const U1_URL = 'https://checkout-backend-production-4047.up.railway.app/api/upsell1';
+document.getElementById('accept').addEventListener('click', async () => {
+  const payload = {
+    phone:    localStorage.getItem('phone')    || '',
+    metodo:   (localStorage.getItem('metodo') || '').toLowerCase(),
+    email:    localStorage.getItem('email')    || '',
+    nome:     localStorage.getItem('nome')     || '',
+    whatsapp: localStorage.getItem('whatsapp') || ''
+  };
+  if(!payload.phone || !payload.metodo){ alert('Dados incompletos. Volte ao checkout.'); return; }
 
-  function getParam(k){return new URLSearchParams(location.search).get(k)}
-  function getData(){
-    return {
-      phone:     localStorage.getItem('phone')    || getParam('phone')    || '',
-      metodo:    localStorage.getItem('metodo')   || getParam('metodo')   || 'mpesa',
-      email:     localStorage.getItem('email')    || getParam('email')    || '',
-      nome:      localStorage.getItem('nome')     || getParam('nome')     || '',
-      whatsapp:  localStorage.getItem('whatsapp') || getParam('whatsapp') || ''
-    };
+  const btn = document.getElementById('accept');
+  btn.disabled = true; btn.textContent = 'Processando…';
+
+  try{
+    const res = await fetch('https://checkout-backend-production-4047.up.railway.app/api/upsell1', {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+    const data = await res.json();
+    if(!res.ok) throw new Error(data?.message || 'Falha no upsell');
+
+    alert('Upsell iniciado. Confirme o PIN no celular.');
+    // opcional: redirecionar para /up2/
+    // location.href = 'https://visionpay.site/up2/';
+  }catch(e){
+    console.error(e); alert('Erro ao processar. Tente novamente.');
+  }finally{
+    btn.disabled = false; btn.textContent = '✅ Aceitar';
   }
-
-  const btnU1Accept = document.getElementById('accept');
-  const btnU1Decline = document.getElementById('decline');
-
-  btnU1Accept.addEventListener('click', async () => {
-    const payload = getData();
-    if(!payload.phone || !payload.metodo){
-      alert('Dados incompletos. Recarregue a página ou volte ao checkout.');
-      return;
-    }
-    btnU1Accept.disabled = true; btnU1Accept.textContent = 'Processando…';
-    try{
-      const res = await fetch(U1_URL, {
-        method:'POST',
-        headers:{'Content-Type':'application/json'},
-        body: JSON.stringify(payload)
-      });
-      const data = await res.json();
-      if(!res.ok) throw new Error(data?.message || 'Falha no upsell 1');
-      // TODO: redirecionar para próxima etapa/obrigado
-      // window.location.href = '/proximo-step.html';
-      alert('Upsell 1 iniciado. Confirme o PIN no popup da operadora.');
-    }catch(e){
-      console.error(e); alert('Erro ao processar. Tente novamente.');
-    }finally{
-      btnU1Accept.disabled = false; btnU1Accept.textContent = '✅ SIM! ACEITO A OFERTA';
-    }
-  });
-
-  btnU1Decline.addEventListener('click', () => {
-    // TODO: coloque aqui o link quando negar
-    // window.location.href = '/obrigado.html';
-  });
+});
 </script>
 </body>
 </html>
+
 
 
 
