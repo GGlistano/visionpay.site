@@ -10,30 +10,15 @@
         text-align: center;
         margin: 0;
         padding: 0;
+        line-height: 1.5em;
     }
-    .stop-box {
-        border: 2px solid red;
-        display: inline-block;
-        padding: 10px;
-        margin: 20px auto;
-        max-width: 90%;
-        box-sizing: border-box;
-    }
-    .stop-text-red {
-        color: red;
-        font-weight: bold;
-        font-size: clamp(16px, 2vw, 22px);
-    }
-    .stop-small {
-        font-size: clamp(10px, 1.2vw, 14px);
-        color: black;
-    }
+
     /* Barra de Progresso */
     .progress-container {
         width: 80%;
         max-width: 400px;
         background-color: #ddd;
-        margin: 20px auto;
+        margin: 15px auto;
         border-radius: 5px;
         overflow: hidden;
     }
@@ -46,6 +31,7 @@
         color: white;
         font-size: 12px;
     }
+
     /* Cores */
     .text-red {
         color: red;
@@ -58,27 +44,61 @@
     .text-black {
         color: black;
     }
-    .text-blue-underline {
+    .text-blue {
         color: blue;
-        text-decoration: underline;
         font-weight: bold;
     }
+
     /* Imagens */
-    img {
+    .alert-image {
         max-width: 90%;
         height: auto;
-        margin: 10px auto;
+        margin: 20px auto;
         display: block;
+    }
+    .image-container {
+        max-width: 300px;
+        margin: 10px auto;
+    }
+    .image-container img {
+        width: 100%;
+        height: auto;
+    }
+
+    /* Botões */
+    .btn {
+        display: inline-block;
+        padding: 12px 25px;
+        font-size: 16px;
+        font-weight: bold;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 10px;
+        text-decoration: none;
+    }
+    .btn-green {
+        background-color: green;
+        color: white;
+    }
+    .btn-red {
+        background-color: red;
+        color: white;
+    }
+
+    /* Responsividade */
+    @media (max-width: 480px) {
+        .btn {
+            font-size: 14px;
+            padding: 10px 20px;
+        }
     }
 </style>
 </head>
 <body>
 
-<!-- Caixa de Alerta -->
-<div class="stop-box">
-    <p class="stop-text-red">🚫 Não Feche Esta Página, Seu Pedido Ainda Não Está Finalizado!</p>
-    <p class="stop-small">Não aperte no botão "Voltar", isso pode causar erro no seu pedido</p>
-</div>
+<!-- Espaço para Imagem de Alerta -->
+ <img src="imagem/stop1.png" alt="Alerta" class="alert-image"> -->
 
 <!-- Processamento -->
 <p><strong>Processando sua ativação...</strong></p>
@@ -87,36 +107,35 @@
 </div>
 <p class="text-black">(Barra de progresso)</p>
 
-<p>ENQUANTO SUA COMPRA PROCESSA... VOCÊ ACABOU DE RECEBER OUTRO 
-<span class="text-blue-underline">BÔNUS EXCLUSIVO</span> — SOMENTE NESTA PÁGINA!</p>
+<p>ENQUANTO SUA COMPRA PROCESSA...<br>
+VOCÊ ACABOU DE RECEBER OUTRO <span class="text-blue">BÔNUS EXCLUSIVO</span><br>
+— SOMENTE NESTA PÁGINA!</p>
 
-<p><strong>Turbo Cash IA</strong></p>
+<h2>Turbo Cash IA</h2>
 
-<!-- Espaço para Imagem -->
-<img src="imagem/upimg1.jpg" alt="Turbo Cash IA"> -->
+<!-- Container para imagem do Turbo Cash IA -->
+<div class="image-container">
+    <img src="imagem/upimg1.jpg" alt="Turbo Cash IA"> -->
+</div>
 
-<h3>⚡ <span class="text-blue-underline">Multiplique</span> Seus Ganhos Com o Poder da nossa <span class="text-blue-underline">Inteligência Artificial</span>!</h3>
+<h3>⚡ <span class="text-blue">Multiplique</span> Seus Ganhos Com o Poder da nossa <span class="text-blue">Inteligência Artificial</span>!</h3>
 
-<p class="text-black">
-Você já deu o primeiro passo... agora é <span class="text-blue-underline">hora de acelerar</span> seus lucros com um 
-<span class="text-blue-underline">assistente inteligente</span> que faz o <span class="text-blue-underline">trabalho pesado</span> por você!
-</p>
+<p>Você já deu o primeiro passo...<br>
+Agora é <span class="text-blue">hora de acelerar</span> seus lucros com um <span class="text-blue">assistente inteligente</span><br>
+que faz o <span class="text-blue">trabalho pesado</span> por você!</p>
 
-<p class="text-black">
-O <span class="text-blue-underline">Turbo Cash IA</span> é o nosso sistema de inteligência artificial que os 
-<span class="text-blue-underline">maiores ganhadores</span> usam para <span class="text-blue-underline">aumentar</span> os seus ganhos em até 10X!
-</p>
+<p>O <span class="text-blue">Turbo Cash IA</span> é o nosso sistema de inteligência artificial<br>
+que os <span class="text-blue">maiores ganhadores</span> usam para <span class="text-blue">aumentar</span> seus ganhos<br>
+em até 10X!</p>
 
-<p class="text-black">
-Antes: <span style="color:red;">700 MZN ❌</span><br>
-Agora: <span style="color:green;">349 MZN ✅</span>
-</p>
+<p>Antes: <span style="color:red;">700 MZN ❌</span><br>
+Agora: <span style="color:green;">349 MZN ✅</span></p>
 
 <p class="text-red">⚠ Oferta disponível apenas nesta página e por tempo limitado.</p>
 
-<p class="text-green">✅ SIM! ACEITO A OFERTA (BOTÃO)</p>
-<p class="text-red">❌ PULAR (BOTÃO MENOR)</p>
+<!-- Botões -->
+<button class="btn btn-green">✅ SIM! ACEITO A OFERTA</button>
+<button class="btn btn-red">❌ PULAR</button>
 
 </body>
 </html>
-
