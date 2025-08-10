@@ -117,22 +117,39 @@
       Entre agora no Clube Cash Prime por <strong>apenas 149 MZN</strong>.
     </div>
 
-    <!-- Ações -->
-    <div class="actions">
-      <button class="btn btn-green" id="accept">✅ ENTRAR</button>
-      <button class="btn btn-red" id="decline">❌ PULAR</button>
-    </div>
+    <!-- Botões -->
+<div class="actions">
+  <button class="btn btn-green" id="accept">✅ SIM! ACEITO A OFERTA</button>
+  <button class="btn btn-red" id="decline">❌ PULAR</button>
+</div>
 
-  </div>
+<script>
+  // Botão Aceitar -> chama backend do upsell
+  document.getElementById('accept').addEventListener('click', () => {
+    fetch('URL_DO_BACKEND_UPSELL', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        // coloca aqui o que o backend precisa
+        upsellId: 'ID_DO_UPSELL',
+        pedidoId: 'ID_DO_PEDIDO'
+      })
+    })
+    .then(res => res.json())
+    .then(data => {
+      console.log('Upsell processado:', data);
+      // opcional: redirecionar para próximo passo
+      // window.location.href = 'URL_PROXIMA_ETAPA';
+    })
+    .catch(err => console.error('Erro ao processar upsell:', err));
+  });
 
-  <script>
-    document.getElementById('accept').addEventListener('click', () => {
-      // TODO: iniciar requisição do upsell (gateway) – 1-click com PIN
-    });
-    document.getElementById('decline').addEventListener('click', () => {
-      // TODO: redirecionar para a próxima etapa/obrigado
-    });
-  </script>
+  // Botão Negar -> você coloca o link sozinho
+  document.getElementById('decline').addEventListener('click', () => {
+    window.location.href = 'https://lifeboostsecrets.online/obg/';
+  });
+</script>
 </body>
 </html>
+
 
