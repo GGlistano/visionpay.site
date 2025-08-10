@@ -6,7 +6,7 @@
 <title>Página de Oferta</title>
 
 <style>
-  :root{ --green: green; --red: red; --blue: blue; --black:#111; }
+  :root{ --green: green; --red: red; --black:#111; }
   *{ box-sizing:border-box }
   body{
     margin:0; font-family:Arial, sans-serif; color:var(--black);
@@ -27,7 +27,8 @@
     margin:10px auto 6px; border-radius:8px; overflow:hidden; position:relative;
   }
   .progress-bar{
-    width:86%; height:100%; background:#4CAF50; color:#fff;
+    width:68%; /* Atualizado para 68% */
+    height:100%; background:#4CAF50; color:#fff;
     font-size:12px; line-height:20px; font-weight:700;
   }
   .progress-caption{ font-size:12px; color:#666; margin:2px 0 14px; }
@@ -35,7 +36,6 @@
   /* Títulos e cores utilitárias */
   h2{ margin:10px 0 8px; font-size:26px; }
   h3{ margin:10px 0 10px; font-size:18px; }
-  .text-blue{ color:var(--blue); font-weight:700; }
   .text-red{ color:var(--red); font-weight:700; }
   .text-green{ color:var(--green); font-weight:700; }
 
@@ -72,15 +72,15 @@
 
     <!-- Processando -->
     <p class="processing">Processando sua ativação...</p>
-    <div class="progress-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="86" aria-label="Progresso do pedido">
-      <div class="progress-bar">86%</div>
+    <div class="progress-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="68" aria-label="Progresso do pedido">
+      <div class="progress-bar">68%</div>
     </div>
     <div class="progress-caption">(Barra de progresso)</div>
 
     <!-- Chamada -->
     <p>
       ENQUANTO SUA COMPRA PROCESSA…<br>
-      VOCÊ ACABOU DE RECEBER OUTRO <span class="text-blue">BÔNUS EXCLUSIVO</span><br>
+      VOCÊ ACABOU DE RECEBER OUTRO <strong>BÔNUS EXCLUSIVO</strong><br>
       — SOMENTE NESTA PÁGINA!
     </p>
 
@@ -92,12 +92,12 @@
     </div>
 
     <!-- Promessa curta -->
-    <h3>⚡ <span class="text-blue">Multiplique</span> seus ganhos com o poder da nossa <span class="text-blue">Inteligência Artificial</span>!</h3>
+    <h3>⚡ <strong>Multiplique</strong> seus ganhos com o poder da nossa <strong>Inteligência Artificial</strong>!</h3>
 
     <!-- Copy enxuta -->
-    <p>Você já deu o primeiro passo. Agora é <span class="text-blue">hora de acelerar</span> seus lucros com um <span class="text-blue">assistente inteligente</span> que faz o <span class="text-blue">trabalho pesado</span> por você.</p>
+    <p>Você já deu o primeiro passo. Agora é <strong>hora de acelerar</strong> seus lucros com um <strong>assistente inteligente</strong> que faz o <strong>trabalho pesado</strong> por você.</p>
 
-    <p>O <span class="text-blue">Turbo Cash IA</span> é o sistema que os <span class="text-blue">maiores ganhadores</span> usam para <span class="text-blue">aumentar</span> seus ganhos em até 10X.</p>
+    <p>O <strong>Turbo Cash IA</strong> é o sistema que os <strong>maiores ganhadores</strong> usam para <strong>aumentar</strong> seus ganhos em até 10X.</p>
 
     <!-- Preço -->
     <div class="price">
