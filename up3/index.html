@@ -1,184 +1,137 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Upsell 1 — Turbo Cash IA</title>
-  <style>
-    :root{
-      --bg:#0b0b0c;
-      --card:#111216;
-      --muted:#9aa0a6;
-      --text:#e8eaed;
-      --accent:#22c55e; /* verde do CTA */
-      --accent-2:#ef4444; /* vermelho de aviso */
-      --ring:#22c55e33;
-      --radius:18px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: radial-gradient(1000px 600px at 50% -10%, #12131a, var(--bg));
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-    }
-    a{color:inherit}
-    .container{
-      max-width:880px; margin:32px auto; padding:20px; 
-    }
-    .card{
-      background:linear-gradient(180deg,#12141a 0%, #0f1014 100%);
-      border:1px solid #23252e; border-radius:var(--radius);
-      box-shadow:0 20px 40px #0008, inset 0 1px #1d1f28;
-      padding:28px;
-    }
-    /* Banner STOP */
-    .stop-banner{display:flex; justify-content:center;}
-    .stop-banner img{max-width:520px; width:100%; border:2px solid #b91c1c33; border-radius:12px}
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Upsell – Clube Cash Prime</title>
 
-    /* Barra de progresso */
-    .progress-wrap{margin:26px auto 12px; text-align:center; color:var(--muted)}
-    .progress{height:14px; background:#1a1b22; border-radius:999px; border:1px solid #2a2c36; 
-      overflow:hidden; width:min(520px, 92%); margin:8px auto}
-    .progress > span{display:block; height:100%; width:86%; background:linear-gradient(90deg,#16a34a,#22c55e);}
-    .progress-label{font-size:12px; color:#b9bec7}
+<style>
+  :root{ --green: green; --red: red; --black:#111; }
+  *{ box-sizing:border-box }
+  body{
+    margin:0; background:#fff; color:var(--black);
+    font-family:Arial, Helvetica, sans-serif; line-height:1.55; text-align:center;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{ max-width:780px; margin:0 auto; padding:18px 14px 60px; }
 
-    /* Headline & subtítulo */
-    .headline{margin:8px 0 4px; text-align:center; font-weight:800; font-size:32px; letter-spacing:.2px}
-    .sub{color:#c8facc; background:#11361f; border:1px solid #1d4d2b; padding:6px 10px; border-radius:999px; display:inline-flex; gap:8px; align-items:center; font-size:12px}
-    .sub .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 6px var(--ring)}
+  /* Topo alerta */
+  .top-alert{
+    display:inline-block; background:var(--red); color:#fff; font-weight:800;
+    padding:8px 12px; border-radius:6px; letter-spacing:.2px; margin-bottom:10px;
+  }
 
-    /* Imagem do produto */
-    .product-img{display:flex; justify-content:center; margin:22px 0}
-    .product-img img{width:min(420px, 92%); aspect-ratio:1/1; object-fit:cover; border-radius:16px; border:1px solid #252834; box-shadow:0 14px 40px #000a}
+  /* Progresso */
+  .processing{ margin:12px 0 6px; font-weight:700; }
+  .progress{
+    width:86%; max-width:420px; height:20px; background:#ddd;
+    margin:6px auto 6px; border-radius:8px; overflow:hidden;
+  }
+  .bar{
+    width:92%; /* 92% conforme screenshot */
+    height:100%; background:#4CAF50; color:#fff;
+    font-size:12px; font-weight:700; line-height:20px;
+  }
+  .progress-caption{ font-size:12px; color:#666; margin:2px 0 16px; }
 
-    /* Copy */
-    .copy{margin:4px auto 14px; max-width:680px; line-height:1.7; font-size:16px; color:#d9dde3}
-    .copy b{color:#fff}
-    .copy u{ text-underline-offset:3px }
+  /* Títulos */
+  h2{ margin:8px 0 10px; font-size:24px; }
 
-    .badge-line{display:flex; justify-content:center; margin:14px 0}
-    .badge{font-weight:700; font-size:14px; color:#ffd8d8; background:linear-gradient(180deg,#7f1d1d,#991b1b); border:1px solid #b91c1c; padding:8px 12px; border-radius:10px; box-shadow:0 6px 16px #0009}
+  /* Imagem principal */
+  .hero{ max-width:520px; margin:10px auto 12px; }
+  .hero img{ width:100%; height:auto; display:block; border-radius:10px; }
 
-    /* Preços */
-    .prices{display:grid; grid-template-columns:1fr; gap:10px; justify-items:center; margin:10px 0 16px}
-    .price-old{color:#cbd5e1; opacity:.8}
-    .price-old s{opacity:.8}
-    .price-now{font-weight:800; font-size:28px; padding:6px 14px; background:#0b2f17; border:1px solid #1e7a3a; border-radius:12px}
+  /* Texto e listas */
+  p{ margin:8px 0; }
+  .benefits{
+    text-align:left; max-width:620px; margin:10px auto; padding:0 8px;
+  }
+  .benefits li{ margin:8px 0; }
+  .benefits .group{ margin-top:8px; }
 
-    /* CTAs */
-    .cta-wrap{display:grid; gap:10px; max-width:520px; margin:18px auto 6px}
-    .btn{cursor:pointer; border:none; border-radius:14px; padding:16px 18px; font-weight:800; font-size:16px; letter-spacing:.2px}
-    .btn-accept{background:linear-gradient(180deg,#16a34a,#22c55e); color:#021608; box-shadow:0 12px 30px #16a34a55}
-    .btn-accept:disabled{opacity:.6; cursor:not-allowed}
-    .btn-skip{background:transparent; color:#e5e7eb; border:1px solid #2a2f3a}
-    .btn-skip:hover{background:#141620}
+  /* Avisos e preço */
+  .ribbon{
+    display:inline-block; background:var(--red); color:#fff; font-weight:800;
+    padding:8px 10px; border-radius:6px; margin:12px 0;
+  }
+  .price{ margin:10px 0 12px; font-size:18px; }
+  .text-green{ color:var(--green); font-weight:700; }
+  .text-red{ color:var(--red); font-weight:700; }
 
-    /* Aviso menor */
-    .mini{margin-top:2px; text-align:center; color:#9aa3ad; font-size:13px}
+  /* Botões */
+  .actions{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:12px; }
+  .btn{
+    border:none; border-radius:8px; padding:14px 22px; font-size:16px; font-weight:800;
+    color:#fff; cursor:pointer; min-width:220px; transition:transform .06s;
+  }
+  .btn:active{ transform:scale(.98) }
+  .btn-green{ background:var(--green); }
+  .btn-red{ background:var(--red); }
 
-    /* Responsivo */
-    @media (max-width:520px){
-      .headline{font-size:24px}
-      .price-now{font-size:24px}
-    }
-  </style>
+  /* Mobile */
+  @media (max-width:480px){
+    h2{ font-size:22px }
+    .btn{ width:100%; min-width:auto; }
+  }
+</style>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <!-- Banner STOP (troque o src pela sua imagem) -->
-      <div class="stop-banner">
-        <img id="imgStopBanner" src="" alt="Não feche esta página — seu pedido ainda não foi finalizado" />
-      </div>
+  <div class="wrap">
 
-      <!-- Barra de progresso + texto -->
-      <div class="progress-wrap">
-        <div style="font-size:12px; letter-spacing:.2px; color:#c3c8cf">Processando sua ativação…</div>
-        <div class="progress" aria-label="Progresso do pedido">
-          <span style="width:86%" id="progressBar"></span>
-        </div>
-        <div class="progress-label">(Barra de progresso)</div>
-      </div>
+    <!-- Alerta topo -->
+    <div class="top-alert">⚠️ ÚLTIMO PASSO: NÃO FECHE ESTA PÁGINA — SUA ATIVAÇÃO ESTÁ QUASE CONCLUÍDA!</div>
 
-      <!-- Bônus exclusivo / apenas nesta página -->
-      <div style="text-align:center; margin:18px 0 2px; color:#cbd5e1; font-size:13px">
-        ENQUANTO SUA COMPRA PROCESSA… VOCÊ ACABOU DE RECEBER OUTRO
-        <b><u>BÔNUS EXCLUSIVO</u></b> — SOMENTE NESTA PÁGINA!
-      </div>
-
-      <h1 class="headline">Turbo Cash IA</h1>
-      <div style="text-align:center; margin-bottom:12px">
-        <span class="sub"><span class="dot"></span> Oferta relâmpago disponível agora</span>
-      </div>
-
-      <!-- Imagem do produto (troque o src) -->
-      <div class="product-img">
-        <img id="imgProduto" src="upimg1" alt="Imagem do produto Turbo Cash IA" />
-      </div>
-
-      <!-- Copy principal -->
-      <div class="copy">
-        <p>⚡ <u>Multiplique</u> seus ganhos com o poder da nossa <b>Inteligência Artificial</b>!</p>
-        <p>Você já deu o primeiro passo… agora é <b>hora de acelerar</b> seus lucros com um assistente inteligente que faz <b>o trabalho pesado</b> por você.</p>
-        <p>O <b>Turbo Cash IA</b> é o sistema que os <b>maiores ganhadores</b> usam para <b>aumentar</b> os ganhos em até <b>10x</b>.</p>
-      </div>
-
-      <div class="prices">
-        <div class="price-old">Antes: <s>700 MZN</s> ✖️</div>
-        <div class="price-now">Agora: <span id="precoNow">349 MZN</span> ✅</div>
-      </div>
-
-      <div class="badge-line">
-        <div class="badge">⚠️ Oferta disponível apenas nesta página e por tempo limitado.</div>
-      </div>
-
-      <!-- CTAs -->
-      <div class="cta-wrap">
-        <button id="acceptOffer" class="btn btn-accept">✅ SIM! ACEITO A OFERTA</button>
-        <button id="skipOffer" class="btn btn-skip">✖ PULAR</button>
-        <div class="mini">Ao aceitar, processaremos seu upsell automaticamente. Você só precisará confirmar no USSD.</div>
-      </div>
+    <!-- Progresso -->
+    <p class="processing">Processando...</p>
+    <div class="progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="92" aria-label="Progresso do pedido">
+      <div class="bar">92%</div>
     </div>
+    <div class="progress-caption"></div>
+
+    <!-- Título -->
+    <h2>CLUBE CASH PRIME</h2>
+
+    <!-- Imagem principal -->
+    <div class="hero">
+      <img src="imagem/Imagem WhatsApp 2025-08-10 às 20.32.26_8b097997.jpg" alt="Clube Cash Prime">
+    </div>
+
+    <!-- Copy curta -->
+    <p>👑 Torne-se membro do Clube Cash Prime e jogue no nível dos gigantes.</p>
+    <p><strong>Exclusivo</strong> para quem realmente quer viver de renda digital respondendo perguntas. O acesso ao Clube é limitado — esta é sua única chance.</p>
+
+    <!-- Benefícios -->
+    <ul class="benefits">
+      <li>🎁 Tarefas secretas com valores acima da média</li>
+      <li>🎁 Mentorias mensais ao vivo com especialistas</li>
+      <li>🎁 Comunidade fechada para networking e insights</li>
+      <li class="group">🎁 Alertas antecipados com os conteúdos mais pagos</li>
+      <li>🎁 Novidades da plataforma em primeira mão</li>
+    </ul>
+
+    <!-- Aviso -->
+    <div class="ribbon">VAGAS LIMITADAS — Apenas novos membros podem ativar o Clube nesta etapa. Se sair desta página, a chance desaparece.</div>
+
+    <!-- Preço -->
+    <div class="price">
+      Entre agora no Clube Cash Prime por <strong>apenas 149 MZN</strong>.
+    </div>
+
+    <!-- Ações -->
+    <div class="actions">
+      <button class="btn btn-green" id="accept">✅ ENTRAR</button>
+      <button class="btn btn-red" id="decline">❌ PULAR</button>
+    </div>
+
   </div>
 
   <script>
-    // Simulação/gancho de integrações — substitua pelas suas chamadas reais
-    const acceptBtn = document.getElementById('acceptOffer');
-    const skipBtn   = document.getElementById('skipOffer');
-
-    function lockUI(state){
-      acceptBtn.disabled = state; skipBtn.disabled = state;
-      if(state){ acceptBtn.textContent = 'Processando…'; } else { acceptBtn.textContent = '✅ SIM! ACEITO A OFERTA'; }
-    }
-
-    // Chame sua API do gateway aqui reaproveitando o número/sessão do pedido anterior
-    async function onAcceptOffer(){
-      try{
-        lockUI(true);
-        // Exemplo de payload — ajuste aos seus campos reais
-        const payload = { upsell: true, offerId: 'turbo-cash-ia', amount: 349, currency: 'MZN' };
-        // const res = await fetch('/api/upsell/charge', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
-        // const data = await res.json();
-        // if(!res.ok) throw new Error(data?.message || 'Falha no processamento');
-        // Redirecione após sucesso
-        // window.location.href = '/upsell/sucesso';
-        setTimeout(()=>{ lockUI(false); alert('Demo: upsell iniciado. Aqui você exibiria o USSD para confirmar.'); }, 900);
-      }catch(e){
-        lockUI(false);
-        alert('Erro ao processar upsell: ' + e.message);
-      }
-    }
-
-    function onSkip(){
-      // Redirecione para a próxima etapa / obrigado
-      // window.location.href = '/checkout/obrigado';
-      alert('Demo: pular oferta. Redirecione o usuário para a próxima etapa.');
-    }
-
-    acceptBtn.addEventListener('click', onAcceptOffer);
-    skipBtn.addEventListener('click', onSkip);
+    document.getElementById('accept').addEventListener('click', () => {
+      // TODO: iniciar requisição do upsell (gateway) – 1-click com PIN
+    });
+    document.getElementById('decline').addEventListener('click', () => {
+      // TODO: redirecionar para a próxima etapa/obrigado
+    });
   </script>
 </body>
 </html>
