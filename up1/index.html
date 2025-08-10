@@ -8,28 +8,30 @@
         background-color: white;
         font-family: Arial, sans-serif;
         text-align: center;
+        margin: 0;
+        padding: 0;
     }
     .stop-box {
         border: 2px solid red;
         display: inline-block;
         padding: 10px;
         margin: 20px auto;
-    }
-    .stop-box p {
-        margin: 5px 0;
+        max-width: 90%;
+        box-sizing: border-box;
     }
     .stop-text-red {
         color: red;
         font-weight: bold;
-        font-size: 20px;
+        font-size: clamp(16px, 2vw, 22px);
     }
     .stop-small {
-        font-size: 12px;
+        font-size: clamp(10px, 1.2vw, 14px);
         color: black;
     }
     /* Barra de Progresso */
     .progress-container {
-        width: 50%;
+        width: 80%;
+        max-width: 400px;
         background-color: #ddd;
         margin: 20px auto;
         border-radius: 5px;
@@ -44,11 +46,7 @@
         color: white;
         font-size: 12px;
     }
-    .bonus-link {
-        color: blue;
-        font-weight: bold;
-        text-decoration: underline;
-    }
+    /* Cores */
     .text-red {
         color: red;
         font-weight: bold;
@@ -59,6 +57,18 @@
     }
     .text-black {
         color: black;
+    }
+    .text-blue-underline {
+        color: blue;
+        text-decoration: underline;
+        font-weight: bold;
+    }
+    /* Imagens */
+    img {
+        max-width: 90%;
+        height: auto;
+        margin: 10px auto;
+        display: block;
     }
 </style>
 </head>
@@ -77,21 +87,30 @@
 </div>
 <p class="text-black">(Barra de progresso)</p>
 
-<p>ENQUANTO SUA COMPRA PROCESSA... VOCÊ ACABOU DE RECEBER OUTRO <a class="bonus-link" href="#">BÔNUS EXCLUSIVO</a> — SOMENTE NESTA PÁGINA!</p>
+<p>ENQUANTO SUA COMPRA PROCESSA... VOCÊ ACABOU DE RECEBER OUTRO 
+<span class="text-blue-underline">BÔNUS EXCLUSIVO</span> — SOMENTE NESTA PÁGINA!</p>
 
 <p><strong>Turbo Cash IA</strong></p>
 
 <!-- Espaço para Imagem -->
- <img src="imagem/upimg1.jpg" alt="Turbo Cash IA"> -->
+<!-- <img src="CAMINHO_DA_IMAGEM_AQUI" alt="Turbo Cash IA"> -->
 
-<h3>⚡ <a class="bonus-link" href="#">Multiplique</a> Seus Ganhos Com o Poder da nossa <a class="bonus-link" href="#">Inteligência Artificial</a>!</h3>
+<h3>⚡ <span class="text-blue-underline">Multiplique</span> Seus Ganhos Com o Poder da nossa <span class="text-blue-underline">Inteligência Artificial</span>!</h3>
 
-<p class="text-black">Você já deu o primeiro passo... agora é <a class="bonus-link" href="#">hora de acelerar</a> seus lucros com um <a class="bonus-link" href="#">assistente inteligente</a> que faz o <a class="bonus-link" href="#">trabalho pesado</a> por você!</p>
+<p class="text-black">
+Você já deu o primeiro passo... agora é <span class="text-blue-underline">hora de acelerar</span> seus lucros com um 
+<span class="text-blue-underline">assistente inteligente</span> que faz o <span class="text-blue-underline">trabalho pesado</span> por você!
+</p>
 
-<p class="text-black">O <a class="bonus-link" href="#">Turbo Cash IA</a> é o nosso sistema de inteligência artificial que os <a class="bonus-link" href="#">maiores ganhadores</a> usam para <a class="bonus-link" href="#">aumentar</a> os seus ganhos em até 10X!</p>
+<p class="text-black">
+O <span class="text-blue-underline">Turbo Cash IA</span> é o nosso sistema de inteligência artificial que os 
+<span class="text-blue-underline">maiores ganhadores</span> usam para <span class="text-blue-underline">aumentar</span> os seus ganhos em até 10X!
+</p>
 
-<p class="text-black">Antes: <span style="color:red;">700 MZN ❌</span><br>
-Agora: <span style="color:green;">349 MZN ✅</span></p>
+<p class="text-black">
+Antes: <span style="color:red;">700 MZN ❌</span><br>
+Agora: <span style="color:green;">349 MZN ✅</span>
+</p>
 
 <p class="text-red">⚠ Oferta disponível apenas nesta página e por tempo limitado.</p>
 
