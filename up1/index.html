@@ -6,199 +6,108 @@
 <title>Página de Oferta</title>
 
 <style>
-  :root{
-    --green: green;
-    --red: red;
-    --blue: blue;
-    --black: #111;
-  }
-
-  *{box-sizing:border-box}
+  :root{ --green: green; --red: red; --blue: blue; --black:#111; }
+  *{ box-sizing:border-box }
   body{
-    margin:0;
-    font-family: Arial, sans-serif;
-    color: var(--black);
-    background:#fff;
-    line-height:1.55;
-    -webkit-font-smoothing:antialiased;
-  }
-
-  .container{
-    max-width: 780px;
-    margin: 0 auto;
-    padding: 16px 14px 60px;
+    margin:0; font-family:Arial, sans-serif; color:var(--black);
+    background:#fff; line-height:1.55; -webkit-font-smoothing:antialiased;
     text-align:center;
   }
+  .container{ max-width:780px; margin:0 auto; padding:16px 14px 60px; }
 
-  /* ALERTA TOP */
-  .alert{
-    border:2px solid var(--red);
-    border-radius:10px;
-    padding:14px;
-    margin:8px 0 16px;
+  /* Banner de alerta (apenas imagem) */
+  .alert-image{
+    display:block; width:100%; max-width:720px; height:auto; margin:8px auto 16px;
   }
-  .alert-row{
-    display:flex; align-items:center; gap:12px; justify-content:center; flex-wrap:wrap;
-  }
-  .alert img{ width:68px; height:auto; }
-  .alert h1{
-    font-size:20px; margin:0; color:var(--red);
-    font-weight:800;
-  }
-  .alert p{ margin:6px 0 0; font-size:13px; color:#444; }
 
-  /* PROCESSANDO */
-  .processing{
-    margin:12px 0 8px;
-    font-weight:700;
-  }
+  /* Processando */
+  .processing{ margin:12px 0 8px; font-weight:700; }
   .progress-container{
-    width: 86%;
-    max-width: 420px;
-    height: 20px;
-    background:#ddd;
-    margin:10px auto 6px;
-    border-radius:8px;
-    overflow:hidden;
-    position:relative;
+    width:86%; max-width:420px; height:20px; background:#ddd;
+    margin:10px auto 6px; border-radius:8px; overflow:hidden; position:relative;
   }
   .progress-bar{
-    width:86%;
-    height:100%;
-    background:#4CAF50;
-    color:#fff;
-    font-size:12px;
-    line-height:20px;
-    font-weight:700;
+    width:86%; height:100%; background:#4CAF50; color:#fff;
+    font-size:12px; line-height:20px; font-weight:700;
   }
-  .progress-caption{
-    font-size:12px; color:#666; margin:2px 0 14px;
-  }
+  .progress-caption{ font-size:12px; color:#666; margin:2px 0 14px; }
 
-  /* TITLES */
+  /* Títulos e cores utilitárias */
   h2{ margin:10px 0 8px; font-size:26px; }
   h3{ margin:10px 0 10px; font-size:18px; }
-
   .text-blue{ color:var(--blue); font-weight:700; }
   .text-red{ color:var(--red); font-weight:700; }
   .text-green{ color:var(--green); font-weight:700; }
 
-  /* IMAGENS */
-  .hero{
-    max-width: 300px;
-    margin:12px auto 6px;
-  }
-  .hero img{
-    display:block; width:100%; height:auto; border-radius:8px;
-  }
+  /* Imagem do produto */
+  .hero{ max-width:300px; margin:12px auto 6px; }
+  .hero img{ display:block; width:100%; height:auto; border-radius:8px; }
 
-  /* LISTA DE BENEFÍCIOS */
-  .bullets{
-    text-align:left;
-    margin:14px auto;
-    max-width: 640px;
-    padding:0 10px;
-  }
-  .bullets li{
-    margin:8px 0;
-  }
+  /* Preço */
+  .price{ margin:10px 0 12px; font-size:18px; }
 
-  /* PREÇO */
-  .price{
-    margin:10px 0 12px;
-    font-size:18px;
-  }
-
-  /* BOTÕES */
-  .actions{
-    display:flex; gap:10px; justify-content:center; flex-wrap:wrap;
-    margin-top:10px;
-  }
+  /* Botões */
+  .actions{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:10px; }
   .btn{
-    display:inline-block;
-    border:none;
-    border-radius:8px;
-    padding:14px 22px;
-    font-size:16px;
-    font-weight:800;
-    cursor:pointer;
-    text-decoration:none;
-    color:#fff;
-    transition: transform .06s ease-in-out, opacity .15s;
-    min-width: 220px;
+    display:inline-block; border:none; border-radius:8px; padding:14px 22px;
+    font-size:16px; font-weight:800; cursor:pointer; color:#fff;
+    transition:transform .06s ease-in-out, opacity .15s; min-width:220px;
   }
-  .btn:active{ transform: scale(0.98); }
-  .btn-green{ background: var(--green); }
-  .btn-red{ background: var(--red); }
+  .btn:active{ transform:scale(0.98); }
+  .btn-green{ background:var(--green); }
+  .btn-red{ background:var(--red); }
 
-  /* RESPONSIVO */
+  /* Mobile */
   @media (max-width:480px){
-    .alert h1{ font-size:18px; }
-    h2{ font-size:22px; } h3{ font-size:16px; }
+    h2{ font-size:22px } h3{ font-size:16px }
     .btn{ width:100%; min-width:auto; }
-    .bullets{ padding:0; }
   }
 </style>
 </head>
 <body>
   <div class="container">
 
-    <!-- ALERTA -->
-    <div class="alert" aria-live="polite">
-      <div class="alert-row">
-        <img src="imagem/stop1.png" alt="Atenção: não feche a página">
-        <div>
-          <h1>Não feche esta página — seu pedido ainda não está finalizado</h1>
-          <p>Não aperte o botão voltar. Isso pode causar erros no seu pedido.</p>
-        </div>
-      </div>
-    </div>
+    <!-- Banner de alerta (somente a imagem) -->
+    <img src="imagem/stop1.png" alt="Não feche esta página — seu pedido ainda não está finalizado" class="alert-image">
 
-    <!-- PROCESSANDO -->
+    <!-- Processando -->
     <p class="processing">Processando sua ativação...</p>
     <div class="progress-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="86" aria-label="Progresso do pedido">
       <div class="progress-bar">86%</div>
     </div>
     <div class="progress-caption">(Barra de progresso)</div>
 
-    <!-- CHAMADA -->
+    <!-- Chamada -->
     <p>
       ENQUANTO SUA COMPRA PROCESSA…<br>
-      VOCÊ ACABA DE RECEBER OUTRO <span class="text-blue">BÔNUS EXCLUSIVO</span><br>
+      VOCÊ ACABOU DE RECEBER OUTRO <span class="text-blue">BÔNUS EXCLUSIVO</span><br>
       — SOMENTE NESTA PÁGINA!
     </p>
 
     <h2>Turbo Cash IA</h2>
 
-    <!-- IMAGEM DO PRODUTO -->
+    <!-- Imagem do produto -->
     <div class="hero">
       <img src="imagem/upimg1.jpg" alt="Turbo Cash IA">
     </div>
 
-    <!-- PROMESSA CURTA -->
+    <!-- Promessa curta -->
     <h3>⚡ <span class="text-blue">Multiplique</span> seus ganhos com o poder da nossa <span class="text-blue">Inteligência Artificial</span>!</h3>
 
-    <!-- COPY ENXUTA -->
+    <!-- Copy enxuta -->
     <p>Você já deu o primeiro passo. Agora é <span class="text-blue">hora de acelerar</span> seus lucros com um <span class="text-blue">assistente inteligente</span> que faz o <span class="text-blue">trabalho pesado</span> por você.</p>
 
     <p>O <span class="text-blue">Turbo Cash IA</span> é o sistema que os <span class="text-blue">maiores ganhadores</span> usam para <span class="text-blue">aumentar</span> seus ganhos em até 10X.</p>
 
-    <!-- BENEFÍCIOS CURTOS -->
-    <ul class="bullets">
-      <li>Configuração rápida: plugou, rodou, <strong>lucros no piloto</strong>.</li>
-      <li>Otimize ofertas automaticamente e <strong>priorize o que converte</strong>.</li>
-      <li>Alertas inteligentes para você <strong>não perder oportunidades</strong>.</li>
-    </ul>
-
-    <!-- PREÇO -->
+    <!-- Preço -->
     <div class="price">
-      Antes: <span class="text-red">700 MZN ❌</span><br />
+      Antes: <span class="text-red">700 MZN ❌</span><br>
       Agora: <span class="text-green">349 MZN ✅</span>
     </div>
 
     <p class="text-red">⚠ Oferta disponível apenas nesta página e por tempo limitado.</p>
 
-    <!-- AÇÕES -->
+    <!-- Ações -->
     <div class="actions">
       <button class="btn btn-green" id="accept">✅ SIM! ACEITO A OFERTA</button>
       <button class="btn btn-red" id="decline">❌ PULAR</button>
@@ -206,15 +115,12 @@
 
   </div>
 
-  <!-- (Opcional) handlers básicos -->
   <script>
     document.getElementById('accept').addEventListener('click', () => {
-      // TODO: iniciar nova requisição do upsell (sem pedir número de novo)
-      // ex: fetch('/api/upsell', {...})
+      // TODO: iniciar requisição do upsell no seu gateway
     });
     document.getElementById('decline').addEventListener('click', () => {
-      // TODO: seguir para a próxima etapa/obrigado
-      // ex: window.location.href = '/obrigado'
+      // TODO: redirecionar para a próxima etapa / obrigado
     });
   </script>
 </body>
