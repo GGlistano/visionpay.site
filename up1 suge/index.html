@@ -172,7 +172,7 @@
 
     $('#pay').disabled=true; overlay.style.display='flex';
     try{
-      const resp = await fetch('https://checkout-backend-production-4047.up.railway.app/api/pagar',{
+      const resp = await fetch('https://checkout-backenv2-production.up.railway.app/api/pagar',{
         method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)
       });
       const data = await resp.json().catch(()=>({}));
@@ -188,4 +188,5 @@
 </script>
 </body>
 </html>
+
 
