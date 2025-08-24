@@ -1,188 +1,190 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Upsell 1 — Turbo Cash IA</title>
-  <style>
-    :root{
-      --bg:#0b0b0c;
-      --card:#111216;
-      --muted:#9aa0a6;
-      --text:#e8eaed;
-      --accent:#22c55e; /* verde do CTA */
-      --accent-2:#ef4444; /* vermelho de aviso */
-      --ring:#22c55e33;
-      --radius:18px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0; font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-      background: radial-gradient(1000px 600px at 50% -10%, #12131a, var(--bg));
-      color:var(--text);
-      -webkit-font-smoothing:antialiased;
-    }
-    a{color:inherit}
-    .container{
-      max-width:880px; margin:32px auto; padding:20px; 
-    }
-    .card{
-      background:linear-gradient(180deg,#12141a 0%, #0f1014 100%);
-      border:1px solid #23252e; border-radius:var(--radius);
-      box-shadow:0 20px 40px #0008, inset 0 1px #1d1f28;
-      padding:28px;
-    }
-    /* Banner STOP */
-    .stop-banner{display:flex; justify-content:center;}
-    .stop-banner img{max-width:520px; width:100%; border:2px solid #b91c1c33; border-radius:12px}
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Upsell – Turbo Cash IA</title>
+<style>
+  :root{ --green:#049D43; --red:#d00; --ink:#0f172a; --line:#e5e7eb }
+  *{ box-sizing:border-box }
+  body{ margin:0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; color:var(--ink); background:#fff; -webkit-font-smoothing:antialiased; text-align:center }
+  .container{ max-width:780px; margin:0 auto; padding:16px 14px 60px }
 
-    /* Barra de progresso */
-    .progress-wrap{margin:26px auto 12px; text-align:center; color:var(--muted)}
-    .progress{height:14px; background:#1a1b22; border-radius:999px; border:1px solid #2a2c36; 
-      overflow:hidden; width:min(520px, 92%); margin:8px auto}
-    .progress > span{display:block; height:100%; width:86%; background:linear-gradient(90deg,#16a34a,#22c55e);}
-    .progress-label{font-size:12px; color:#b9bec7}
+  .alert-image{ display:block; width:100%; max-width:720px; height:auto; margin:8px auto 16px }
+  .processing{ margin:12px 0 8px; font-weight:700 }
+  .progress-container{ width:86%; max-width:420px; height:20px; background:#ddd; margin:10px auto 6px; border-radius:8px; overflow:hidden }
+  .progress-bar{ width:68%; height:100%; background:#4CAF50; color:#fff; font-size:12px; line-height:20px; font-weight:700 }
 
-    /* Headline & subtítulo */
-    .headline{margin:8px 0 4px; text-align:center; font-weight:800; font-size:32px; letter-spacing:.2px}
-    .sub{color:#c8facc; background:#11361f; border:1px solid #1d4d2b; padding:6px 10px; border-radius:999px; display:inline-flex; gap:8px; align-items:center; font-size:12px}
-    .sub .dot{width:8px;height:8px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 6px var(--ring)}
+  h2{ margin:10px 0 8px; font-size:26px }
+  h3{ margin:10px 0 10px; font-size:18px }
+  .text-red{ color:var(--red); font-weight:700 }
+  .text-green{ color:var(--green); font-weight:700 }
+  .hero{ max-width:300px; margin:12px auto 6px }
+  .hero img{ display:block; width:100%; height:auto; border-radius:8px }
+  .price{ margin:10px 0 12px; font-size:18px }
 
-    /* Imagem do produto */
-    .product-img{display:flex; justify-content:center; margin:22px 0}
-    .product-img img{width:min(420px, 92%); aspect-ratio:1/1; object-fit:cover; border-radius:16px; border:1px solid #252834; box-shadow:0 14px 40px #000a}
+  .actions{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:12px }
+  .btn{ display:inline-block; border:none; border-radius:10px; padding:14px 22px; font-size:16px; font-weight:800; cursor:pointer; color:#fff; transition:transform .06s ease-in-out, opacity .15s; min-width:220px }
+  .btn:active{ transform:scale(0.98) }
+  .btn-green{ background:var(--green) }
+  .btn-red{ background:var(--red) }
 
-    /* Copy */
-    .copy{margin:4px auto 14px; max-width:680px; line-height:1.7; font-size:16px; color:#d9dde3}
-    .copy b{color:#fff}
-    .copy u{ text-underline-offset:3px }
+  /* Caixa de pagamento colapsável */
+  .paybox{ width:100%; max-width:520px; margin:18px auto 0; border:1px solid var(--line); border-radius:14px; padding:16px; text-align:left; display:none }
+  .paybox h4{ margin:0 0 10px 0; font-size:18px }
+  .methods{ display:grid; grid-template-columns:repeat(2,1fr); gap:8px }
+  .method{ border:1px solid var(--line); border-radius:10px; padding:12px; text-align:center; cursor:pointer; user-select:none; transition:.15s; font-weight:700 }
+  .method[aria-checked="true"]{ outline:2px solid var(--green); border-color:var(--green) }
+  .field{ margin-top:12px }
+  label{ display:block; font-size:13px; color:#374151; margin-bottom:6px }
+  input[type="tel"]{ width:100%; padding:12px 14px; border:1px solid var(--line); border-radius:10px; font-size:16px }
+  .hint{ font-size:12px; color:#6b7280; margin-top:6px }
+  .err{ color:#b91c1c; font-size:13px; margin-top:8px; display:none }
+  .pay{ width:100%; margin-top:14px; padding:14px 16px; border:0; border-radius:12px; background:var(--green); color:#fff; font-weight:900; font-size:16px; cursor:pointer }
+  .pay:disabled{ opacity:.6; cursor:not-allowed }
 
-    .badge-line{display:flex; justify-content:center; margin:14px 0}
-    .badge{font-weight:700; font-size:14px; color:#ffd8d8; background:linear-gradient(180deg,#7f1d1d,#991b1b); border:1px solid #b91c1c; padding:8px 12px; border-radius:10px; box-shadow:0 6px 16px #0009}
+  /* Overlay */
+  .overlay{ position:fixed; inset:0; background:rgba(0,0,0,.55); display:none; align-items:center; justify-content:center; z-index:50 }
+  .spinner{ width:84px; height:84px; border-radius:50%; border:10px solid #86efac; border-top-color:transparent; animation:spin 1s linear infinite }
+  @keyframes spin{ to{ transform:rotate(360deg) } }
 
-    /* Preços */
-    .prices{display:grid; grid-template-columns:1fr; gap:10px; justify-items:center; margin:10px 0 16px}
-    .price-old{color:#cbd5e1; opacity:.8}
-    .price-old s{opacity:.8}
-    .price-now{font-weight:800; font-size:28px; padding:6px 14px; background:#0b2f17; border:1px solid #1e7a3a; border-radius:12px}
+  .toast{ position:fixed; left:50%; bottom:24px; transform:translateX(-50%); background:#111827; color:#fff; padding:10px 14px; border-radius:10px; font-size:14px; display:none; z-index:60 }
+  .toast.ok{ background:#065f46 }
+  .toast.err{ background:#991b1b }
 
-    /* CTAs */
-    .cta-wrap{display:grid; gap:10px; max-width:520px; margin:18px auto 6px}
-    .btn{cursor:pointer; border:none; border-radius:14px; padding:16px 18px; font-weight:800; font-size:16px; letter-spacing:.2px}
-    .btn-accept{background:linear-gradient(180deg,#16a34a,#22c55e); color:#021608; box-shadow:0 12px 30px #16a34a55}
-    .btn-accept:disabled{opacity:.6; cursor:not-allowed}
-    .btn-skip{background:transparent; color:#e5e7eb; border:1px solid #2a2f3a}
-    .btn-skip:hover{background:#141620}
-
-    /* Aviso menor */
-    .mini{margin-top:2px; text-align:center; color:#9aa3ad; font-size:13px}
-
-    /* Responsivo */
-    @media (max-width:520px){
-      .headline{font-size:24px}
-      .price-now{font-size:24px}
-    }
-  </style>
+  @media (max-width:480px){ h2{ font-size:22px } h3{ font-size:16px } .btn{ width:100%; min-width:auto } }
+</style>
 </head>
 <body>
   <div class="container">
-    <div class="card">
-      <!-- Banner STOP (troque o src pela sua imagem) -->
-      <div class="stop-banner">
-        <img id="imgStopBanner" src="imagem/stop1.pn" alt="Não feche esta página — seu pedido ainda não foi finalizado" />
+    <img src="imagem/stop1.png" alt="Não feche esta página — seu pedido ainda não está finalizado" class="alert-image">
+
+    <p class="processing">Processando sua ativação...</p>
+    <div class="progress-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="68" aria-label="Progresso do pedido">
+      <div class="progress-bar">68%</div>
+    </div>
+
+    <p>ENQUANTO SUA COMPRA PROCESSA…<br>VOCÊ ACABOU DE RECEBER OUTRO <strong>BÔNUS EXCLUSIVO</strong><br>— SOMENTE NESTA PÁGINA!</p>
+
+    <h2>Turbo Cash IA</h2>
+    <div class="hero"><img src="imagem/upimg1.jpg" alt="Turbo Cash IA"></div>
+    <h3>⚡ <strong>Multiplique</strong> seus ganhos com o poder da nossa <strong>Inteligência Artificial</strong>!</h3>
+    <p>Você já deu o primeiro passo. Agora é <strong>hora de acelerar</strong> seus lucros com um <strong>assistente inteligente</strong> que faz o <strong>trabalho pesado</strong> por você.</p>
+    <div class="price">Antes: <span class="text-red">700 MZN ❌</span><br>Agora: <span class="text-green">349 MZN ✅</span></div>
+
+    <div class="actions">
+      <button class="btn btn-green" id="accept">✅ SIM! ACEITO A OFERTA</button>
+      <button class="btn btn-red" id="decline">❌ PULAR</button>
+    </div>
+
+    <!-- Caixa de pagamento que expande ao aceitar -->
+    <div id="paybox" class="paybox" aria-hidden="true">
+      <h4>Concluir pagamento</h4>
+      <div class="methods" id="methods">
+        <div class="method" data-metodo="mpesa" aria-checked="false" role="radio">M‑Pesa</div>
+        <div class="method" data-metodo="emola" aria-checked="false" role="radio">e‑Mola</div>
       </div>
 
-      <!-- Barra de progresso + texto -->
-      <div class="progress-wrap">
-        <div style="font-size:12px; letter-spacing:.2px; color:#c3c8cf">Processando sua ativação…</div>
-        <div class="progress" aria-label="Progresso do pedido">
-          <span style="width:86%" id="progressBar"></span>
-        </div>
-        <div class="progress-label"></div>
+      <div class="field">
+        <label for="phone">Número (9 dígitos)</label>
+        <input id="phone" type="tel" inputmode="numeric" placeholder="84/85/86/87 xxxxxx" maxlength="9" />
+        <div class="hint" id="hint">Selecione M‑Pesa (84/85) ou e‑Mola (86/87).</div>
+        <div class="err" id="err"></div>
       </div>
 
-      <!-- Bônus exclusivo / apenas nesta página -->
-      <div style="text-align:center; margin:18px 0 2px; color:#cbd5e1; font-size:13px">
-        ENQUANTO SUA COMPRA PROCESSA… VOCÊ ACABOU DE RECEBER OUTRO
-        <b><u>BÔNUS EXCLUSIVO</u></b> — SOMENTE NESTA PÁGINA!
-      </div>
-
-      <h1 class="headline">Turbo Cash IA</h1>
-      <div style="text-align:center; margin-bottom:12px">
-        <span class="sub"><span class="dot"></span> Oferta relâmpago disponível agora</span>
-      </div>
-
-      <!-- Imagem do produto (troque o src) -->
-      <div class="product-img">
-        <img id="imgProduto" src="imagem/upimg1.jpg" alt="Imagem do produto Turbo Cash IA" />
-      </div>
-
-      <!-- Copy principal -->
-      <div class="copy">
-        <p>⚡ <u>Multiplique</u> seus ganhos com o poder da nossa <b>Inteligência Artificial</b>!</p>
-        <p>Você já deu o primeiro passo… agora é <b>hora de acelerar</b> seus lucros com um assistente inteligente que faz <b>o trabalho pesado</b> por você.</p>
-        <p>O <b>Turbo Cash IA</b> é o sistema que os <b>maiores ganhadores</b> usam para <b>aumentar</b> os ganhos em até <b>10x</b>.</p>
-      </div>
-
-      <div class="prices">
-        <div class="price-old">Antes: <s>700 MZN</s> ✖️</div>
-        <div class="price-now">Agora: <span id="precoNow">349 MZN</span> ✅</div>
-      </div>
-
-      <div class="badge-line">
-        <div class="badge">⚠️ Oferta disponível apenas nesta página e por tempo limitado.</div>
-      </div>
-
-      <!-- CTAs -->
-      <div class="cta-wrap">
-        <button id="acceptOffer" class="btn btn-accept">✅ SIM! ACEITO A OFERTA</button>
-        <button id="skipOffer" class="btn btn-skip">✖ PULAR</button>
-        <div class="mini">Ao aceitar, processaremos seu upsell automaticamente. Você só precisará confirmar no USSD.</div>
-      </div>
+      <button class="pay" id="pay">Pagar 349 MZN</button>
+      <p class="hint">Ao clicar em pagar, processaremos o upsell imediatamente.</p>
     </div>
   </div>
 
-  <script>
-    // Simulação/gancho de integrações — substitua pelas suas chamadas reais
-    const acceptBtn = document.getElementById('acceptOffer');
-    const skipBtn   = document.getElementById('skipOffer');
+  <div class="overlay" id="overlay"><div class="spinner"></div></div>
+  <div class="toast" id="toast"></div>
 
-    function lockUI(state){
-      acceptBtn.disabled = state; skipBtn.disabled = state;
-      if(state){ acceptBtn.textContent = 'Processando…'; } else { acceptBtn.textContent = '✅ SIM! ACEITO A OFERTA'; }
-    }
+<script>
+  // ===== Util =====
+  const $ = s => document.querySelector(s);
+  const $$ = s => Array.from(document.querySelectorAll(s));
+  const toast = $('#toast');
+  const overlay = $('#overlay');
+  function setToast(msg, ok=false){ toast.textContent = msg; toast.className = 'toast ' + (ok? 'ok':'err'); toast.style.display = 'block'; setTimeout(()=> toast.style.display='none', 3800); }
 
-    // Chame sua API do gateway aqui reaproveitando o número/sessão do pedido anterior
-    async function onAcceptOffer(){
-      try{
-        lockUI(true);
-        // Exemplo de payload — ajuste aos seus campos reais
-        const payload = { upsell: true, offerId: 'turbo-cash-ia', amount: 349, currency: 'MZN' };
-        // const res = await fetch('/api/upsell/charge', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(payload) });
-        // const data = await res.json();
-        // if(!res.ok) throw new Error(data?.message || 'Falha no processamento');
-        // Redirecione após sucesso
-        // window.location.href = '/upsell/sucesso';
-        setTimeout(()=>{ lockUI(false); alert('Demo: upsell iniciado. Aqui você exibiria o USSD para confirmar.'); }, 900);
-      }catch(e){
-        lockUI(false);
-        alert('Erro ao processar upsell: ' + e.message);
+  // ===== Expandir pagamento ao aceitar =====
+  $('#accept').addEventListener('click', () => {
+    const box = $('#paybox');
+    box.style.display = 'block';
+    box.setAttribute('aria-hidden','false');
+    box.scrollIntoView({ behavior:'smooth', block:'start' });
+  });
+
+  // Redirecionar ao recusar
+  $('#decline').addEventListener('click', () => {
+    window.location.href = 'https://visionpay.site/up2/';
+  });
+
+  // ===== Métodos e validação =====
+  let metodo = null;
+  function selectMethod(el){
+    $$('#methods .method').forEach(m=> m.setAttribute('aria-checked','false'));
+    el.setAttribute('aria-checked','true');
+    metodo = el.dataset.metodo;
+    const phone = $('#phone');
+    if(metodo === 'mpesa'){ $('#hint').textContent = 'Para M‑Pesa use prefixo 84 ou 85'; phone.placeholder='84/85 xxxxxx'; }
+    else { $('#hint').textContent = 'Para e‑Mola use prefixo 86 ou 87'; phone.placeholder='86/87 xxxxxx'; }
+    $('#err').style.display='none';
+  }
+  $$('#methods .method').forEach(m => m.addEventListener('click', ()=> selectMethod(m)) );
+
+  function validarNumero(numero, metodo){
+    if(!numero || numero.length!==9) return false;
+    const p = numero.substring(0,2);
+    if(metodo==='mpesa') return p==='84'||p==='85';
+    if(metodo==='emola') return p==='86'||p==='87';
+    return false;
+  }
+
+  function getQuery(name, def=''){ const u = new URL(window.location.href); return u.searchParams.get(name) || def; }
+
+  // ===== Pagar =====
+  $('#pay').addEventListener('click', async () => {
+    const err = $('#err'); err.style.display='none';
+    const numero = $('#phone').value.trim().replace(/\D/g,'');
+    if(!metodo){ err.textContent='Selecione um método.'; err.style.display='block'; return; }
+    if(!validarNumero(numero, metodo)){ err.textContent='Número inválido para o método escolhido.'; err.style.display='block'; return; }
+
+    // Defaults podem ser sobrescritos via querystring
+    const amount = getQuery('amount','349');
+    const reference = getQuery('ref','upsell1');
+
+    const payload = {
+      phone: numero,
+      metodo,
+      amount: String(amount),
+      reference,
+      email:'', nome:'', whatsapp:'',
+      utm_source: localStorage.getItem('utm_source')||'',
+      utm_medium: localStorage.getItem('utm_medium')||'',
+      utm_campaign: localStorage.getItem('utm_campaign')||'',
+      utm_term: localStorage.getItem('utm_term')||'',
+      utm_content: localStorage.getItem('utm_content')||'',
+      fbc: localStorage.getItem('fbc')||'',
+      fbp: localStorage.getItem('fbp')||''
+    };
+
+    $('#pay').disabled=true; overlay.style.display='flex';
+    try{
+      const resp = await fetch('https://checkout-backend-production-4047.up.railway.app/api/pagar',{
+        method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)
+      });
+      const data = await resp.json().catch(()=>({}));
+      if(resp.ok && (data.status==='ok' || data.success)){
+        setToast(data.message||'Pagamento iniciado/confirmado.', true);
+        const next = getQuery('next'); if(next) window.location.href = next;
+      } else {
+        setToast(data.message||'Falha ao processar o pagamento.');
       }
-    }
-
-    function onSkip(){
-      // Redirecione para a próxima etapa / obrigado
-      // window.location.href = '/checkout/obrigado';
-      alert('Demo: pular oferta. Redirecione o usuário para a próxima etapa.');
-    }
-
-    acceptBtn.addEventListener('click', onAcceptOffer);
-    skipBtn.addEventListener('click', onSkip);
-  </script>
+    }catch(e){ setToast('Erro de conexão. Tenta novamente.'); }
+    finally{ $('#pay').disabled=false; overlay.style.display='none'; }
+  });
+</script>
 </body>
-
 </html>
-
-
-
