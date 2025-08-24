@@ -276,7 +276,7 @@ body {
       <img src="images/job img.jpg" alt="Produto" />
       <div class="info">
         <div class="name">Job em dolar</div>
-        <div class="price">197,00 MZN</div>
+        <div class="price">300,00 MZN</div>
       </div>
     </div>
 
@@ -330,7 +330,7 @@ body {
 
     <div class="secure-payment">Pagamento seguro</div>
 
-    <button class="btn" id="pagar-btn">Finalizar compra 197,00 MZN</button>
+    <button class="btn" id="pagar-btn">Finalizar compra 300,00 MZN</button>
     <div id="pagamento-status" style="display:none; margin-top: 16px; text-align: center; font-weight: bold; color: #2c3e50;"></div>
     <div class="terms">
       Compra segura com criptografia. Ao finalizar, você aceita os termos.<br />
@@ -422,13 +422,13 @@ body {
 
    try {
      const whatsapp = document.getElementById('whatsapp-input');
-  const resposta = await fetch('https://backbolt-production.up.railway.app/api/pagar', {
+  const resposta = await fetch('https://checkout-backenv2-production.up.railway.app/api/pagar', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
       phone: numero,
       whatsapp: whatsapp.value.trim(),
-      amount: "2",
+      amount: "300",
       reference: "check",
       metodo: metodo,
       email: email.value.trim(),
