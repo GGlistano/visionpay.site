@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<!DOCTYPE html><html lang="pt-BR"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Upsell – Turbo Cash IA</title>
 <style>
   :root{ --green:#049D43; --red:#d00; --ink:#0f172a; --line:#e5e7eb }
@@ -57,20 +56,18 @@
 </head>
 <body>
   <div class="container">
-    <img src="imagem/stop1.png" alt="Não feche esta página — seu pedido ainda não está finalizado" class="alert-image">
+    <img src="images/stop1.png" alt="Não feche esta página — seu pedido ainda não está finalizado" class="alert-image">
 
     <p class="processing">Processando sua ativação...</p>
     <div class="progress-container" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="68" aria-label="Progresso do pedido">
       <div class="progress-bar">68%</div>
     </div>
 
-    <p>ENQUANTO SUA COMPRA PROCESSA…<br>VOCÊ ACABOU DE RECEBER OUTRO <strong>BÔNUS EXCLUSIVO</strong><br>— SOMENTE NESTA PÁGINA!</p>
+    <p>ENQUANTO SUA COMPRA PROCESSA…<br>VOCÊ ACABOU DE RECEBER OUTRO <strong>BÔNUS EXCLUSIVO</strong><br> SOMENTE NESTA PÁGINA!</p>
 
-    <h2>Turbo Cash IA</h2>
-    <div class="hero"><img src="imagem/upimg1.jpg" alt="Turbo Cash IA"></div>
+<vturb-smartplayer id="vid-68c72b688d74d8c4f6098eed" style="display: block; margin: 0 auto; width: 100%; "></vturb-smartplayer> <script type="text/javascript"> var s=document.createElement("script"); s.src="https://scripts.converteai.net/9d93e4b2-3654-4bea-bda0-107c1328d520/players/68c72b688d74d8c4f6098eed/v4/player.js", s.async=!0,document.head.appendChild(s); </script>
     <h3>⚡ <strong>Multiplique</strong> seus ganhos com o poder da nossa <strong>Inteligência Artificial</strong>!</h3>
     <p>Você já deu o primeiro passo. Agora é <strong>hora de acelerar</strong> seus lucros com um <strong>assistente inteligente</strong> que faz o <strong>trabalho pesado</strong> por você.</p>
-    <div class="price">Antes: <span class="text-red">700 MZN ❌</span><br>Agora: <span class="text-green">349 MZN ✅</span></div>
 
     <div class="actions">
       <button class="btn btn-green" id="accept">✅ SIM! ACEITO A OFERTA</button>
@@ -87,7 +84,7 @@
 
       <div class="field">
         <label for="phone">Número (9 dígitos)</label>
-        <input id="phone" type="tel" inputmode="numeric" placeholder="84/85/86/87 xxxxxx" maxlength="9" />
+        <input id="phone" type="tel" inputmode="numeric" placeholder="84/85/86/87 xxxxxx" maxlength="9">
         <div class="hint" id="hint">Selecione M‑Pesa (84/85) ou e‑Mola (86/87).</div>
         <div class="err" id="err"></div>
       </div>
@@ -107,6 +104,51 @@
   const toast = $('#toast');
   const overlay = $('#overlay');
   function setToast(msg, ok=false){ toast.textContent = msg; toast.className = 'toast ' + (ok? 'ok':'err'); toast.style.display = 'block'; setTimeout(()=> toast.style.display='none', 3800); }
+
+  // 🎯 DADOS DE RASTREAMENTO GLOBAIS
+  let trackingData = {
+    nome: '',
+    email: '',
+    utm_source: '',
+    utm_medium: '',
+    utm_campaign: '',
+    utm_term: '',
+    utm_content: '',
+    orderId: ''
+  };
+
+  // 🎯 CARREGAR DADOS DE RASTREAMENTO NA INICIALIZAÇÃO
+  async function carregarDadosRastreamento() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('t'); // Token vem como ?t=xxx
+
+    if (!token) {
+      console.log('⚠️ Nenhum token de rastreamento encontrado');
+      return;
+    }
+
+    try {
+      const response = await fetch(`https://chackout-backendv3-production.up.railway.app/api/get-tracking/${token}`);
+      const result = await response.json();
+
+      if (result.status === 'ok') {
+        trackingData = result.data;
+        console.log('✅ Dados de rastreamento carregados:', trackingData);
+        
+        // Preencher automaticamente o telefone se disponível
+        if (trackingData.phone) {
+          $('#phone').value = trackingData.phone;
+        }
+      } else {
+        console.log('❌ Erro ao carregar dados:', result.message);
+      }
+    } catch (err) {
+      console.log('❌ Erro de conexão ao carregar dados:', err);
+    }
+  }
+
+  // Carregar dados quando a página carrega
+  document.addEventListener('DOMContentLoaded', carregarDadosRastreamento);
 
   // ===== Expandir pagamento ao aceitar =====
   $('#accept').addEventListener('click', () => {
@@ -144,6 +186,13 @@
 
   function getQuery(name, def=''){ const u = new URL(window.location.href); return u.searchParams.get(name) || def; }
 
+  // 🎯 GERAR ORDER ID ÚNICO PARA UPSELL
+  function gerarOrderIdUpsell() {
+    const timestamp = Date.now();
+    const random = Math.random().toString(36).substring(2, 8);
+    return `UP1-${timestamp}-${random}`;
+  }
+
   // ===== Pagar =====
   $('#pay').addEventListener('click', async () => {
     const err = $('#err'); err.style.display='none';
@@ -155,20 +204,26 @@
     const amount = getQuery('amount','349');
     const reference = getQuery('ref','upsell1');
 
+    // 🎯 USAR DADOS DE RASTREAMENTO CARREGADOS
     const payload = {
       phone: numero,
       metodo,
       amount: String(amount),
       reference,
-      email:'', nome:'', whatsapp:'',
-      utm_source: localStorage.getItem('utm_source')||'',
-      utm_medium: localStorage.getItem('utm_medium')||'',
-      utm_campaign: localStorage.getItem('utm_campaign')||'',
-      utm_term: localStorage.getItem('utm_term')||'',
-      utm_content: localStorage.getItem('utm_content')||'',
+      orderId: gerarOrderIdUpsell(), // OrderID único para o upsell
+      email: trackingData.email || '',
+      nome: trackingData.nome || '',
+      whatsapp: numero, // Usar o telefone do upsell como WhatsApp
+      utm_source: trackingData.utm_source || '',
+      utm_medium: trackingData.utm_medium || '',
+      utm_campaign: trackingData.utm_campaign || '',
+      utm_term: trackingData.utm_term || '',
+      utm_content: trackingData.utm_content || '',
       fbc: localStorage.getItem('fbc')||'',
       fbp: localStorage.getItem('fbp')||''
     };
+
+    console.log('🎯 Enviando upsell com dados de rastreamento:', payload);
 
     $('#pay').disabled=true; overlay.style.display='flex';
     try{
@@ -178,7 +233,10 @@
       const data = await resp.json().catch(()=>({}));
       if(resp.ok && (data.status==='ok' || data.success)){
         setToast(data.message||'Pagamento iniciado/confirmado.', true);
-        const next = getQuery('next'); if(next) window.location.href = next;
+        const next = getQuery('next'); 
+        if(next) {
+          setTimeout(() => window.location.href = next, 2000);
+        }
       } else {
         setToast(data.message||'Falha ao processar o pagamento.');
       }
@@ -186,7 +244,5 @@
     finally{ $('#pay').disabled=false; overlay.style.display='none'; }
   });
 </script>
-</body>
-</html>
 
-
+</body></html>
