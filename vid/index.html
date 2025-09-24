@@ -130,20 +130,32 @@ window._wpemojiSettings = {"baseUrl":"https:\/\/s.w.org\/images\/core\/emoji\/15
 				</div>
 				<div class="elementor-element elementor-element-1f9380a elementor-widget elementor-widget-html" data-id="1f9380a" data-element_type="widget" data-widget_type="html.default">
 				<div class="elementor-widget-container">
-                <!-- VSL Vturb responsivo -->
-<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; width: 100%; max-width: 100%; margin: 0 auto;">
+               <!-- Container da VSL -->
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; width: 100%; max-width: 900px; margin: 0 auto;">
   <vturb-smartplayer 
-    id="vid-68d43adad58719d756f5ce69" 
-    style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
-  ></vturb-smartplayer>
+    id="vid-68d43adad58719d756f5ce69">
+  </vturb-smartplayer>
 </div>
 
+<!-- Script do Vturb -->
 <script type="text/javascript">
   var s=document.createElement("script");
   s.src="https://scripts.converteai.net/834fbbc5-6750-403b-964b-51ecd747f8ca/players/68d43adad58719d756f5ce69/v4/player.js";
   s.async=!0;
   document.head.appendChild(s);
 </script>
+
+<!-- CSS forçando o player a expandir -->
+<style>
+  vturb-smartplayer {
+    position: absolute !important;
+    top: 0; 
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+  }
+</style>
+
 				</div>
 				<div class="elementor-element elementor-element-d59fb97 elementor-widget elementor-widget-text-editor" data-id="d59fb97" data-element_type="widget" data-widget_type="text-editor.default">
 				<div class="elementor-widget-container">
