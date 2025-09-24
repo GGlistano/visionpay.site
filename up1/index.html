@@ -227,7 +227,7 @@
 
     $('#pay').disabled=true; overlay.style.display='flex';
     try{
-      const resp = await fetch('https://chackout-backendv3-production.up.railway.app/api/api/pagar',{
+      const resp = await fetch('https://chackout-backendv3-production.up.railway.app/api/pagar',{
         method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)
       });
       const data = await resp.json().catch(()=>({}));
@@ -246,5 +246,6 @@
 </script>
 
 </body></html>
+
 
 
